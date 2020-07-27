@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg2"
+    tools:context=".RecomPage">
+
+
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="682dp"
+        android:layout_height="113dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#00FFE7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/redd"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/redd"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/myRectangleView" />
+
+    <TextView
+        android:id="@+id/cpro"
+        android:layout_width="272dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="144dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/cpro"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/solid"
+        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="312dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        android:entries="@array/solid_array"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/reservoir"
+        style="@android:style/Widget.Material.CompoundButton.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/tkodb"
+        android:text="อ่างเก็บน้ำ/บ่อน้ำ"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/irrigation" />
+
+    <TextView
+        android:id="@+id/cwat"
+        android:layout_width="272dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="384dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/cwat"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/nope"
+        style="@android:style/Widget.Material.CompoundButton.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/tkodb"
+        android:text="ไม่มี"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/reservoir" />
+
+    <Spinner
+        android:id="@+id/province"
+        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="188dp"
+        android:layout_marginEnd="16dp"
+        android:spinnerMode="dropdown"
+        android:entries="@array/province_array"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/irrigation"
+        style="@android:style/Widget.Material.CompoundButton.CheckBox"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/tkodb"
+        android:text="ชลประทาน"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cwat" />
+
+    <TextView
+        android:id="@+id/csolidd"
+        android:layout_width="272dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="260dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/csolid"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/display"
+        android:layout_width="387dp"
+        android:layout_height="57dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="64dp"
+        android:backgroundTint="#00FFE7"
+        android:fontFamily="@font/tkodb"
+        android:onClick="diplsyResult"
+        android:text="@string/analyz"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nope" />
+
+    <TextView
+        android:id="@+id/show"
+        android:layout_width="1dp"
+        android:layout_height="13dp"
+        android:layout_marginStart="242dp"
+        android:layout_marginTop="623dp"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

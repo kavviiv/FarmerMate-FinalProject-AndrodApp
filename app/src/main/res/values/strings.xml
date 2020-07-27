@@ -1,0 +1,117 @@
+<resources>
+    <string name="app_name">FarmerMate</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="wb">"Welcome Back My Mate!!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="rec">แนะนำพันธุ์ข้าว</string>
+    <string name="analyz">วิเคราะห์</string>
+    <string name="cpro">เลือกจังหวัดที่ท่านต้องการปลูก</string>
+    <string name="csolid">เลือกลักษณะดินที่นาของท่าน</string>
+    <string name="cwat">เลือกแหล่งน้ำของท่าน</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="Email">E-mail</string>
+    <string name="Username">Username</string>
+    <string name="Password">Password</string>
+    <string name="ConfirmPassword">Confirm Password</string>
+    <string name="Recom">ความเหมาะสมของช่วงเวลา\nปลูกข้าว"</string>
+    <string name="redd">แนะนำพันธุ์ข้าว</string>
+    <string name="tab">ตารางการทำนา</string>
+    <string name="weath">สภาพอากาศ</string>
+    <string name="submit">submit</string>
+    <string-array name="province_array">
+        <item>ภาคเหนือ</item>
+        <item>เชียงราย</item>
+        <item>น่าน</item>
+        <item>พะเยา</item>
+        <item>แพร่</item>
+        <item>แม่ฮ่องสอน</item>
+        <item>ลำปาง</item>
+        <item>ลำพูน</item>
+        <item>จุตรดิตถ์</item>
+        <item>สุโขทัย</item>
+        <item>เชียงใหม่</item>
+        <item>พิจิตร</item>
+        <item>พิษณุโลก</item>
+        <item>กำแพงเพชร</item>
+        <item>เพชรบูรณ์</item>
+        <item>ตาก</item>
+    </string-array>
+    <string-array name="solid_array">
+        <item>ดินเหนียว</item>
+        <item>ดินทราย</item>
+    </string-array>
+    <string name="r1">ข้าวดอกมะลิ 105 (Khao Dawk Mali 105)</string>
+    <string name="kdm">เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม</string>
+    <string-array name="rice_name">
+        ข้าวเจ้า (ที่ไวต่อแสง)
+        <item> ข้าวดอกมะลิ 105</item>
+        <item>ข้าวตาแห้ง 17</item>
+        <item>กข. 5</item>
+        <item>กข. 13</item>
+        <item>เหลืองประทิว 123</item>
+        <item>ขาวตาแห้ง 17</item>
+        <item>นางมล เอส-4</item>
+        <item>ข้าวเจ้าหอมพิษณุโลก 1</item>
+        ข้าวเจ้า (ที่ไม่ไวต่อแสง)
+        <item>กข. 43</item>
+        <item>กข. 33</item>
+        <item>กข. 47</item>
+        <item>กข. 55</item>
+        <item>กข. 29</item>
+        <item>กข. 3</item>
+        <item>กข. 7</item>
+    </string-array>
+
+    <string-array name="rice_desc">
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+        <item>ช้อมูลเพิ่มเติม</item>
+    </string-array>
+
+    <string-array name="rice_descrip">
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+        <item>รายละเอียด</item>
+
+
+    </string-array>
+
+
+</resources>

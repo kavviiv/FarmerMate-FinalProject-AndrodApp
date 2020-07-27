@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/slide_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="137dp"
+        android:layout_marginEnd="91dp"
+        app:srcCompat="@drawable/leaf1" />
+
+    <TextView
+        android:id="@+id/slide_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/slide_image"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="187dp"
+        android:fontFamily="@font/tkodb"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#0C0000"
+        android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/slid_des"
+        android:layout_width="92dp"
+        android:layout_height="36dp"
+        android:layout_below="@+id/slide_head"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="171dp"
+        android:layout_marginBottom="266dp"
+        android:fontFamily="@font/tkod"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="24sp" />
+</RelativeLayout>
