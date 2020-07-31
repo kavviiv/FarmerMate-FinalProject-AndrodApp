@@ -34,7 +34,7 @@ public class ResetPassword extends AppCompatActivity {
                             @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Log.d(TAG, "Email sent.");
+                        Log.d(TAG, "Email sent.");//55
                     }
                     else {
                         String mess = task.getException().getMessage();
