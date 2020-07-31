@@ -1,21 +1,20 @@
 package com.example.farmermate;
 
 import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class RiceDescriptionPage extends AppCompatActivity {
+public class RiceDescP2 extends AppCompatActivity {
     RecyclerView recyclerView;
     String s1[], s2[], s3[];
-    int image[] = {R.drawable.riceim1, R.drawable.riceim2, R.drawable.rice3,R.drawable.rice4,R.drawable.rice5,
-            R.drawable.rice6,R.drawable.rice7,R.drawable.rice8,};
-
+    int image[] = {R.drawable.rice11,R.drawable.rice12,R.drawable.rice13,R.drawable.rice14,R.drawable.rice15,R.drawable.rice16};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_rice_description_page);
+        setContentView(R.layout.activity_rice_desc_p2);
 
         recyclerView = findViewById(R.id.rice_rec);
 
@@ -30,4 +29,6 @@ public class RiceDescriptionPage extends AppCompatActivity {
 
 
     }
-}
+
+
+    }

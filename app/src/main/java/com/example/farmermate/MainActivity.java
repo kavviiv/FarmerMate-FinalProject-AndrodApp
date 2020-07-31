@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     public EditText emailId, passwd, cpasswd;
-    Button btnSignUp;
+    Button btnSignUp,fbl;
     TextView signIn;
     FirebaseAuth firebaseAuth;
 
@@ -77,5 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(I);
             }
         });
+
+
     }
 }

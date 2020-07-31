@@ -45,9 +45,9 @@ public class RecomPage extends AppCompatActivity {
         sp2.setAdapter(adapter2);*/
 
         //TextView show = (TextView) findViewById(R.id.show);
-        final CheckBox cbres = (CheckBox) findViewById(R.id.reservoir);
-        final CheckBox cb2 = (CheckBox) findViewById(R.id.irrigation) ;
-        final CheckBox cb3 = (CheckBox) findViewById(R.id.nope) ;
+        final CheckBox cbres = (CheckBox) findViewById(R.id.reservoir); //อ่าง
+        final CheckBox cb2 = (CheckBox) findViewById(R.id.irrigation) ; //ชล
+        final CheckBox cb3 = (CheckBox) findViewById(R.id.nope) ; //ไม่มี
         Button dis = (Button) findViewById(R.id.display);
 
         dis.setOnClickListener(new View.OnClickListener() {
@@ -58,150 +58,49 @@ public class RecomPage extends AppCompatActivity {
                 //----------------------------------Province Choose-----------------------------------------------------------------------
                 if (sp1.getSelectedItem().equals("ภาคเหนือ")){
                     Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
-                if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                    Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
 
-                    }
                 }
-                if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
+                else if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
+                    Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
+                }
+                else if (sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
                         || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
                         || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
                         || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
                         || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
                         || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินเหนียว") && cbres.isChecked() )  ){
+                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")){
+                        if ( sp2.getSelectedItem().equals("ดินเหนียว")){
+                            if (cbres.isChecked()){
+                                Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);
+                                startActivity(intent);
+                            }
+                            else if (cb2.isChecked()){
+                                Intent intent = new Intent(RecomPage.this, WeatherPage.class);
+                                startActivity(intent);
+                            }
+                            else if (cb3.isChecked()){
+                                Intent intent = new Intent(RecomPage.this, TablePage.class);
+                                startActivity(intent);
+                            }
+                        }
+                    if ( sp2.getSelectedItem().equals("ดินทราย")){
+                        if (cbres.isChecked()){
                             Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);
                             startActivity(intent);
-
-                  }
-                //------------------------------------------------------------------------------------------------------------------------
-// ภาคเหนือ + ดินเหหนียว + มีชลประทาน
-                //----------------------------------Province Choose-----------------------------------------------------------------------
-               if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
-                        || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
-                        || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
-                        || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
-                        || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
-                        || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินเหนียว") && cb2.isChecked() )  ){
-                    if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
-                    }
-                    else {
-                        Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);
-                        startActivity(intent);
-                    }
-                }
-                //-----------------------------------------------------------------------------------------------------------------------------
-//ภาคเหนือ + ดินเหหนียว + ไม่มีแหล่งน้ำ
-                //----------------------------------Province Choose-----------------------------------------------------------------------
-       /*          if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
-                        || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
-                        || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
-                        || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
-                        || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
-                        || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินเหนียว") && cb3.isChecked() )  ){
-                    if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Intent intent = new Intent(RecomPage.this, Rice1.class);
-                        startActivity(intent);}
-                    if (sp1.getSelectedItem().equals("ภาคเหนือ")){
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
-                    }
-                }
-                //------------------
-                //
-                //
-                //
-                //
-                //--------------------------------------------ภาคเหนือ-----------------------------------------------------------------------
-//ภาคเหนือ + ดินทราย + มีอ่างเก็บน้ำ/บ่อน้ำ
-                //----------------------------------Province Choose-----------------------------------------------------------------------
-                if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
-                        || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
-                        || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
-                        || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
-                        || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
-                        || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินทราย") && cbres.isChecked() )  ){
-                    if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Intent intent = new Intent(RecomPage.this, Rice1.class);
-                        startActivity(intent);}
-                    if (sp1.getSelectedItem().equals("ภาคเหนือ")){
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
-                    }
-                }
-                //------------------------------------------------------------------------------------------------------------------------
-// ภาคเหนือ + ดินทราย + มีชลประทาน
-                //----------------------------------Province Choose-----------------------------------------------------------------------
-                else if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
-                        || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
-                        || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
-                        || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
-                        || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
-                        || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินทราย") && cb2.isChecked() )  ){
-                    if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Intent intent = new Intent(RecomPage.this, Rice1.class);
-                        startActivity(intent);}
-                    if (sp1.getSelectedItem().equals("ภาคเหนือ")){
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
+                        }
+                        else if (cb2.isChecked()){
+                            Intent intent = new Intent(RecomPage.this, WeatherPage.class);
+                            startActivity(intent);
+                        }
+                        else if (cb3.isChecked()){
+                            Intent intent = new Intent(RecomPage.this, TablePage.class);
+                            startActivity(intent);
+                        }
                     }
 
                 }
-                //-----------------------------------------------------------------------------------------------------------------------------
-//ภาคเหนือ + ดินทราย + ไม่มีแหล่งน้ำ
-                //----------------------------------Province Choose-----------------------------------------------------------------------
-                else if ((sp1.getSelectedItem().equals("เชียงราย") || sp1.getSelectedItem().equals("พะเยา") || sp1.getSelectedItem().equals("ลำปาง")
-                        || sp1.getSelectedItem().equals("แม่ฮ่องสอน") || sp1.getSelectedItem().equals("เชียงใหม่")
-                        || sp1.getSelectedItem().equals("ลำพูน")  || sp1.getSelectedItem().equals("น่าน")
-                        || sp1.getSelectedItem().equals("แพร่")  || sp1.getSelectedItem().equals("อุตรดิตถ์")
-                        || sp1.getSelectedItem().equals("สุโขทัย")  || sp1.getSelectedItem().equals("ตาก")
-                        || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
-                        || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")
-                        //--------------------------------------------Solid & Water Choose--------------------------------------------------
-                        && sp2.getSelectedItem().equals("ดินทราย") && cb3.isChecked() )  ){
-                    if (!cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked() ) {
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Intent intent = new Intent(RecomPage.this, Rice1.class);
-                        startActivity(intent);}
-                    if (sp1.getSelectedItem().equals("ภาคเหนือ")){
-                        Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
-                    }
-                }
-
-
-
-
-
-
-                else {
-
-                    Toast.makeText(getApplicationContext(), "กรุณากรอกข้อมูล", Toast.LENGTH_LONG).show();
-                }*/
-
-            }});
+            }  });
 
     }
 

@@ -12,9 +12,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RiceDetail"
-            android:parentActivityName=".RiceDescriptionPage"
-            android:label="Detail"/>
+        <activity android:name=".ResetPassword" />
+        <activity android:name=".RiceDescP2" />
+        <activity
+            android:name=".RiceDetail"
+            android:label="Detail"
+            android:parentActivityName=".RiceDescriptionPage" />
         <activity android:name=".RiceDescriptionPage" />
         <activity android:name=".Rice2">
             <intent-filter>

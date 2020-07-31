@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class ActivityLogin extends AppCompatActivity {
     public EditText loginEmailId, logInpasswd;
     Button btnLogIn;
-    TextView signup;
+    TextView signup, repass;
     FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
@@ -33,6 +33,7 @@ public class ActivityLogin extends AppCompatActivity {
         logInpasswd = findViewById(R.id.loginpaswd);
         btnLogIn = findViewById(R.id.btnLogIn);
         signup = findViewById(R.id.TVSignIn);
+        repass = findViewById(R.id.resetpass);
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -46,6 +47,7 @@ public class ActivityLogin extends AppCompatActivity {
                 }
             }
         };
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,6 +87,7 @@ public class ActivityLogin extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     protected void onStart() {
