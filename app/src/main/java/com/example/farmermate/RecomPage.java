@@ -83,7 +83,7 @@ public class RecomPage extends AppCompatActivity {
                                 Intent intent = new Intent(RecomPage.this, TablePage.class);
                                 startActivity(intent);
                             }
-                        }
+                        }//55
                     if ( sp2.getSelectedItem().equals("ดินทราย")){
                         if (cbres.isChecked()){
                             Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);

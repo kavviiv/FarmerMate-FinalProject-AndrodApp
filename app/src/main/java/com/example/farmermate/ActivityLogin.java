@@ -34,6 +34,15 @@ public class ActivityLogin extends AppCompatActivity {
         btnLogIn = findViewById(R.id.btnLogIn);
         signup = findViewById(R.id.TVSignIn);
         repass = findViewById(R.id.resetpass);
+        repass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(ActivityLogin.this, ResetPassword.class);
+                startActivity(I);
+            }
+        });
+
+
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
