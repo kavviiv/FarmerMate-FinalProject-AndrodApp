@@ -29,12 +29,14 @@ public class ResetPassword extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email = uemail.getText().toString() ;
+                //------------------------------------------------------------------
                 FirebaseAuth.getInstance().sendPasswordResetEmail(String.valueOf(email))
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
                         Log.d(TAG, "Email sent.");//55
+                        openDialogBox();
                     }
                     else {
                         String mess = task.getException().getMessage();
@@ -45,5 +47,11 @@ public class ResetPassword extends AppCompatActivity {
             });
             }
         });
+
     }
+    public void openDialogBox() {
+        DialogBox exampleDialog = new DialogBox();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+
 }
