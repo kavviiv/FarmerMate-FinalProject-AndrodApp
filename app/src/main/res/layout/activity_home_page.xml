@@ -102,15 +102,5 @@
         app:layout_constraintTop_toTopOf="@+id/weatherpage"
         app:layout_constraintVertical_bias="0.929" />
 
-    <Button
-        android:id="@+id/cl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
-        android:layout_marginEnd="108dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
