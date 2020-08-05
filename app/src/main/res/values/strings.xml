@@ -14,6 +14,7 @@
     <string name="rec">แนะนำพันธุ์ข้าว</string>
     <string name="analyz">วิเคราะห์</string>
     <string name="cpro">เลือกจังหวัดที่ท่านต้องการปลูก</string>
+    <string name="crice">เลือกพันธ์ุข้าวท่านต้องการปลูก</string>
     <string name="csolid">เลือกลักษณะดินที่นาของท่าน</string>
     <string name="cwat">เลือกแหล่งน้ำของท่าน</string>
     <string name="sign_in">SIGN IN</string>
@@ -24,6 +25,8 @@
     <string name="Recom">ความเหมาะสมของช่วงเวลา\nปลูกข้าว"</string>
     <string name="redd">แนะนำพันธุ์ข้าว</string>
     <string name="tab">ตารางการทำนา</string>
+    <string name="tab1">สร้างตารางการทำนา</string>
+    <string name="tab12">เลือกวันที่ท่านต้องการปลูก</string>
     <string name="weath">สภาพอากาศ</string>
     <string name="submit">submit</string>
     <string-array name="province_array">
@@ -115,12 +118,12 @@
 
     </string-array>
 
-        <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
-        <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
-        <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
-        <!-- Twitter consumer key and secret -->
-        <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
-        <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <!-- Twitter consumer key and secret -->
+    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
+    <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
     <string name="nextc">Continue..</string>
 
 

@@ -67,7 +67,7 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
     public void  openTablePage() {
-        Intent intent = new Intent(this, TablePage.class);
+        Intent intent = new Intent(this, CreateTable.class);
         startActivity(intent);
     }
     public void openRecomPage(){

@@ -73,8 +73,8 @@ public class user extends AppCompatActivity {
 
                 // UID specific to the provider
                 String uid = profile.getUid();
-                Uri photoUrl = profile.getPhotoUrl();
-                ur1.setImageURI(photoUrl);//55
+              /**  Uri photoUrl = profile.getPhotoUrl();
+                ur1.setImageURI(photoUrl);//55/**/
 
                 // Name, email address, and profile photo Url
                 String name = profile.getDisplayName();
