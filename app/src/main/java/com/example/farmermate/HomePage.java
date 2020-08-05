@@ -18,13 +18,7 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-        co = (Button) findViewById(R.id.cl);
-        co.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openricedescriptionpage();
-            }
-        });
+
         profile = (ImageView) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,10 +48,7 @@ public class HomePage extends AppCompatActivity {
             }
         });
     }
-    public void  openricedescriptionpage() {
-        Intent intent = new Intent(this, RiceDescriptionPage.class);
-        startActivity(intent);
-    }
+
     public void  openuser() {
         Intent intent = new Intent(this, user.class);
         startActivity(intent);
