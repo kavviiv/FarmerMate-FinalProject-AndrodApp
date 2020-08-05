@@ -9,7 +9,7 @@ public class RiceDescriptionPage extends AppCompatActivity {
     RecyclerView recyclerView;
     String s1[], s2[], s3[];
     int image[] = {R.drawable.riceim1, R.drawable.riceim2, R.drawable.rice3,R.drawable.rice4,R.drawable.rice5,
-            R.drawable.rice6,R.drawable.rice7,R.drawable.rice8,};
+            R.drawable.rice6,R.drawable.rice7};
 
 
     @Override

@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class RiceDescP2 extends AppCompatActivity {
-    RecyclerView recyclerView;
-    String s1[], s2[], s3[];
+    RecyclerView recyclerView2;
+    String s3[],s4[], s5[];
     int image[] = {R.drawable.rice11,R.drawable.rice12,R.drawable.rice13,R.drawable.rice14,R.drawable.rice15,R.drawable.rice16};
 
     @Override
@@ -16,16 +16,16 @@ public class RiceDescP2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rice_desc_p2);
 
-        recyclerView = findViewById(R.id.rice_rec);
+        recyclerView2 = findViewById(R.id.rice_rec2);
 
-        s1 = getResources().getStringArray(R.array.rice_name);
-        s2 = getResources().getStringArray(R.array.rice_desc);
-        s3 = getResources().getStringArray(R.array.rice_descrip);
+        s3 = getResources().getStringArray(R.array.rice_name2);
+        s4 = getResources().getStringArray(R.array.rice_desc);
+        s5 = getResources().getStringArray(R.array.rice_descrip2);
 
 
-        RecyclerAdapter recyclerAdapter = new RecyclerAdapter(this, s1,s2,s3, image);
-        recyclerView.setAdapter(recyclerAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        RecyclerAdapter2 recyclerAdapter2 = new RecyclerAdapter2(this, s3,s4,s5, image);
+        recyclerView2.setAdapter(recyclerAdapter2);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(this));
 
 
     }

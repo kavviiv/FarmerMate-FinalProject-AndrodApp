@@ -28,21 +28,7 @@ public class RecomPage extends AppCompatActivity {
         setContentView(R.layout.activity_recom_page);
         sp1 = (Spinner) findViewById(R.id.province);
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-      //  adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, names);
-
-        // Specify the layout to use when the list of choices appears
-        //adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-       // sp1.setAdapter(adapter);
         sp2 = (Spinner) findViewById(R.id.solid);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-       /* ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
-                R.array.solid_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        sp2.setAdapter(adapter2);*/
 
         //TextView show = (TextView) findViewById(R.id.show);
         final CheckBox cbres = (CheckBox) findViewById(R.id.reservoir); //อ่าง
@@ -71,20 +57,21 @@ public class RecomPage extends AppCompatActivity {
                         || sp1.getSelectedItem().equals("กำแพงเพชร")  || sp1.getSelectedItem().equals("พิษณุโลก")
                         || sp1.getSelectedItem().equals("พิจิตร")  || sp1.getSelectedItem().equals("เพชรบูรณ์")){
                         if ( sp2.getSelectedItem().equals("ดินเหนียว")){
-                            if (cbres.isChecked()){
+                            if (cbres.isChecked()|| cb2.isChecked() && !cb3.isChecked()){
+                                Intent intent = new Intent(RecomPage.this, RiceDescP2.class);
+                                startActivity(intent);
+                            }
+                           /* else if (cb2.isChecked()){
+                                Intent intent = new Intent(RecomPage.this, RiceDescP2.class);
+                                startActivity(intent);
+                            }*/
+                            else if (cb3.isChecked() && ( !cbres.isChecked() || !cb2.isChecked())){
                                 Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);
                                 startActivity(intent);
                             }
-                            else if (cb2.isChecked()){
-                                Intent intent = new Intent(RecomPage.this, WeatherPage.class);
-                                startActivity(intent);
-                            }
-                            else if (cb3.isChecked()){
-                                Intent intent = new Intent(RecomPage.this, TablePage.class);
-                                startActivity(intent);
-                            }
+
                         }//55
-                    if ( sp2.getSelectedItem().equals("ดินทราย")){
+                   /** if ( sp2.getSelectedItem().equals("ดินทราย")){
                         if (cbres.isChecked()){
                             Intent intent = new Intent(RecomPage.this, RiceDescriptionPage.class);
                             startActivity(intent);
@@ -97,7 +84,7 @@ public class RecomPage extends AppCompatActivity {
                             Intent intent = new Intent(RecomPage.this, TablePage.class);
                             startActivity(intent);
                         }
-                    }
+                    }**/
 
                 }
             }  });
