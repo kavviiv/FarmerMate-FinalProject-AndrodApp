@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.farmermate">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -16,7 +17,6 @@
         <activity android:name=".ProfileEdit" />
         <activity android:name=".CreateTable" />
         <activity android:name=".ResetPassword" />
-        <activity android:name=".RiceDescP2" />
         <activity
             android:name=".RiceDetail"
             android:label="Detail"
@@ -29,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Rice1" />
         <activity android:name=".SplashScreenActivity" />
         <activity android:name=".WeatherPage" />
         <activity android:name=".TablePage" />

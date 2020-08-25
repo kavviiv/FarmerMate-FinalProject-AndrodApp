@@ -92,7 +92,7 @@ public class user extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName("Jane Q. User")
+                .setDisplayName("User's Username")
                 .setPhotoUri(Uri.parse("https://example.com/jane-q-user/profile.jpg"))
                 .build();
 

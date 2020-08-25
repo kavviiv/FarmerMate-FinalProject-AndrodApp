@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="city_name_list" type="id" />
+    <item name="coords_list" type="id" />
+    <item name="frcst_time_text_view" type="id" />
+    <item name="frcst_icon_image_view" type="id" />
+    <item name="frcst_temp_text_view" type="id" />
+</resources>
