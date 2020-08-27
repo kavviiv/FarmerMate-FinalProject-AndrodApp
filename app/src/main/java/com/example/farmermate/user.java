@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+
 public class user extends AppCompatActivity {
     Button btnLogOut;
     FirebaseAuth firebaseAuth;
@@ -27,7 +28,7 @@ public class user extends AppCompatActivity {
     String name, email;
     TextView name1,mail1;
     Uri uid;
-    ImageView ur1;
+    ImageView ur;
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final String TAG = "user";
 
@@ -39,7 +40,7 @@ public class user extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         name1 = (TextView) findViewById(R.id.name);
         mail1 = (TextView) findViewById(R.id.mail);
-        ur1 = (ImageView) findViewById(R.id.ur);
+        ur = (ImageView) findViewById(R.id.ur);
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +58,14 @@ public class user extends AppCompatActivity {
                 startActivity(new Intent(user.this, HomePage.class));
             }
         });
-        FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.edit);
+       /* FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.edit);
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 updateProfile();
             }
-        });
+        });*/
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -73,8 +75,8 @@ public class user extends AppCompatActivity {
 
                 // UID specific to the provider
                 String uid = profile.getUid();
-              /**  Uri photoUrl = profile.getPhotoUrl();
-                ur1.setImageURI(photoUrl);//55/**/
+                Uri photoUrl = profile.getPhotoUrl();
+                ur.setImageURI(photoUrl);//55/**/
 
                 // Name, email address, and profile photo Url
                 String name = profile.getDisplayName();
@@ -84,6 +86,7 @@ public class user extends AppCompatActivity {
                 name1.setText(email);
             }
         }
+
 
         }
 
