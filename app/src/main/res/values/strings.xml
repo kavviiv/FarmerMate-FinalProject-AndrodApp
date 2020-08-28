@@ -46,12 +46,95 @@
         <item>กำแพงเพชร</item>
         <item>เพชรบูรณ์</item>
         <item>ตาก</item>
+  -----------------------------------------------
+        <item>ภาคกลาง</item>
+        <item>นครสวรรค์</item>
+        <item>อุทัยธานี</item>
+        <item>ชัยนาท</item>
+        <item>สิงห์บุรี</item>
+        <item>ลพบุรี</item>
+        <item>อ่างทอง</item>
+        <item>สระบุรี</item>
+        <item>สุพรรณบุรี</item>
+        <item>พระนครศรีอยุธยา</item>
+        <item>กาญจนบุรี</item>
+        <item>ราชบุรี</item>
+        <item>นครปฐม</item>
+        <item>นนทบุรี</item>
+        <item>ปทุมธานี</item>
+        <item>กรุงเทพมหานคร</item>
+        <item>สมุทรปราการ</item>
+        <item>สมุทรสงคราม</item>
+        <item>สมุทรสาคร</item>
+---------------------------------------------------------------
+        <item>ภาคตะวันออกเฉียงเหนือ</item>
+        <item>หนองคาย</item>
+        <item>เลย</item>
+        <item>หนองบัวลำภู</item>
+        <item>อุดรธานี</item>
+        <item>สกลนคร</item>
+        <item>นครพนม</item>
+        <item>มุกดาหาร</item>
+        <item>กาฬสินธุ์</item>
+        <item>ขอนแก่น</item>
+        <item>มหาสารคาม</item>
+        <item>ร้อยเอ็ด</item>
+        <item>ยโสธร</item>
+        <item>อำนาจเจริญ</item>
+        <item>ชัยภูมิ</item>
+        <item>บุรีรัมย์</item>
+        <item>สุรินทร์</item>
+        <item>ศรีสะเกษ</item>
+        <item>นครราชสีมา</item>
+        <item>อุบลราชธานี</item>
+-----------------------------------------------------------
+        <item>ภาคตะวันออก</item>
+        <item>นครนายก</item>
+        <item>ฉะเชิงเทรา</item>
+        <item>ปราจีนบุรี</item>
+        <item>สระแก้ว</item>
+        <item>ชลบุรี</item>
+        <item>ระยอง</item>
+        <item>จันทบุรี</item>
+        <item>ตราด</item>
+---------------------------------------------
+        <item>ภาคใต้</item>
+        <item>เพชรบุรี</item>
+        <item>ประจวบคีรีขันธ์</item>
+        <item>ชุมพร</item>
+        <item>สุราษฎร์ธานี</item>
+        <item>นครศรีธรรมราช</item>
+        <item>พัทลุง</item>
+        <item>สงขลา</item>
+        <item>ปัตตานี</item>
+        <item>ยะลา</item>
+        <item>และนราธิวาส</item>
+        <item>ระนอง</item>
+        <item>พังงา</item>
+        <item>ภูเก็ต</item>
+        <item>กระบี่</item>
+        <item>ตรัง</item>
+        <item>สตูล</item>
 
     </string-array>
     <string-array name="solid_array">
         <item>ดินเหนียว</item>
+        <item>ดินเร่วน</item>
         <item>ดินทราย</item>
     </string-array>
+
+
+
+
+
+
+
+
+
+
+
+
+
     <string name="r1">ข้าวดอกมะลิ 105 (Khao Dawk Mali 105)</string>
     <string name="kdm">เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม</string>
     <string-array name="rice_name">
