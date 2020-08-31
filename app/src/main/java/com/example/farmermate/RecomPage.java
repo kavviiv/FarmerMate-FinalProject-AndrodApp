@@ -846,7 +846,7 @@ public class RecomPage extends Activity {
                             //Set adapter for listview
                             lvProduct.setAdapter(adapter);
                         }
-                        //-------------------------------------------------------------------
+                        //-----------------------------------------------------------------
                         else {
                             Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
                         }
@@ -855,25 +855,271 @@ public class RecomPage extends Activity {
                         Toast.makeText(getApplicationContext(), "กรุณาเลือกลักษณะดิน", Toast.LENGTH_LONG).show();
                     }
                 }
-                
 
+                //---------------------------------------------------------ใต้----------------------------
 
+                else if (sp1.getSelectedItem().equals("เพชรบุรี") || sp1.getSelectedItem().equals("ประจวบคีรีขันธ์") || sp1.getSelectedItem().equals("ชุมพร")
+                        || sp1.getSelectedItem().equals("สุราษฎร์ธานี") || sp1.getSelectedItem().equals("นครศรีธรรมราช")
+                        || sp1.getSelectedItem().equals("พัทลุง") || sp1.getSelectedItem().equals("สงขลา")
+                        || sp1.getSelectedItem().equals("ปัตตานี") || sp1.getSelectedItem().equals("ยะลา")
+                        || sp1.getSelectedItem().equals("นราธิวาส") || sp1.getSelectedItem().equals("ระนอง")
+                        || sp1.getSelectedItem().equals("พังงา") || sp1.getSelectedItem().equals("ภูเก็ต")
+                        || sp1.getSelectedItem().equals("กระบี่") || sp1.getSelectedItem().equals("ตรัง")
+                        || sp1.getSelectedItem().equals("สตูล")){
+                    if (sp2.getSelectedItem().equals("ดินเหนียว")) {
+                        //Solid_Cray
+                        //-------------------------------------------------------------------
+                        if (cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Reservoir = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice27();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb2.isChecked() && !cb3.isChecked() && !cbres.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Irrigation = 1
 
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
 
+                            //Check exists database
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (!database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice28();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb3.isChecked() && !cbres.isChecked() && !cb2.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Nope = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice29();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
 
+                        else {
+                            Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    //-------------------------------------------------------------------ดินร่วน-----------------------------------------
+                    else if (sp2.getSelectedItem().equals("ดินร่วน")) {
+                        //-------------------------------------------------------------------
+                        if (cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Reservoir = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice30();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb2.isChecked() && !cb3.isChecked() && !cbres.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Irrigation = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice31();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb3.isChecked() && !cbres.isChecked() && !cb2.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Nope = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice32();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else {
+                            Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    //-------------------------------------------------------------------ดินหทราย-----------------------------------------
+                    else if (sp2.getSelectedItem().equals("ดินทราย")) {
+                        //-------------------------------------------------------------------
+                        if (cbres.isChecked() && !cb2.isChecked() && !cb3.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Reservoir = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice33();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
 
-
-
-
-
-
-
-
-
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb2.isChecked() && !cb3.isChecked() && !cbres.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Irrigation = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice34();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-------------------------------------------------------------------
+                        else if (cb3.isChecked() && !cbres.isChecked() && !cb2.isChecked()) {
+                            //Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Nope = 1
+                            setContentView(R.layout.listview_product);
+                            lvProduct = (ListView) findViewById(R.id.listview_product);
+                            mDBHelper = new DBHelper(RecomPage.this);
+                            //return productList;
+                            File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                            if (false == database.exists()) {
+                                mDBHelper.getReadableDatabase();
+                                //Copy db
+                                if (copyDatabase(RecomPage.this)) {
+                                    Toast.makeText(RecomPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(RecomPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                            }
+                            //Get product list in db when db exists
+                            mRiceList = mDBHelper.getListRice35();
+                            //Init adapter
+                            adapter = new RiceAdapter(RecomPage.this, mRiceList);
+                            //Set adapter for listview
+                            lvProduct.setAdapter(adapter);
+                        }
+                        //-----------------------------------------------------------------
+                        else {
+                            Toast.makeText(getApplicationContext(), "กรุณาเลือกแหล่งน้ำ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "กรุณาเลือกลักษณะดิน", Toast.LENGTH_LONG).show();
+                    }
+                }
             }
-
-
-
             private boolean copyDatabase(Context context) {
                 try {
                     InputStream inputStream = context.getAssets().open(DBHelper.DBNAME);
@@ -893,10 +1139,16 @@ public class RecomPage extends Activity {
                     return false;
                 }
             }
-
-
         }
       );
+
+
+
+
+
+
+
+
 
 
 

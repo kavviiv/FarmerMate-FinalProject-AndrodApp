@@ -61,7 +61,7 @@ public class Rice2 extends AppCompatActivity {
         mDots = new TextView[3];
         for (int i =0; i< mDots.length; i++){
             mDots[i] = new TextView(this);
-            mDots[i].setText(Html.fromHtml("&#648226;"));
+            mDots[i].setText(Html.fromHtml("&#8226;"));
             mDots[i].setTextSize(24);
             mDots[i].setTextColor(getResources().getColor(R.color.colorPrimary));
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class RiceAdapter extends BaseAdapter {
+public class RiceAdapter extends BaseAdapter  {
     private Context mContext;
     private List<Rice> mRiceList;
 
@@ -33,11 +33,8 @@ public class RiceAdapter extends BaseAdapter {
         return mRiceList.get(position).getId();
     }
 
-
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View v = View.inflate(mContext, R.layout.item_listview, null);
         TextView tvName = (TextView)v.findViewById(R.id.tv_product_name);
         //TextView tvPrice = (TextView)v.findViewById(R.id.tv_product_price);
@@ -46,7 +43,7 @@ public class RiceAdapter extends BaseAdapter {
         tvName.setText(mRiceList.get(position).getName());
         //tvPrice.setText(String.valueOf(mProductList.get(position).getPrice()) + " $");
         //tvDescription.setText(mProductList.get(position).getDescription());
-        imgV.setImageResource(R.drawable.rice3);
+        imgV.setImageResource(R.drawable.riceim2);
         return v;
     }
 }

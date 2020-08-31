@@ -27,14 +27,14 @@ public class SliderAdapter extends PagerAdapter {
     };
 
     public String[] slide_heading={
-            "คำอธิบาย",
-            "คำอธิบาย",
-            "คำอธิบาย"
+            "แนะนำพันธุ์ข้าว",
+            "สร้างตารางงาน",
+            "ดูสภาพอากาศ"
     };
 
     public String[] slide_des ={
-            "คำอธิบาย การใช้งานแอปพลเิเชัน",
-            "เคำอธิบาย การใช้งานแอปพลเิเชัน",
+            "แนะนำพันธุ์ข้าวที่เหมาะสมกับ \n พื้นที่ปลูก ลักษณะดินและแหล่งน้ำ",
+            "สร้างตารางงานการทำนา \n ประกอบด้วยงานที่ต้องทำทั้งหมด \n รวมถึงการแจ้งเตือนเมื่อถึงเวลางาน",
             "คำอธิบาย การใช้งานแอปพลเิเชัน"
     };
 
@@ -42,7 +42,6 @@ public class SliderAdapter extends PagerAdapter {
     @Override
     public int getCount(){
         return slide_heading.length;
-
     }
 
     @Override
@@ -58,7 +57,7 @@ public class SliderAdapter extends PagerAdapter {
 
         ImageView slideImageView = (ImageView) view.findViewById(R.id.slide_image);
         TextView slideHeading = (TextView) view.findViewById(R.id.slide_head);
-        TextView slideDesc = (TextView) view.findViewById(R.id.slid_des);
+        TextView slideDesc = (TextView) view.findViewById(R.id.slide_des);
 
         slideImageView.setImageResource(slide_image[position]);
         slideHeading.setText(slide_heading[position]);

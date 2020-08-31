@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d1d1d1"
+    android:background="#FAFAFA"
+    android:backgroundTint="#E6E6FA"
     android:orientation="vertical">
 
     <ListView
@@ -10,8 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
-        android:divider="#d1d1d1"
+        android:layout_marginRight="10dp"
+        android:background="#FFFFFF"
+        android:divider="@color/light_gray"
         android:dividerHeight="10dp"></ListView>
 </LinearLayout>
