@@ -29,13 +29,6 @@ public class Rice {
         this.Name = Name;
     }
 
-//    public int getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
 
     public String getDescription() {
         return Description;

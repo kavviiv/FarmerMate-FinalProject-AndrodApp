@@ -11,13 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomePage extends AppCompatActivity {
     ImageView profile;
     View recompage, tablepage, weatherpage;
-    Button co;
+    Button co,co2;
     //ส่วนที่กดข้าไปหน้าต่าง ๆ
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+
 
         profile = (ImageView) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
@@ -64,7 +66,6 @@ public class HomePage extends AppCompatActivity {
     public void openRecomPage(){
         Intent intent = new Intent (this, RecomPage.class);
         startActivity(intent);
-
-
     }
+
 }

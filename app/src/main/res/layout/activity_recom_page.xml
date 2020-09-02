@@ -42,24 +42,25 @@
             android:textSize="24sp" />
     </RadioGroup>
 
+
     <View
         android:id="@+id/myRectangleView"
-        android:layout_width="682dp"
+        android:layout_width="match_parent"
         android:layout_height="113dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="#00FFE7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <TextView
         android:id="@+id/redd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginTop="44dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/redd"
         android:textColor="#000000"
@@ -80,7 +81,8 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myRectangleView" />
+        app:layout_constraintTop_toBottomOf="@+id/myRectangleView"
+        android:layout_marginLeft="16dp" />
 
     <Spinner
         android:id="@+id/solid"
@@ -92,7 +94,8 @@
         android:entries="@array/solid_array"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/csolidd" />
+        app:layout_constraintTop_toBottomOf="@+id/csolidd"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/cwat"
@@ -106,7 +109,8 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solid" />
+        app:layout_constraintTop_toBottomOf="@+id/solid"
+        android:layout_marginLeft="16dp" />
 
     <Spinner
         android:id="@+id/province"
@@ -118,7 +122,8 @@
         android:entries="@array/province_array"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpro" />
+        app:layout_constraintTop_toBottomOf="@+id/cpro"
+        android:layout_marginLeft="16dp" />
 
 
     <TextView
@@ -133,20 +138,24 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/province" />
+        app:layout_constraintTop_toBottomOf="@+id/province"
+        android:layout_marginLeft="16dp" />
 
     <Button
         android:id="@+id/display"
         android:layout_width="387dp"
         android:layout_height="57dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
         android:backgroundTint="#00FFE7"
         android:fontFamily="@font/tkodb"
         android:text="@string/analyz"
         android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/show"
@@ -156,6 +165,7 @@
         android:layout_marginTop="623dp"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="242dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

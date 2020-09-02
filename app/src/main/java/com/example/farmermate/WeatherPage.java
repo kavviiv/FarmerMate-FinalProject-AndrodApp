@@ -127,7 +127,7 @@ public class WeatherPage extends AppCompatActivity {
 
     private static final String API_KEY = "0547eb1ce9af96469e2ba1e4a3c1cd8f";
     //private static final String API_URL_CITY_ID = "http://api.openweathermap.org/data/2.5/weather?id=";
-    private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather?";
+    private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?";
     private static final String API_URL_CITY_ID = "id=";
     private static final String API_URL_UNITS_METRIC = "&units=metric&APPID=";
     //private static final String API_URL_GEO_COORDS = "api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}";

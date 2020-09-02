@@ -1,5 +1,6 @@
 <resources>
     <string name="repass">Reset Password</string>
+    <string name="cloca">เลือกพื่นปลูกของท่าน</string>
     <string name="app_name">FarmerMate</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
@@ -118,7 +119,7 @@
     </string-array>
     <string-array name="solid_array">
         <item>ดินเหนียว</item>
-        <item>ดินเร่วน</item>
+        <item>ดินร่วน</item>
         <item>ดินทราย</item>
     </string-array>
 
@@ -126,7 +127,6 @@
     <string name="r1">ข้าวดอกมะลิ 105 (Khao Dawk Mali 105)</string>
     <string name="kdm">เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม</string>
     <string-array name="rice_name">
-        ข้าวเจ้า (ที่ไวต่อแสง)
         <item> ข้าวดอกมะลิ 105</item>
         <item>ขาวตาแห้ง 17</item>
         <item>กข. 5</item>
@@ -134,6 +134,14 @@
         <item>เหลืองประทิว 123</item>
         <item>นางมล เอส-4</item>
         <item>ข้าวเจ้าหอมพิษณุโลก 1</item>
+        <item>กข. 3</item>
+        <item>กข. 7</item>7
+        <item>กข. 29</item>29
+        <item>กข. 33</item>33
+        <item>กข. 43</item>43
+        <item>กข. 47</item>47
+        <item>กข. 55</item>55
+
     </string-array>
     <string-array name="rice_descrip">
         <item>เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม
@@ -147,18 +155,6 @@
 </item>
         <item>เป็นข้าวเจ้า สูงประมาณ 140 เซนติเมตร ไวต่อช่วงแสง ลําต้นสีเขียวใบกว้าง รวงใหญ่และยาว \n เมล็ดรูปร่างยาวเรียว ข้าวเปลือกสีฟาง ระยะพักตัวของเมล็ด \n ประมาณ 5 สัปดาห</item>
         <item> เป็นข้าวเจ้า สูงประมาณ 160 เซนติเมตร ไวต่อช่วงแสง ลําต้นสูง ทรงกอตังฟางแข็งปานกลาง ใบสีเขียวธงเอน \n คอรวงยาว รวงแน่นปานกลาง ระแง้ถี เมล็ดข้าวเปลือกสีฟาง</item>
-    </string-array>
-
-    <string-array name="rice_name2">
-        ข้าวเจ้า (ที่ไม่ไวต่อแสง) + ชลประทาน
-        <item>กข. 3</item>
-        3
-        <item>กข. 7</item>7
-        <item>กข. 29</item>29
-        <item>กข. 33</item>33
-        <item>กข. 43</item>43
-        <item>กข. 47</item>47
-        <item>กข. 55</item>55
     </string-array>
 
 
@@ -176,26 +172,6 @@
         <item>รายละเอียด</item>
     </string-array>
 
-    <string-array name="rice_desc">
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-        <item>ช้อมูลเพิ่มเติม</item>
-    </string-array>
 
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>

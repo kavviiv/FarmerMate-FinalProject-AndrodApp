@@ -6,32 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".CreateTable">
 
+    <View
+        android:id="@+id/myRectangleView"
+        android:layout_width="match_parent"
+        android:layout_height="113dp"
+        android:background="@drawable/rectangle"
+        android:backgroundTint="#F44336"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/tablec"
-        android:layout_width="210dp"
-        android:layout_height="60dp"
+        android:layout_width="233dp"
+        android:layout_height="51dp"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="28dp"
         android:fontFamily="@font/tkodb"
+        android:gravity="center"
         android:text="@string/tab1"
         android:textColor="#000000"
         android:textSize="18sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginLeft="108dp" />
+
 
     <TextView
         android:id="@+id/crice"
         android:layout_width="272dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/crice"
         android:textColor="#000000"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tablec" />
+        app:layout_constraintTop_toBottomOf="@+id/myRectangleView"
+        android:layout_marginLeft="16dp" />
 
     <Spinner
         android:id="@+id/rice"
@@ -39,13 +54,13 @@
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:background="#FFFFFF"
         android:entries="@array/rice_name"
         android:spinnerMode="dropdown"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/crice" />
 
@@ -54,30 +69,59 @@
         android:layout_width="272dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/tab12"
         android:textColor="#000000"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rice" />
-
+        app:layout_constraintTop_toBottomOf="@+id/rice"
+        android:layout_marginLeft="16dp" />
 
     <TextView
         android:id="@+id/datepick"
-        android:layout_width="240dp"
-        android:layout_height="30dp"
+        android:layout_width="396dp"
+        android:layout_height="52dp"
         android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:background="#FFF2F2"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/tkodb"
+        android:gravity="center"
         android:text=" เลือกวันที่ต้องการปลูก"
         android:textAlignment="viewStart"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cdate" />
+        app:layout_constraintTop_toBottomOf="@+id/cdate"
+        android:layout_marginLeft="16dp" />
+
+    <TextView
+        android:id="@+id/loca"
+        android:layout_width="272dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/cloca"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/datepick" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="380dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginBottom="144dp"
+        android:fontFamily="@font/tkod"
+        android:text="สร้างตารางงาน"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

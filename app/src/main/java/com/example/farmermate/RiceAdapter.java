@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static com.example.farmermate.RecomPage.Description;
+import static com.example.farmermate.RecomPage.Name;
+
 public class RiceAdapter extends BaseAdapter  {
     private Context mContext;
     private List<Rice> mRiceList;
@@ -16,6 +19,21 @@ public class RiceAdapter extends BaseAdapter  {
     public RiceAdapter(Context mContext, List<Rice> mRiceList) {
         this.mContext = mContext;
         this.mRiceList = mRiceList;
+    }
+
+    public RiceAdapter(RecomDetail recomDetail) {
+    }
+
+    public static  Rice get(int position) {
+        return null;
+    }
+
+    public   String getName() {
+        return Name;
+    }
+
+    public  String getDescription() {
+        return Description;
     }
 
     @Override
