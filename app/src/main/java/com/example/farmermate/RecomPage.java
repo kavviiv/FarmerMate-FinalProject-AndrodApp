@@ -1121,8 +1121,12 @@ public class RecomPage extends Activity {
                     lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            String Name = mRiceList.get(position).toString();
+                            String Description = mRiceList.get(position).toString();
                             Intent intent = new Intent(getApplicationContext() ,RecomDetail.class);
                             intent.putExtra("Position", position);
+                            intent.putExtra("Name",Name);
+                            intent.putExtra("Description", Description);
                             startActivity(intent);
                         }
                     });

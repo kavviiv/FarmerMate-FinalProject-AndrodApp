@@ -59,6 +59,9 @@ public class RiceAdapter extends BaseAdapter  {
         ImageView imgV =(ImageView)v.findViewById(R.id.imgv);
         //TextView tvDescription = (TextView)v.findViewById(R.id.tv_product_description);
         tvName.setText(mRiceList.get(position).getName());
+        Name = (mRiceList.get(position).getName());
+        Description = (mRiceList.get(position).getDescription());
+
         //tvPrice.setText(String.valueOf(mProductList.get(position).getPrice()) + " $");
         //tvDescription.setText(mProductList.get(position).getDescription());
         imgV.setImageResource(R.drawable.riceim2);

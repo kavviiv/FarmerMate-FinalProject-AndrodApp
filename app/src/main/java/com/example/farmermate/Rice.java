@@ -13,6 +13,8 @@ public class Rice {
         this.Description = Description;
     }
 
+
+
     public int getId() {
         return ID;
     }

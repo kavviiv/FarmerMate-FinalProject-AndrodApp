@@ -111,7 +111,7 @@
         app:layout_constraintTop_toBottomOf="@+id/datepick" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/createTable"
         android:layout_width="380dp"
         android:layout_height="51dp"
         android:layout_marginStart="24dp"
