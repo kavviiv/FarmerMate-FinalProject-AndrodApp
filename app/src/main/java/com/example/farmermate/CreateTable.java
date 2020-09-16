@@ -1,6 +1,7 @@
 package com.example.farmermate;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ import java.util.Calendar;
 
 public class CreateTable extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView dp;
-    Button createTable;
+    Button createTable,clo;
     Spinner selectRice;
 
     @Override
@@ -26,21 +27,24 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         dp = (TextView) findViewById(R.id.datepick);
         createTable = (Button) findViewById(R.id.createTable);
         selectRice = (Spinner) findViewById(R.id.rice);
+        clo = (Button) findViewById(R.id.CLocate);
 
 
-
+        clo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CreateTable.this, MapsActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         createTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(selectRice.getSelectedItem().equals("") ){
-
+                if(selectRice.getSelectedItem().equals("")){
 
                 }
-
-
-
 
             }
         });

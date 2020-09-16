@@ -44,28 +44,26 @@ public class RecomPage extends Activity {
     private SQLiteDatabase mDatabase;
 
 
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recom_page);
+
+
         sp1 = (Spinner) findViewById(R.id.province);
         sp2 = (Spinner) findViewById(R.id.solid);
 
         lvProduct = (ListView)findViewById(R.id.listview_product);
-
-
-
 
         final RadioButton cb2 = (RadioButton) findViewById(R.id.irrigation) ; //ชล
         final RadioButton cbres = (RadioButton) findViewById(R.id.reservoir); //อ่าง
         final RadioButton cb3 = (RadioButton) findViewById(R.id.nope) ; //ไม่มี
         Button dis = (Button) findViewById(R.id.display);
 
-
-
         dis.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+                RecomPage.this.onPause();
                 if (sp1.getSelectedItem().equals("ภาคเหนือ")) {
                     Toast.makeText(getApplicationContext(), "กรุณาเลือกจังหวัดของพื้นที่นา", Toast.LENGTH_LONG).show();
                 }
@@ -1117,12 +1115,11 @@ public class RecomPage extends Activity {
                         }
                     }
 
-
                     lvProduct.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            String Name = mRiceList.get(position).toString();
-                            String Description = mRiceList.get(position).toString();
+                            String Name = mRiceList.get(position).getName();
+                            String Description = mRiceList.get(position).getDescription();
                             Intent intent = new Intent(getApplicationContext() ,RecomDetail.class);
                             intent.putExtra("Position", position);
                             intent.putExtra("Name",Name);
@@ -1155,14 +1152,9 @@ public class RecomPage extends Activity {
         }
       );
 
-
-
-
-
-
-
-
         }
+
+
 
 
 }

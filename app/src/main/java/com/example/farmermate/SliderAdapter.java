@@ -23,19 +23,22 @@ public class SliderAdapter extends PagerAdapter {
     public int[] slide_image ={
             R.drawable.leaf1,
             R.drawable.tree1,
+            R.drawable.leaf1,
             R.drawable.leaf1
     };
 
     public String[] slide_heading={
             "แนะนำพันธุ์ข้าว",
             "สร้างตารางงาน",
-            "ดูสภาพอากาศ"
+            "ดูสภาพอากาศ",
+            "ff"
     };
 
     public String[] slide_des ={
             "แนะนำพันธุ์ข้าวที่เหมาะสมกับ \n พื้นที่ปลูก ลักษณะดินและแหล่งน้ำ",
             "สร้างตารางงานการทำนา \n ประกอบด้วยงานที่ต้องทำทั้งหมด \n รวมถึงการแจ้งเตือนเมื่อถึงเวลางาน",
-            "คำอธิบาย การใช้งานแอปพลเิเชัน"
+            "คำอธิบาย การใช้งานแอปพลเิเชัน",
+            ""
     };
 
 
