@@ -16,7 +16,7 @@ import java.text.DateFormat;
 import java.util.Calendar;
 
 public class CreateTable extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    TextView dp;
+    TextView dp,tv22;
     Button createTable,clo;
     Spinner selectRice;
 
@@ -28,12 +28,17 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         createTable = (Button) findViewById(R.id.createTable);
         selectRice = (Spinner) findViewById(R.id.rice);
         clo = (Button) findViewById(R.id.CLocate);
+        tv22 = (TextView) findViewById(R.id.tv22);
+
+
+        tv22.setVisibility(View.GONE);
 
 
         clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateTable.this, MainActivity2.class);
+
+                Intent intent = new Intent(CreateTable.this, MapsActivity.class);
                 startActivity(intent);
             }
         });
@@ -67,6 +72,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         TextView dp = (TextView) findViewById(R.id.datepick);
         dp.setText(currentDateString);
     }
+
 
 
 
