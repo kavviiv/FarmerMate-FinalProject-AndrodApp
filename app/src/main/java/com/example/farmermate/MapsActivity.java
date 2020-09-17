@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -23,13 +24,14 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -69,9 +71,36 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         saveLocationToFirebase = (Button) findViewById(R.id.save_location1);
         clo = (Button) findViewById(R.id.CLocate);
 
+//        LocationHelper location = new LocationHelper();
+//        LocationHelper helper = new LocationHelper(
+//                location.getLongitude(),
+//                location.getLatitude()
+//        );
+
         buildGoogleApiClient();
 
+//        client = LocationServices.getFusedLocationProviderClient( this );
+//
+//
+//        if (ActivityCompat.checkSelfPermission( MapsActivity.this,
+//                ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
+//
+//            getCurrentLocation();
+//
+//
+//        }else  {
+//            ActivityCompat.requestPermissions( MapsActivity.this,
+//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44 );
+//
+//        }
+
     }
+
+
+
+
+
+
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -140,61 +169,122 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
+//
+//
+//    private void getCurrentLocation() {
+//        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
+//            // TODO: Consider calling
+//            //    ActivityCompat#requestPermissions
+//            // here to request the missing permissions, and then overriding
+//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//            //                                          int[] grantResults)
+//            // to handle the case where the user grants the permission. See the documentation
+//            // for ActivityCompat#requestPermissions for more details.
+//            return;
+//        }
+//        Task<Location> task = client.getLastLocation();
+//        task.addOnSuccessListener( new OnSuccessListener< Location >() {
+//            @Override
+//            public void onSuccess( final Location location) {
+//
+//                if (location != null){
+//
+//                    supportMapFragment.getMapAsync( new OnMapReadyCallback() {
+//                        @Override
+//                        public void onMapReady(GoogleMap googleMap) {
+//                            LatLng latLng = new LatLng(location.getLatitude()
+//                                    , location.getLongitude());
+//                            MarkerOptions options = new MarkerOptions().position(latLng)
+//                                    .title( "ที่อยู่ปัจจุบัน" );
+//                            googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
+//                            googleMap.addMarker(options);
+//
+//                        }
+//                    } );
+//                }
+//
+//            }
+//        } );
+//    }
 
 
-    private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        Task<Location> task = client.getLastLocation();
-        task.addOnSuccessListener( new OnSuccessListener< Location >() {
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == 44){
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//
+//                getCurrentLocation();
+//
+//            }
+//        }
+//    }
+    @Override
+    public void onMapReady(final GoogleMap googleMap) {
+//        if (mLastLocation != null)
+//        {
+//                LatLng latLng = new LatLng(mLastLocation.getLatitude()
+//                        , mLastLocation.getLongitude());
+//                MarkerOptions options = new MarkerOptions().position(latLng)
+//                        .title( "ที่อยู่ปัจจุบัน" );
+//                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
+//                googleMap.addMarker(options);
+//        }
+
+        mMap = googleMap;
+        mLocationDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+
+        mLocationDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onSuccess( final Location location) {
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (location != null){
+                if (dataSnapshot.exists()) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        //LatLng newLocation = new LatLng(
+                        // ds.child("latitude").getValue(Double.class),
+                        //ds.child("longtitude").getValue(Double.class));
 
-                    supportMapFragment.getMapAsync( new OnMapReadyCallback() {
-                        @Override
-                        public void onMapReady(GoogleMap googleMap) {
+                        if (mLastLocation != null) {
+                            double mylat = mLastLocation.getLatitude();
+                            double mylong = mLastLocation.getLongitude();
 
-                            LatLng latLng = new LatLng(location.getLatitude()
-                                    , location.getLongitude());
-                            MarkerOptions options = new MarkerOptions().position(latLng)
-                                    .title( "ที่อยู่ปัจจุบัน" );
-                            googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-                            googleMap.addMarker(options);
+                            String exTitle = ds.child("exerciseType").getValue(String.class);
+
+                            LatLng newLocation = new LatLng(mylat, mylong);
+
+                            Log.d("New Location: ", newLocation.toString());
+
+                            //refreshes the map
+                            mMap.clear();
+
+                            MarkerOptions markerOptions = new MarkerOptions();
+                            markerOptions.position(newLocation);
+                            markerOptions.title("ที่นาของคุณ");
+                           // markerOptions.visible(false);
+
+                            Marker locationMarker = mMap.addMarker(markerOptions);
+
+                           googleMap.addMarker(markerOptions);
+
+                            LatLng myLatLang = new LatLng(mylat, mylong);
+                            Log.d("My Location: ", myLatLang.toString());
+                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
+//                            if (SphericalUtil.computeDistanceBetween(myLatLang, locationMarker.getPosition()) < 1000000) {
+//                                locationMarker.setVisible(true);
+//                            }
+
+                           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
+
 
                         }
-                    } );
+                    }
                 }
 
             }
-        } );
-    }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+            }
+        });
     }
 }
