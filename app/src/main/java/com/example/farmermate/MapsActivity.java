@@ -122,9 +122,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
                     Toast.makeText(MapsActivity.this ,"Location saved to the Firebasedatabase",Toast.LENGTH_LONG).show();
                     MapsActivity.this.finish();
-                    clo.setVisibility(View.GONE);
-                    tv22.setText("บันทึกพิ้นที่นาแล้ว");
-                    tv22.setVisibility(View.VISIBLE);
+//                    clo.setVisibility(View.GONE);
+//                    tv22.setText("บันทึกพิ้นที่นาแล้ว");
+//                    tv22.setVisibility(View.VISIBLE);
                 }
             });
         }
