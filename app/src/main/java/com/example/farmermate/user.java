@@ -24,6 +24,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class user extends AppCompatActivity {
     Button btnLogOut;
     FirebaseAuth firebaseAuth;
+    FirebaseUser firebase;
     View HomePage;
     String name, email;
     TextView name1,mail1;
@@ -38,6 +39,11 @@ public class user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+
+
+
+
         name1 = (TextView) findViewById(R.id.name);
         mail1 = (TextView) findViewById(R.id.mail);
         ur = (ImageView) findViewById(R.id.ur);
@@ -86,6 +92,7 @@ public class user extends AppCompatActivity {
                 name1.setText(email);
             }
         }
+
 
 
         }

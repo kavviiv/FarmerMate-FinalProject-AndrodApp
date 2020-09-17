@@ -33,7 +33,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateTable.this, MapsActivity.class);
+                Intent intent = new Intent(CreateTable.this, MainActivity2.class);
                 startActivity(intent);
             }
         });

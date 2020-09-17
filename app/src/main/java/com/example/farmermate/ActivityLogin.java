@@ -88,11 +88,13 @@ public class ActivityLogin extends AppCompatActivity {
                             else {
                                 startActivity(new Intent(ActivityLogin.this, user.class));
                             }
+
                         }
                     });
                 } else {
                     Toast.makeText(ActivityLogin.this, "Error", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

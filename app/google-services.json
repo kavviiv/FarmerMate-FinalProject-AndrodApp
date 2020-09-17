@@ -22,6 +22,41 @@
       "api_key": [
         {
           "current_key": "AIzaSyCryLCNvhmWw-TwcGIvVsyzyxhrvQkSOSw"
+        },
+        {
+          "current_key": "AIzaSyB9b0KPnn6793XEV_wcm0yORapUnCkMEFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720974527911-5hjroh8af2d8eteqi9r0kritpdcvl5ub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720974527911:android:2a225839c2962c407fca82",
+        "android_client_info": {
+          "package_name": "com.example.google_maps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720974527911-5hjroh8af2d8eteqi9r0kritpdcvl5ub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCryLCNvhmWw-TwcGIvVsyzyxhrvQkSOSw"
+        },
+        {
+          "current_key": "AIzaSyB9b0KPnn6793XEV_wcm0yORapUnCkMEFQ"
         }
       ],
       "services": {
