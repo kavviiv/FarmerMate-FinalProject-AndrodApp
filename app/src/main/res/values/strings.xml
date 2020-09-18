@@ -182,6 +182,7 @@
     <string name="nextc">Continue..</string>
     <string name="title_activity_maps2">Map</string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_location_save">Map</string>
 
 
 </resources>

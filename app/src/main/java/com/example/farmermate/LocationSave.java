@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -28,83 +27,45 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
-    ConstraintLayout constraintLayout;
-    SupportMapFragment supportMapFragment;
-    FusedLocationProviderClient client;
-    private GoogleMap mMap;
-    ConstraintLayout l1;
-    TextView dp,tv22;
-    Button createTable,clo;
-    private static final String TAG = "CurrentLocationApp";
-    private GoogleApiClient mGoogleApiClient;
+public class LocationSave extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener  {
     private Location mLastLocation;
     private TextView mLatitudeText;
     private TextView mLongitudeText;
-    private FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mLocationDatabaseReference;
     Button saveLocationToFirebase;
+    private static final String TAG = "CurrentLocationApp";
+    FusedLocationProviderClient client;
+    private GoogleApiClient mGoogleApiClient;
     String value_lat = null;
     String value_lng = null;
+    private GoogleMap mMap;
     FirebaseFirestore db ;
-    private FirebaseAuth.AuthStateListener authStateListener;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_location_save);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-        FirebaseApp.initializeApp(this);
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mLocationDatabaseReference = mFirebaseDatabase.getReference().child("my current location");
         mLatitudeText = (TextView) findViewById((R.id.latitude_text1));
         mLongitudeText = (TextView) findViewById((R.id.longitude_text1));
         saveLocationToFirebase = (Button) findViewById(R.id.save_location1);
-        clo = (Button) findViewById(R.id.CLocate);
-       // FirebaseFirestore db = FirebaseFirestore.getInstance();
-        this.db = FirebaseFirestore.getInstance();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+       // clo = (Button) findViewById(R.id.CLocate);
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseApp.initializeApp(this);
 
         buildGoogleApiClient();
-
         client = LocationServices.getFusedLocationProviderClient( this );
-//
-//
-//        if (ActivityCompat.checkSelfPermission( MapsActivity.this,
-//                ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
-//
-//            getCurrentLocation();
-//
-//
-//        }else  {
-//            ActivityCompat.requestPermissions( MapsActivity.this,
-//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44 );
-//
-//        }
 
     }
-
-
-
-
-
-
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -152,11 +113,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    // Create a new user with a first and last name
                     Map<String, Object> user = new HashMap<>();
-                    user.put("Latitude", mLastLocation.getLatitude());
-                    user.put("Longtitude", mLastLocation.getLongitude());
-                    // Add a new document with a generated ID
+                    user.put("Latitude", value_lat);
+                    user.put("Longtitude", value_lng);
+
+// Add a new document with a generated ID
                     db.collection("users")
                             .add(user)
                             .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -171,9 +133,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     Log.w(TAG, "Error adding document", e);
                                 }
                             });
-                    //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
-                    Toast.makeText(MapsActivity.this ,"Location saved to the Firebasedatabase",Toast.LENGTH_LONG).show();
-                    MapsActivity.this.finish();
+                  //  mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
+                    Toast.makeText(LocationSave.this ,"Location saved to the Firebasedatabase",Toast.LENGTH_LONG).show();
+                    LocationSave.this.finish();
 //                    clo.setVisibility(View.GONE);
 //                    tv22.setText("บันทึกพิ้นที่นาแล้ว");
 //                    tv22.setVisibility(View.VISIBLE);
@@ -191,9 +153,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mGoogleApiClient.connect();
     }
 
-
-//
-//
     private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
 //             TODO: Consider calling
@@ -241,73 +200,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
     }
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
         if (mLastLocation != null)
         {
-                LatLng latLng = new LatLng(mLastLocation.getLatitude()
-                        , mLastLocation.getLongitude());
-                MarkerOptions options = new MarkerOptions().position(latLng)
-                        .title( "ที่อยู่ปัจจุบัน" );
-                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-                googleMap.addMarker(options);
+            LatLng latLng = new LatLng(mLastLocation.getLatitude()
+                    , mLastLocation.getLongitude());
+            MarkerOptions options = new MarkerOptions().position(latLng)
+                    .title( "ที่อยู่ปัจจุบัน" );
+            googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
+            googleMap.addMarker(options);
         }
-//
-//        mMap = googleMap;
-//        mLocationDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-//
-//        mLocationDatabaseReference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                if (dataSnapshot.exists()) {
-//                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-//                        //LatLng newLocation = new LatLng(
-//                        // ds.child("latitude").getValue(Double.class),
-//                        //ds.child("longtitude").getValue(Double.class));
-//
-//                        if (mLastLocation != null) {
-//                            double mylat = mLastLocation.getLatitude();
-//                            double mylong = mLastLocation.getLongitude();
-//
-//                            String exTitle = ds.child("exerciseType").getValue(String.class);
-//
-//                            LatLng newLocation = new LatLng(mylat, mylong);
-//
-//                            Log.d("New Location: ", newLocation.toString());
-//
-//                            //refreshes the map
-//                            mMap.clear();
-//
-//                            MarkerOptions markerOptions = new MarkerOptions();
-//                            markerOptions.position(newLocation);
-//                            markerOptions.title("ที่นาของคุณ");
-//                           // markerOptions.visible(false);
-//
-//                            Marker locationMarker = mMap.addMarker(markerOptions);
-//
-//                           googleMap.addMarker(markerOptions);
-//
-//                            LatLng myLatLang = new LatLng(mylat, mylong);
-//                            Log.d("My Location: ", myLatLang.toString());
-//                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
-////                            if (SphericalUtil.computeDistanceBetween(myLatLang, locationMarker.getPosition()) < 1000000) {
-////                                locationMarker.setVisible(true);
-////                            }
-//
-//                           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
-//
-//
-//                        }
-//                    }
-//                }
-
-            }
-
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
+    }
 }
