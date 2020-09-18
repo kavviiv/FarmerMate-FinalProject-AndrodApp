@@ -24,14 +24,10 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.FirebaseApp;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -79,7 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         buildGoogleApiClient();
 
-//        client = LocationServices.getFusedLocationProviderClient( this );
+        client = LocationServices.getFusedLocationProviderClient( this );
 //
 //
 //        if (ActivityCompat.checkSelfPermission( MapsActivity.this,
@@ -171,17 +167,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 //
 //
-//    private void getCurrentLocation() {
-//        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
-//            // TODO: Consider calling
-//            //    ActivityCompat#requestPermissions
-//            // here to request the missing permissions, and then overriding
-//            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//            //                                          int[] grantResults)
-//            // to handle the case where the user grants the permission. See the documentation
-//            // for ActivityCompat#requestPermissions for more details.
-//            return;
-//        }
+    private void getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
+//             TODO: Consider calling
+//                ActivityCompat#requestPermissions
+//             here to request the missing permissions, and then overriding
+//               public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                                                      int[] grantResults)
+//             to handle the case where the user grants the permission. See the documentation
+//             for ActivityCompat#requestPermissions for more details.
+            return;
+        }
 //        Task<Location> task = client.getLastLocation();
 //        task.addOnSuccessListener( new OnSuccessListener< Location >() {
 //            @Override
@@ -205,86 +201,86 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //
 //            }
 //        } );
-//    }
+    }
 
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        if (requestCode == 44){
-//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//
-//                getCurrentLocation();
-//
-//            }
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == 44){
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+
+                getCurrentLocation();
+
+            }
+        }
+    }
     @Override
     public void onMapReady(final GoogleMap googleMap) {
-//        if (mLastLocation != null)
-//        {
-//                LatLng latLng = new LatLng(mLastLocation.getLatitude()
-//                        , mLastLocation.getLongitude());
-//                MarkerOptions options = new MarkerOptions().position(latLng)
-//                        .title( "ที่อยู่ปัจจุบัน" );
-//                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-//                googleMap.addMarker(options);
-//        }
-
-        mMap = googleMap;
-        mLocationDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
-
-        mLocationDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                        //LatLng newLocation = new LatLng(
-                        // ds.child("latitude").getValue(Double.class),
-                        //ds.child("longtitude").getValue(Double.class));
-
-                        if (mLastLocation != null) {
-                            double mylat = mLastLocation.getLatitude();
-                            double mylong = mLastLocation.getLongitude();
-
-                            String exTitle = ds.child("exerciseType").getValue(String.class);
-
-                            LatLng newLocation = new LatLng(mylat, mylong);
-
-                            Log.d("New Location: ", newLocation.toString());
-
-                            //refreshes the map
-                            mMap.clear();
-
-                            MarkerOptions markerOptions = new MarkerOptions();
-                            markerOptions.position(newLocation);
-                            markerOptions.title("ที่นาของคุณ");
-                           // markerOptions.visible(false);
-
-                            Marker locationMarker = mMap.addMarker(markerOptions);
-
-                           googleMap.addMarker(markerOptions);
-
-                            LatLng myLatLang = new LatLng(mylat, mylong);
-                            Log.d("My Location: ", myLatLang.toString());
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
-//                            if (SphericalUtil.computeDistanceBetween(myLatLang, locationMarker.getPosition()) < 1000000) {
-//                                locationMarker.setVisible(true);
-//                            }
-
-                           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
-
-
-                        }
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+        if (mLastLocation != null)
+        {
+                LatLng latLng = new LatLng(mLastLocation.getLatitude()
+                        , mLastLocation.getLongitude());
+                MarkerOptions options = new MarkerOptions().position(latLng)
+                        .title( "ที่อยู่ปัจจุบัน" );
+                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
+                googleMap.addMarker(options);
+        }
+//
+//        mMap = googleMap;
+//        mLocationDatabaseReference = FirebaseDatabase.getInstance().getReference().child("users");
+//
+//        mLocationDatabaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//
+//                if (dataSnapshot.exists()) {
+//                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+//                        //LatLng newLocation = new LatLng(
+//                        // ds.child("latitude").getValue(Double.class),
+//                        //ds.child("longtitude").getValue(Double.class));
+//
+//                        if (mLastLocation != null) {
+//                            double mylat = mLastLocation.getLatitude();
+//                            double mylong = mLastLocation.getLongitude();
+//
+//                            String exTitle = ds.child("exerciseType").getValue(String.class);
+//
+//                            LatLng newLocation = new LatLng(mylat, mylong);
+//
+//                            Log.d("New Location: ", newLocation.toString());
+//
+//                            //refreshes the map
+//                            mMap.clear();
+//
+//                            MarkerOptions markerOptions = new MarkerOptions();
+//                            markerOptions.position(newLocation);
+//                            markerOptions.title("ที่นาของคุณ");
+//                           // markerOptions.visible(false);
+//
+//                            Marker locationMarker = mMap.addMarker(markerOptions);
+//
+//                           googleMap.addMarker(markerOptions);
+//
+//                            LatLng myLatLang = new LatLng(mylat, mylong);
+//                            Log.d("My Location: ", myLatLang.toString());
+//                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
+////                            if (SphericalUtil.computeDistanceBetween(myLatLang, locationMarker.getPosition()) < 1000000) {
+////                                locationMarker.setVisible(true);
+////                            }
+//
+//                           // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLang, 10.2f));
+//
+//
+//                        }
+//                    }
+//                }
 
             }
-        });
-    }
+
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+
 }
