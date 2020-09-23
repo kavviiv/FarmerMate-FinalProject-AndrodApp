@@ -25,12 +25,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     ConstraintLayout constraintLayout;
@@ -52,7 +57,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String value_lng = null;
     FirebaseFirestore db ;
     private FirebaseAuth.AuthStateListener authStateListener;
-    FirebaseAuth firebaseAuth;
+    String firebaseAuth;
 
 
 
@@ -65,7 +70,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         FirebaseApp.initializeApp(this);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -151,12 +156,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onClick(View view) {
 
 
+                    Map<String, Object> user = new HashMap<>();
+                    user.put("Latitude", mLastLocation.getLatitude());
+                    user.put("Longtitude", mLastLocation.getLongitude());
+                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                    mDatabase.child("users").child(firebaseAuth).setValue(user)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    // Write was successful!
+                                    // ...
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // Write failed
+                                    // ...
+                                }
+                            });
 
-
-//                    Map<String, Object> user = new HashMap<>();
-//                    user.put("Latitude", mLastLocation.getLatitude());
-//                    user.put("Longtitude", mLastLocation.getLongitude());
-//                    db.collection("users")
+//                    db.collection("User Location")
 //                            .add(user)
 //                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
 //                                @Override
@@ -202,29 +222,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //             for ActivityCompat#requestPermissions for more details.
             return;
         }
-//        Task<Location> task = client.getLastLocation();
-//        task.addOnSuccessListener( new OnSuccessListener< Location >() {
-//            @Override
-//            public void onSuccess( final Location location) {
-//
-//                if (location != null){
-//
-//                    supportMapFragment.getMapAsync( new OnMapReadyCallback() {
-//                        @Override
-//                        public void onMapReady(GoogleMap googleMap) {
-//                            LatLng latLng = new LatLng(location.getLatitude()
-//                                    , location.getLongitude());
-//                            MarkerOptions options = new MarkerOptions().position(latLng)
-//                                    .title( "ที่อยู่ปัจจุบัน" );
-//                            googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-//                            googleMap.addMarker(options);
-//
-//                        }
-//                    } );
-//                }
-//
-//            }
-//        } );
+
     }
 
 

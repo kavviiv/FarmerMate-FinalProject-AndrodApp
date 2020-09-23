@@ -37,6 +37,7 @@
         <activity
             android:name=".LocationSave"
             android:label="@string/title_activity_location_save"></activity>
+        <activity android:name=".RetrieveMapActivity"/>
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />

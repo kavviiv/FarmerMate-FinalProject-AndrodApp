@@ -11,7 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 public class HomePage extends AppCompatActivity {
     ImageView profile;
     View recompage, tablepage, weatherpage;
-    Button co,co2;
+    Button co,co2,co3;
+
     //ส่วนที่กดข้าไปหน้าต่าง ๆ
 
     @Override
@@ -19,8 +20,13 @@ public class HomePage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
-
+        co3 =(Button) findViewById(R.id.buttn2) ;
+        co3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent I = new Intent(HomePage.this, RetrieveMapActivity.class);
+                startActivity(I);            }
+        });
         profile = (ImageView) findViewById(R.id.profile);
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +55,7 @@ public class HomePage extends AppCompatActivity {
                 openWeatherPage();
             }
         });
+
     }
 
     public void  openuser() {

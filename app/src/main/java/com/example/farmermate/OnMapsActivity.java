@@ -247,7 +247,6 @@ public class OnMapsActivity extends FragmentActivity implements OnMapReadyCallba
         user.put("Latitude", location.getLatitude());
         user.put("Longtitude", location.getLongitude());
 
-
         FirebaseDatabase.getInstance().getReference("User Location")
                 .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

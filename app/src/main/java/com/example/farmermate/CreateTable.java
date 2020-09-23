@@ -38,7 +38,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(CreateTable.this, OnMapsActivity.class);
+                Intent intent = new Intent(CreateTable.this, MapsActivity.class);
                 startActivity(intent);
             }
         });
