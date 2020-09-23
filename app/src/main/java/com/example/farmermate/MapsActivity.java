@@ -25,18 +25,12 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     ConstraintLayout constraintLayout;
@@ -58,6 +52,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String value_lng = null;
     FirebaseFirestore db ;
     private FirebaseAuth.AuthStateListener authStateListener;
+    FirebaseAuth firebaseAuth;
+
 
 
     @Override
@@ -69,6 +65,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        firebaseAuth = FirebaseAuth.getInstance();
 
         FirebaseApp.initializeApp(this);
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -153,34 +150,34 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void onClick(View view) {
 
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("Latitude", mLastLocation.getLatitude());
-                    user.put("Longtitude", mLastLocation.getLongitude());
-                    // Add a new document with a generated ID
-                    db.collection("users")
-                            .add(user)
-                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                @Override
-                                public void onSuccess(DocumentReference documentReference) {
-                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    Log.w(TAG, "Error adding document", e);
-                                }
-                            });
+
+
+
+//                    Map<String, Object> user = new HashMap<>();
+//                    user.put("Latitude", mLastLocation.getLatitude());
+//                    user.put("Longtitude", mLastLocation.getLongitude());
+//                    db.collection("users")
+//                            .add(user)
+//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                @Override
+//                                public void onSuccess(DocumentReference documentReference) {
+//                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    Log.w(TAG, "Error adding document", e);
+//                                }
+//                            });
                     //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
-                    Toast.makeText(MapsActivity.this ,"Location saved to the Firebasedatabase",Toast.LENGTH_LONG).show();
+                    Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
                     MapsActivity.this.finish();
-//                    clo.setVisibility(View.GONE);
-//                    tv22.setText("บันทึกพิ้นที่นาแล้ว");
-//                    tv22.setVisibility(View.VISIBLE);
+
                 }
-            });
+            });}
         }
-    }
+
     @Override
     public void onConnectionFailed(ConnectionResult result) {
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
