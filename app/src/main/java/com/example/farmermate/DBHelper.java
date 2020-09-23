@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DBNAME = "RiceInfo.sqlite";
+    public static final String DBNAME = "RiceInfo1.sqlite";
     public static final String TABLE_NAME = "RiceRec";
     public static final String DBLOCATION = "/data/data/com.example.farmermate/databases/";
     private Context mContext;
@@ -106,7 +106,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -122,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -138,7 +138,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Cray = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -155,7 +155,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -171,7 +171,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -187,7 +187,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Mold = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -204,7 +204,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -219,7 +219,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -234,7 +234,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -252,7 +252,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -268,7 +268,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -284,7 +284,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -301,7 +301,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -317,7 +317,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -333,7 +333,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -350,7 +350,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -365,7 +365,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -380,7 +380,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -398,7 +398,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -414,7 +414,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -430,7 +430,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -447,7 +447,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -463,7 +463,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -479,7 +479,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -496,7 +496,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -512,7 +512,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -528,7 +528,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -545,7 +545,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -561,7 +561,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -577,7 +577,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -594,7 +594,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -610,7 +610,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -626,7 +626,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -643,7 +643,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -659,7 +659,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }
@@ -675,7 +675,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9));
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
             RiceList.add(rice);
             cursor.moveToNext();
         }

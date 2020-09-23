@@ -150,12 +150,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             value_lng =String.valueOf(mLastLocation.getLongitude());
             mLatitudeText.setText(value_lat);
             mLongitudeText.setText(value_lng);
+            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                    .findFragmentById(R.id.map);
+            mapFragment.getMapAsync(this);
 
             saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-
                     Map<String, Object> user = new HashMap<>();
                     user.put("Latitude", mLastLocation.getLatitude());
                     user.put("Longtitude", mLastLocation.getLongitude());

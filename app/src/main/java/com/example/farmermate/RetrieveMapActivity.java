@@ -13,6 +13,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,6 +27,8 @@ import java.util.Locale;
 public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+    Marker marker;
+    //private Firebase firebase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,39 +38,42 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        DatabaseReference db = FirebaseDatabase.getInstance().getReference("users");
+        db.push().setValue(marker);
+
+        //firebase = new Firebase(FIREBASE_URL).child("users");
+
+
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
 
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    String lat = child.child("Latitude").getValue().toString();
+                    String lng = child.child("Longtitude").getValue().toString();
 
-                Double latitude = dataSnapshot.child("latitude").getValue(Double.class);
-                Double longitude = dataSnapshot.child("longitude").getValue(Double.class);
+                    double latitude = Double.parseDouble(lat);
+                    double longitude = Double.parseDouble(lng);
+                    LatLng location = new LatLng(latitude, longitude);
 
-                LatLng location = new LatLng(latitude,longitude);
+//                Double latitude = dataSnapshot.child("Latitude").getValue(Double.class);
+//                Double longitude = dataSnapshot.child("Longtitude").getValue(Double.class);
+//
+//                LatLng location = new LatLng(latitude,longitude);
 
-                mMap.addMarker(new MarkerOptions().position(location).title(getCOmpleteAddress(latitude,longitude)));
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14F));
-
-
-
-
+                    mMap.addMarker(new MarkerOptions().position(location).title(getCOmpleteAddress(latitude, longitude)));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+                }
             }
 
             @Override
@@ -109,8 +115,6 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
        catch (Exception e){
            Toast.makeText(this, e.getMessage().toString(), Toast.LENGTH_SHORT).show();
        }
-
-
         return address;
     }
 

@@ -33,6 +33,8 @@ public class RecomPage extends Activity {
     private Context context;
     public static String Name;
     public static String Description;
+    public static String Products;
+    public static String Advantage;
     //SQLiteDatabase DB;
 
     private ListView lvProduct;
@@ -1120,10 +1122,14 @@ public class RecomPage extends Activity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                             String Name = mRiceList.get(position).getName();
                             String Description = mRiceList.get(position).getDescription();
+                            String Products = mRiceList.get(position).getProducts();
+                            String Advantage = mRiceList.get(position).getAdvantage();
                             Intent intent = new Intent(getApplicationContext() ,RecomDetail.class);
                             intent.putExtra("Position", position);
                             intent.putExtra("Name",Name);
                             intent.putExtra("Description", Description);
+                            intent.putExtra("Products",Products);
+                            intent.putExtra("Advantage",Advantage);
                             startActivity(intent);
                         }
                     });

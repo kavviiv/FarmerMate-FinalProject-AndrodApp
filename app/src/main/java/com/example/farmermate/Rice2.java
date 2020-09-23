@@ -112,7 +112,7 @@ public class Rice2 extends AppCompatActivity {
                     }
                 });
             }
-            else if(i == mDots.length -2 ){
+            else if(i == mDots.length  ){
                 mNextbutt.setEnabled(true);
                 mBackbutt.setEnabled(true);
 

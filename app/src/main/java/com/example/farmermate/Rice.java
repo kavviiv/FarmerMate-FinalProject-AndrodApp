@@ -5,14 +5,16 @@ public class Rice {
     private String Name;
     // private int price;
     private String Description;
+    private String Products;
+    private String Advantage;
 
-    public Rice(int ID, String Name, String Description) {
+    public Rice(int ID, String Name, String Description, String Products, String Advantage) {
         this.ID = ID;
         this.Name = Name;
-        //this.price = price;
         this.Description = Description;
+        this.Products = Products;
+        this.Advantage = Advantage;
     }
-
 
 
     public int getId() {
@@ -31,7 +33,6 @@ public class Rice {
         this.Name = Name;
     }
 
-
     public String getDescription() {
         return Description;
     }
@@ -39,4 +40,19 @@ public class Rice {
     public void setDescription(String Description) {
         this.Description = Description;
     }
+
+    public String getAdvantage() {
+        return Advantage;
+    }
+    public void setAdvantage(String Advantage) {
+        this.Advantage = Advantage;
+    }
+
+    public String getProducts() {
+        return Products;
+    }
+    public void setProducts(String Products) {
+        this.Products = Products;
+    }
+
 }

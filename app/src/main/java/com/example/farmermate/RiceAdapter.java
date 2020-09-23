@@ -9,8 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import static com.example.farmermate.RecomPage.Advantage;
 import static com.example.farmermate.RecomPage.Description;
 import static com.example.farmermate.RecomPage.Name;
+import static com.example.farmermate.RecomPage.Products;
 
 public class RiceAdapter extends BaseAdapter  {
     private Context mContext;
@@ -34,6 +36,13 @@ public class RiceAdapter extends BaseAdapter  {
 
     public  String getDescription() {
         return Description;
+    }
+
+    public String getAdvantage(){
+        return Advantage;
+    }
+    public String getProducts(){
+        return Products;
     }
 
     @Override

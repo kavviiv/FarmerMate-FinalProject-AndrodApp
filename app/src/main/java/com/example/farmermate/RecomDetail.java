@@ -10,8 +10,8 @@ import java.util.List;
 public class RecomDetail extends AppCompatActivity {
     RiceAdapter adapter; 
 
-    String Name, Description;
-    TextView tvName, tvDescription;
+    String Name, Description,Products,Advantage;
+    TextView tvName, tvDescription,Pro,Products1,Ad,Advantage1;
 
     int position = 0  ;
     private List<Rice> mRiceList;
@@ -27,6 +27,18 @@ public class RecomDetail extends AppCompatActivity {
         String Description = getIntent().getStringExtra("Description");
         tvName.setText(Name);
         tvDescription.setText(Description);
+
+        Pro = (TextView) findViewById(R.id.Pro);
+        Products1 = (TextView) findViewById(R.id.Products);
+        String Products = getIntent().getStringExtra("Products");
+        Pro.setText("ผลผลิต");
+        Products1.setText(Products);
+
+        Ad = (TextView) findViewById(R.id.Ad);
+        Advantage1 = (TextView) findViewById(R.id.Advantage);
+        String Advantage = getIntent().getStringExtra("Advantage");
+        Ad.setText("จุดเด่น");
+        Advantage1.setText(Advantage);
 
 //        Intent intent = getIntent();
 //        position = intent.getExtras().getInt("Position");
