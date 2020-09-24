@@ -1,9 +1,7 @@
 package com.example.farmermate;
 
 import android.Manifest;
-import android.app.SearchManager;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -16,15 +14,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.FilterQueryProvider;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -166,11 +161,11 @@ public class WeatherPage extends AppCompatActivity {
         temperatureText = findViewById(R.id.temperature_text_view);
         weatherDescText = findViewById(R.id.weather_desc_text_view);
         listView = findViewById(R.id.list_view);
-        forecastButton = findViewById(R.id.forecast_button);
+        //forecastButton = findViewById(R.id.forecast_button);
 
         parametersTable.setVisibility(View.INVISIBLE);
         weatherTable.setVisibility(View.INVISIBLE);
-        forecastButton.setVisibility(View.INVISIBLE);
+       // forecastButton.setVisibility(View.INVISIBLE);
 
         dataAdapter.createDatabase();
 
@@ -262,25 +257,25 @@ public class WeatherPage extends AppCompatActivity {
             }
         });
 
-        forecastButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent myIntent = new Intent(getBaseContext(), WeatherForecastActivity.class);
-
-                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-
-                if (!preferences.getString(LAST_LOCATION_LAT, "").isEmpty() && !preferences.getString(LAST_LOCATION_LON, "").isEmpty()) {
-                    myIntent.putExtra("lat", preferences.getString(LAST_LOCATION_LAT, ""));
-                    myIntent.putExtra("lon", preferences.getString(LAST_LOCATION_LON, ""));
-                    startActivity(myIntent);
-                }
-                else if (!preferences.getString(LAST_CITY_ID, "").isEmpty()) {
-                    myIntent.putExtra("city_id", preferences.getString(LAST_CITY_ID, ""));
-                    startActivity(myIntent);
-                }
-
-            }
-        });
+//        forecastButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent myIntent = new Intent(getBaseContext(), WeatherForecastActivity.class);
+//
+//                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+//
+//                if (!preferences.getString(LAST_LOCATION_LAT, "").isEmpty() && !preferences.getString(LAST_LOCATION_LON, "").isEmpty()) {
+//                    myIntent.putExtra("lat", preferences.getString(LAST_LOCATION_LAT, ""));
+//                    myIntent.putExtra("lon", preferences.getString(LAST_LOCATION_LON, ""));
+//                    startActivity(myIntent);
+//                }
+//                else if (!preferences.getString(LAST_CITY_ID, "").isEmpty()) {
+//                    myIntent.putExtra("city_id", preferences.getString(LAST_CITY_ID, ""));
+//                    startActivity(myIntent);
+//                }
+//
+//            }
+//        });
 
 
         listView.setVisibility(View.GONE);
@@ -329,93 +324,93 @@ public class WeatherPage extends AppCompatActivity {
         forecastButton.setVisibility(View.GONE);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-
-        SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-
-        MenuItem searchItem = menu.findItem(R.id.app_bar_search_city);
-
-        SearchView search = (SearchView) searchItem.getActionView();
-        search.setIconified(false);
-        search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
-
-        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                menuItem.getActionView().requestFocus();
-                setListViewVisible();
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                setNestViewVisible();
-                return true;
-            }
-        });
-
-        search.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setListViewVisible();
-            }
-        });
-
-
-        search.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                setNestViewVisible();
-                return false;
-            }
-        });
-
-
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                setNestViewVisible();
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                setListViewVisible();
-
-                cursorAdapter.getFilter().filter(s);
-                return false;
-            }
-        });
-
-        cursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-            @Override
-            public Cursor runQuery(CharSequence charSequence) {
-                return dataAdapter.filterByName(charSequence.toString());
-            }
-        });
-
-        return true;
-    }
-
-    private void setListViewVisible() {
-        nestView.setVisibility(View.GONE);
-        listView.setVisibility(View.VISIBLE);
-        forecastButton.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                setNestViewVisible();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.main_menu, menu);
+//
+////        SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+////
+////        MenuItem searchItem = menu.findItem(R.id.app_bar_search_city);
+////
+////        SearchView search = (SearchView) searchItem.getActionView();
+////        search.setIconified(false);
+////        search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
+//
+//        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+//            @Override
+//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
+//                menuItem.getActionView().requestFocus();
+//                setListViewVisible();
+//                return true;
+//            }
+//
+//            @Override
+//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
+//                setNestViewVisible();
+//                return true;
+//            }
+//        });
+//
+//        search.setOnSearchClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                setListViewVisible();
+//            }
+//        });
+//
+//
+//        search.setOnCloseListener(new SearchView.OnCloseListener() {
+//            @Override
+//            public boolean onClose() {
+//                setNestViewVisible();
+//                return false;
+//            }
+//        });
+//
+//
+//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//
+//            @Override
+//            public boolean onQueryTextSubmit(String s) {
+//                setNestViewVisible();
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String s) {
+//                setListViewVisible();
+//
+//                cursorAdapter.getFilter().filter(s);
+//                return false;
+//            }
+//        });
+//
+//        cursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+//            @Override
+//            public Cursor runQuery(CharSequence charSequence) {
+//                return dataAdapter.filterByName(charSequence.toString());
+//            }
+//        });
+//
+//        return true;
+//    }
+//
+//    private void setListViewVisible() {
+//        nestView.setVisibility(View.GONE);
+//        listView.setVisibility(View.VISIBLE);
+//        forecastButton.setVisibility(View.VISIBLE);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                setNestViewVisible();
+//                return true;
+//            default:
+//                return super.onOptionsItemSelected(item);
+//        }
+//    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
@@ -549,7 +544,7 @@ public class WeatherPage extends AppCompatActivity {
 
             parametersTable.setVisibility(View.VISIBLE);
             weatherTable.setVisibility(View.VISIBLE);
-            forecastButton.setVisibility(View.VISIBLE);
+//            forecastButton.setVisibility(View.VISIBLE);
 
             humidityText.setText((map.get(HUMIDITY)) != null ? map.get(HUMIDITY) + HUMIDITY_UNIT : "no info");
             pressureText.setText((map.get(PRESSURE)) != null ? map.get(PRESSURE) + PRESSURE_UNIT : "no info");

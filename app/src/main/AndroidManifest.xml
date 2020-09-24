@@ -41,7 +41,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity2" />
         <activity android:name=".RecomDetail" />
         <activity android:name=".ProfileEdit" />
         <activity android:name=".CreateTable" />
@@ -57,7 +56,6 @@
         <activity android:name=".WeatherPage" />
         <activity android:name=".TablePage" />
         <activity android:name=".RecomPage" />
-        <activity android:name=".OnMapsActivity" />
         <activity android:name=".HomePage" />
         <activity android:name=".MainPage" />
         <activity android:name=".ActivityLogin" />

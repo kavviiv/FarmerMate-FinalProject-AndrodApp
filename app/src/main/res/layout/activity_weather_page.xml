@@ -42,6 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:layout_gravity="center"
             tools:context=".MainActivity">
 
             <TableLayout
@@ -114,7 +115,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Pressure:" />
+                        android:text="ความกดอากาศ:" />
 
                     <TextView
                         android:id="@+id/pressure_text_view"
@@ -137,7 +138,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Humidity:" />
+                        android:text="ความชื้น:" />
 
                     <TextView
                         android:id="@+id/humidity_text_view"
@@ -160,7 +161,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Minimal temperature:" />
+                        android:text="อุณหภูมิต่ำสุด:" />
 
                     <TextView
                         android:id="@+id/temp_min_text_view"
@@ -182,7 +183,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Maximal temperature:" />
+                        android:text="อุณหภูมิสูงสุด:" />
 
                     <TextView
                         android:id="@+id/temp_max_text_view"
@@ -205,7 +206,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Wind speed:" />
+                        android:text="แรงลม:" />
 
                     <TextView
                         android:id="@+id/wind_speed_text_view"
@@ -228,7 +229,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Wind direction:" />
+                        android:text="ทิศทางลม:" />
 
                     <TextView
                         android:id="@+id/wind_degree_text_view"
@@ -251,7 +252,7 @@
                         android:layout_marginEnd="30dp"
                         android:layout_marginRight="30dp"
                         android:layout_marginBottom="0dp"
-                        android:text="Cloudiness:" />
+                        android:text="เมฆ:" />
 
                     <TextView
                         android:id="@+id/cloudiness_text_view"
@@ -289,12 +290,6 @@
 
 
             </TableLayout>
-
-            <Button
-                android:id="@+id/forecast_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="5 day forecast" />
 
 
         </android.widget.LinearLayout>
