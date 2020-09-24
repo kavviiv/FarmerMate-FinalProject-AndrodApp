@@ -22,23 +22,26 @@ public class SliderAdapter extends PagerAdapter {
     //arrsy เก็บ icon
     public int[] slide_image ={
             R.drawable.leaf1,
-            R.drawable.tree1,
-            R.drawable.leaf1,
-            R.drawable.leaf1
+            R.drawable.carl,
+            R.drawable.weat,
+            R.drawable.lok,
+            R.drawable.pay
     };
 
     public String[] slide_heading={
             "แนะนำพันธุ์ข้าว",
             "สร้างตารางงาน",
             "ดูสภาพอากาศ",
-            "ff"
+            "ดูพื้นที่นาใกล้เคียง",
+            "บันทึกค่าใช้จ่าย"
     };
 
     public String[] slide_des ={
             "แนะนำพันธุ์ข้าวที่เหมาะสมกับ \n พื้นที่ปลูก ลักษณะดินและแหล่งน้ำ",
             "สร้างตารางงานการทำนา \n ประกอบด้วยงานที่ต้องทำทั้งหมด \n รวมถึงการแจ้งเตือนเมื่อถึงเวลางาน",
             "คำอธิบาย การใช้งานแอปพลเิเชัน",
-            ""
+            "ดูพื้นที่นาใกล้เคียงว่าปลูกข้าวพันธุ์อะไร \n ",
+            "บันทึกค่าใช้จ่ายในแต่ละขั้นตอนการทำนา \n เพื่อการสรุปถึงค่าใช้จ่ายในการทำนาแต่ละครั้ง"
     };
 
 

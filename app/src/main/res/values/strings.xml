@@ -25,6 +25,7 @@
     <string name="ConfirmPassword">Confirm Password</string>
     <string name="Recom">ความเหมาะสมของช่วงเวลา\nปลูกข้าว"</string>
     <string name="redd">แนะนำพันธุ์ข้าว</string>
+    <string name="redd1">พันธุ์ข้าวที่แนะนำ</string>
     <string name="tab">ตารางการทำนา</string>
     <string name="nlo">พื้นที่นาใกล้เคียง</string>
     <string name="expmoney">บันทึกค่าใช้จ่าย</string>

@@ -58,7 +58,7 @@ public class Rice2 extends AppCompatActivity {
 
 
     public void addDotsIndicator(int position){
-        mDots = new TextView[4];
+        mDots = new TextView[5];
         for (int i =0; i< mDots.length; i++){
             mDots[i] = new TextView(this);
             mDots[i].setText(Html.fromHtml("&#8226;"));
@@ -112,7 +112,7 @@ public class Rice2 extends AppCompatActivity {
                     }
                 });
             }
-            else if(i == mDots.length  ){
+            else if(i == mDots.length){
                 mNextbutt.setEnabled(true);
                 mBackbutt.setEnabled(true);
 

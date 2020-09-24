@@ -20,10 +20,9 @@
     <EditText
         android:id="@+id/loginEmail"
         style="@style/Base.Widget.MaterialComponents.AutoCompleteTextView"
-        android:layout_width="0dp"
+        android:layout_width="410dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="544dp"
+        android:layout_marginTop="24dp"
         android:background="#FFFDFD"
         android:fontFamily="@font/tkod"
         android:hint="Email"
@@ -36,16 +35,15 @@
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wbb"
         app:layout_constraintWidth_percent="0.95" />
 
     <EditText
         android:id="@+id/loginpaswd"
         style="@style/Base.Widget.MaterialComponents.AutoCompleteTextView"
-        android:layout_width="0dp"
+        android:layout_width="410dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="616dp"
+        android:layout_marginTop="24dp"
         android:background="#FFFFFF"
         android:fontFamily="@font/tkod"
         android:hint="Password"
@@ -54,29 +52,27 @@
         android:textColor="#131313"
         android:textColorHint="#000000"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/btnLogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail"
         app:layout_constraintWidth_percent="0.95" />
 
     <Button
         android:id="@+id/btnLogIn"
-        android:layout_width="0dp"
+        android:layout_width="410dp"
         android:layout_height="50dp"
-        android:layout_marginTop="692dp"
+        android:layout_marginTop="36dp"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/tkodb"
         android:text="Log In"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintHorizontal_bias="0.59"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginpaswd"
         app:layout_constraintWidth_percent="0.95" />
 
     <TextView

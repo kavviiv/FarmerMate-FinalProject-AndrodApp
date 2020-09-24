@@ -46,11 +46,10 @@
     <View
         android:id="@+id/myRectangleView"
         android:layout_width="match_parent"
-        android:layout_height="113dp"
+        android:layout_height="133dp"
         android:background="@drawable/rectangle"
         android:backgroundTint="#00FFE7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,15 +57,14 @@
         android:id="@+id/redd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="112dp"
-        android:layout_marginLeft="112dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="64dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/redd"
         android:textColor="#000000"
         android:textSize="36sp"
         app:autoSizeTextType="uniform"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/myRectangleView"
+        app:layout_constraintStart_toEndOf="@+id/myRectangleView"
         app:layout_constraintTop_toTopOf="@+id/myRectangleView" />
 
     <TextView
@@ -74,6 +72,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="24dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/cpro"
@@ -81,8 +80,7 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/myRectangleView"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/myRectangleView" />
 
     <Spinner
         android:id="@+id/solid"
@@ -90,18 +88,19 @@
         android:layout_width="400dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="12dp"
         android:entries="@array/solid_array"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/csolidd"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/csolidd" />
 
     <TextView
         android:id="@+id/cwat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/cwat"
@@ -109,8 +108,7 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solid"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/solid" />
 
     <Spinner
         android:id="@+id/province"
@@ -118,12 +116,12 @@
         android:layout_width="400dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:entries="@array/province_array"
         android:spinnerMode="dropdown"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpro"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/cpro" />
 
 
     <TextView
@@ -131,6 +129,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/csolid"
@@ -138,8 +137,7 @@
         android:textSize="24sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/province"
-        android:layout_marginLeft="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/province" />
 
     <Button
         android:id="@+id/display"
@@ -162,10 +160,10 @@
         android:layout_width="1dp"
         android:layout_height="13dp"
         android:layout_marginStart="242dp"
+        android:layout_marginLeft="242dp"
         android:layout_marginTop="623dp"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="242dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

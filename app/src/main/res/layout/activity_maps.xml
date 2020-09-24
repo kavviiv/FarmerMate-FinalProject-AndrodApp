@@ -10,9 +10,11 @@
     <fragment
         android:id="@+id/map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="431dp"
+        android:layout_width="match_parent"
         android:layout_height="567dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="35dp"
+        map:layout_constraintEnd_toEndOf="parent"
+        map:layout_constraintHorizontal_bias="0.5"
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toTopOf="parent"
         tools:context=".MapsActivity" />
@@ -64,17 +66,6 @@
         map:layout_constraintStart_toStartOf="parent"
         map:layout_constraintTop_toBottomOf="@+id/longitude_text1"
         map:layout_constraintVertical_bias="0.37" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="91dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="16dp"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintHorizontal_bias="0.501"
-        map:layout_constraintStart_toStartOf="parent"
-        map:layout_constraintTop_toTopOf="parent"
-        map:srcCompat="@drawable/gmaps" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

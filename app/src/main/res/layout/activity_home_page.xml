@@ -24,11 +24,11 @@
         android:id="@+id/tablepage"
         android:layout_width="402dp"
         android:layout_height="0dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="44dp"
         android:background="#00FFEA"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.533"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile"
         app:layout_constraintWidth_percent="0.95" />
@@ -133,7 +133,6 @@
         android:layout_width="126dp"
         android:layout_height="133dp"
         app:layout_constraintEnd_toStartOf="@+id/weatherpage"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/weatherpage"
         app:layout_constraintTop_toTopOf="@+id/weatherpage"
         app:srcCompat="@drawable/icon_02d" />

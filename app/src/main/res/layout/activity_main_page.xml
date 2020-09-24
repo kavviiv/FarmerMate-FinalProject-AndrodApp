@@ -11,43 +11,39 @@
         android:layout_height="match_parent"
         android:background="@drawable/bgs"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:context=".MainPage"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="-42dp">
 
 
         <Button
             android:id="@+id/signin"
             android:layout_width="387dp"
             android:layout_height="57dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="104dp"
+            android:layout_marginTop="28dp"
             android:backgroundTint="#FFFFFF"
             android:fontFamily="@font/tkodb"
             android:text="@string/sign_in"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.241"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/signup" />
 
         <Button
             android:id="@+id/signup"
             android:layout_width="387dp"
             android:layout_height="57dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginTop="116dp"
             android:backgroundTint="#FFFFFF"
             android:fontFamily="@font/tkodb"
             android:text="sign up"
             android:textColor="#000000"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/signin"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.241"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -55,10 +51,9 @@
             android:id="@+id/logo1"
             android:layout_width="330dp"
             android:layout_height="337dp"
-            android:layout_marginTop="47dp"
-            android:layout_marginBottom="136dp"
-            app:layout_constraintBottom_toTopOf="@+id/textView2"
+            android:layout_marginTop="104dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/wheat" />
@@ -68,14 +63,13 @@
             style="@android:style/Widget.Holo.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="28dp"
+            android:layout_marginTop="40dp"
             android:fontFamily="@font/tkodb"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#FFFFFF"
             android:textSize="38sp"
-            app:layout_constraintBottom_toTopOf="@+id/signup"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/logo1"
             tools:text="Farmer Mate" />
