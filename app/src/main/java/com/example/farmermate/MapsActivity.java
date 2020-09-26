@@ -82,6 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // FirebaseFirestore db = FirebaseFirestore.getInstance();
         this.db = FirebaseFirestore.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String RName = getIntent().getStringExtra("Rname");
 
         buildGoogleApiClient();
 
@@ -158,6 +159,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 @Override
                 public void onClick(View view) {
                     Map<String, Object> user = new HashMap<>();
+                    user.put("RiceName", getIntent().getStringExtra("Rname"));
                     user.put("Latitude", mLastLocation.getLatitude());
                     user.put("Longtitude", mLastLocation.getLongitude());
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -244,7 +246,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 LatLng latLng = new LatLng(mLastLocation.getLatitude()
                         , mLastLocation.getLongitude());
                 MarkerOptions options = new MarkerOptions().position(latLng)
-                        .title( "ที่อยู่ปัจจุบัน" );
+                        .title(getIntent().getStringExtra("Rname"));
                 googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
                 googleMap.addMarker(options);
         }

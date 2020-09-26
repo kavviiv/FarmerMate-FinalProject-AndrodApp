@@ -3,7 +3,9 @@ package com.example.farmermate;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Spinner;
@@ -29,16 +31,32 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         selectRice = (Spinner) findViewById(R.id.rice);
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
+        selectRice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                String RiceName = selectRice.getSelectedItem().toString();
 
+                Log.e("Selected item : ", RiceName);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+
+            }
+        });
         tv22.setVisibility(View.GONE);
 
 
         clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String spinText = selectRice.getSelectedItem().toString();
                 Intent intent = new Intent(CreateTable.this, MapsActivity.class);
+                intent.putExtra("Rname",spinText);
                 startActivity(intent);
             }
         });
@@ -50,7 +68,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                 if(selectRice.getSelectedItem().equals("")){
 
                 }
-
             }
         });
 

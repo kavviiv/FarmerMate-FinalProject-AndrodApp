@@ -61,6 +61,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String lat = child.child("Latitude").getValue().toString();
                     String lng = child.child("Longtitude").getValue().toString();
+                    String Rname = child.child("RiceName").getValue().toString();
 
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lng);
@@ -71,7 +72,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
 //
 //                LatLng location = new LatLng(latitude,longitude);
 
-                    mMap.addMarker(new MarkerOptions().position(location).title(getCOmpleteAddress(latitude, longitude)));
+                    mMap.addMarker(new MarkerOptions().position(location).title(Rname));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
                 }
             }
