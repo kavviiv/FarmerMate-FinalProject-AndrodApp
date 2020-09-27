@@ -84,7 +84,6 @@ public class DBHelper extends SQLiteOpenHelper {
         }
     }
 
-
     public boolean openDatabase() {
         String mPath = DBLOCATION + DBNAME;
         //Log.v("mPath", mPath);
@@ -683,23 +682,6 @@ public class DBHelper extends SQLiteOpenHelper {
         closeDatabase();
         return RiceList;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

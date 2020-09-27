@@ -125,28 +125,42 @@
         <item>ดินร่วน</item>
         <item>ดินทราย</item>
     </string-array>
-
-
     <string name="r1">ข้าวดอกมะลิ 105 (Khao Dawk Mali 105)</string>
     <string name="kdm">เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม</string>
     <string-array name="rice_name">
         <item>เลือกพันธุ์ข้าว</item>
-        <item> ข้าวดอกมะลิ 105</item>
-        <item>ขาวตาแห้ง 17</item>
+        <item>ข้าวดอกมะลิ 105</item>
+        <item>ข้าวตาแห้ง 17</item>
         <item>กข. 5</item>
         <item>กข. 13</item>
         <item>เหลืองประทิว 123</item>
         <item>นางมล เอส-4</item>
         <item>ข้าวเจ้าหอมพิษณุโลก 1</item>
         <item>กข. 3</item>
-        <item>กข. 7</item>7
-        <item>กข. 29</item>29
-        <item>กข. 33</item>33
-        <item>กข. 43</item>43
-        <item>กข. 47</item>47
-        <item>กข. 55</item>55
-
-
+        <item>กข. 7</item>
+        <item>กข. 29</item>
+        <item>กข. 33</item>
+        <item>กข. 43</item>
+        <item>กข. 47</item>
+        <item>กข. 55</item>
+        <item>กข. 29</item>
+        <item>กข. 3</item>
+        <item>กข. 7</item>
+        <item>กข. 6</item>
+        <item>เหนียวดำหมอ 37</item>
+        <item>เขี้ยวงู</item>
+        <item>เหนียวอุบล 1</item>
+        <item>เหนียวอุบล 2</item>
+        <item>หนียวดำช่อไม้ไผ่</item>
+        <item>กำผาย 15</item>
+        <item>กข. 18</item>
+        <item>กข. 12</item>
+        <item>กข. 8</item>
+        <item>กข. 2</item>
+        <item>กข. 4</item>
+        <item>กข. 10</item>
+        <item>กข. 22</item>
+        <item>กข. 14</item>
     </string-array>
     <string-array name="rice_descrip">
         <item>เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม
