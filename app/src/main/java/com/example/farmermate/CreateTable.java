@@ -31,6 +31,10 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         selectRice = (Spinner) findViewById(R.id.rice);
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
+
+
+
+
         selectRice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
@@ -45,7 +49,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 // TODO Auto-generated method stub
-
             }
         });
         tv22.setVisibility(View.GONE);
@@ -66,7 +69,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
                 if(selectRice.getSelectedItem().equals("")){
-
                 }
             }
         });
@@ -79,6 +81,23 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();

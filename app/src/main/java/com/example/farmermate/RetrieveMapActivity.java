@@ -15,6 +15,7 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +29,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
 
     private GoogleMap mMap;
     Marker marker;
+    FirebaseAuth fauth;
     //private Firebase firebase;
 
     @Override
@@ -53,7 +55,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
 
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override

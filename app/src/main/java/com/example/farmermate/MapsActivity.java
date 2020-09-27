@@ -37,6 +37,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     ConstraintLayout constraintLayout;
     SupportMapFragment supportMapFragment;
@@ -58,6 +60,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     FirebaseFirestore db ;
     private FirebaseAuth.AuthStateListener authStateListener;
     String firebaseAuth;
+    String Uname;
 
 
 
@@ -65,6 +68,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -89,25 +93,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         client = LocationServices.getFusedLocationProviderClient( this );
 //
 //
-//        if (ActivityCompat.checkSelfPermission( MapsActivity.this,
-//                ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
-//
-//            getCurrentLocation();
-//
-//
-//        }else  {
-//            ActivityCompat.requestPermissions( MapsActivity.this,
-//                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44 );
-//
-//        }
+        if (ActivityCompat.checkSelfPermission( MapsActivity.this,
+                ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED) {
+
+            getCurrentLocation();
+
+
+        }else  {
+            ActivityCompat.requestPermissions( MapsActivity.this,
+                    new String[]{ACCESS_FINE_LOCATION}, 44 );
+
+        }
 
     }
-
-
-
-
-
-
 
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -133,7 +131,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -156,6 +154,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mapFragment.getMapAsync(this);
 
             saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
+
+
+
                 @Override
                 public void onClick(View view) {
                     Map<String, Object> user = new HashMap<>();
@@ -163,7 +164,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     user.put("Latitude", mLastLocation.getLatitude());
                     user.put("Longtitude", mLastLocation.getLongitude());
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                    mDatabase.child("users").child(firebaseAuth).setValue(user)
+                    mDatabase.child("User Location").child(firebaseAuth).setValue(user)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -215,7 +216,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //
 //
     private void getCurrentLocation() {
-        if (ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission( this, ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission( this, Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED) {
 //             TODO: Consider calling
 //                ActivityCompat#requestPermissions
 //             here to request the missing permissions, and then overriding
@@ -228,17 +229,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 44){
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-
-                getCurrentLocation();
-
-            }
-        }
-    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == 44){
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//
+//                getCurrentLocation();
+//
+//            }
+//        }
+//    }
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         if (mLastLocation != null)
