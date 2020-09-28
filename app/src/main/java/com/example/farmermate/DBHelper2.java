@@ -103,10 +103,10 @@ public class DBHelper2 extends SQLiteOpenHelper {
         Todo todo = null;
         List<Todo> ToDoList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM sow WHERE Name LIKE 'ข้าวดอกมะลิ 105'", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM R1 ", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            todo = new Todo(cursor.getString(0));
+            todo = new Todo(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
             ToDoList.add(todo);
             cursor.moveToNext();
         }

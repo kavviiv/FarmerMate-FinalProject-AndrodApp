@@ -5,21 +5,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
 
-import static com.example.farmermate.CreateTable.Name1;
+import static com.example.farmermate.CreateTable.Dtail;
+import static com.example.farmermate.CreateTable.Rec;
+import static com.example.farmermate.CreateTable.Step;
+import static com.example.farmermate.CreateTable.Warn;
 
 public class ToDoAdapter extends BaseAdapter {
     private Context mContext;
     private List<Todo> ToDoList;
-    private ListView lvProduct;
 
-    public static  Todo get(int position) {
-        return null;
-    }
 
     public ToDoAdapter(Context mContext, List<Todo> ToDoList) {
         this.mContext = mContext;
@@ -28,6 +26,23 @@ public class ToDoAdapter extends BaseAdapter {
 
     public ToDoAdapter(CreateTable createTable) {
     }
+    public static  Todo get(int position) {
+        return null;
+    }
+
+    public String getStep(){
+        return Step;
+    }
+    public String getDtail(){
+        return Dtail;
+    }
+    public String getRec(){
+        return Rec;
+    }
+    public String getWarn(){
+        return Warn;
+    }
+
 
     @Override
     public int getCount() {
@@ -44,9 +59,8 @@ public class ToDoAdapter extends BaseAdapter {
         return ToDoList.get(position).getId();
     }
 
-    public String getName1() {
-        return Name1;
-    }
+
+
 
 
     @Override
@@ -54,12 +68,8 @@ public class ToDoAdapter extends BaseAdapter {
 
         View v = View.inflate(mContext, R.layout.item_todo, null);
         TextView tvName = (TextView)v.findViewById(R.id.todo);
-        //TextView tvPrice = (TextView)v.findViewById(R.id.tv_product_price);
         ImageView imgV =(ImageView)v.findViewById(R.id.imgv);
-        //TextView tvDescription = (TextView)v.findViewById(R.id.tv_product_description);
-        tvName.setText(ToDoList.get(position).getName1());
-        //tvPrice.setText(String.valueOf(mProductList.get(position).getPrice()) + " $");
-        //tvDescription.setText(mProductList.get(position).getDescription());
+        tvName.setText(ToDoList.get(position).getStep());
         imgV.setImageResource(R.drawable.riceim1);
         return v;
     }

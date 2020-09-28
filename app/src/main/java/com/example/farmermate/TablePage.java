@@ -9,28 +9,28 @@ public class TablePage extends AppCompatActivity {
 
     ToDoAdapter madapter;
     String Name, Description,Products,Advantage;
-    TextView tvName, tvDescription,Pro,Products1,Ad,Advantage1;
+    TextView tvName, tvDescription,Pro,Products1,Ad,Advantage1,Rec,Recomm,War,Warning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_table_page);
         tvName = (TextView) findViewById(R.id.Name);
         tvDescription = (TextView) findViewById(R.id.work);
-        String Name = getIntent().getStringExtra("Name");
-        String Description = getIntent().getStringExtra("Name1");
+        String Name = getIntent().getStringExtra("Step");
+        String Description = getIntent().getStringExtra("Dtail");
         tvName.setText(Name);
         tvDescription.setText(Description);
 
-//        Pro = (TextView) findViewById(R.id.Pro);
-//        Products1 = (TextView) findViewById(R.id.Products);
-//        String Products = getIntent().getStringExtra("Products");
-//        Pro.setText("ผลผลิต");
-//        Products1.setText(Products);
-//
-//        Ad = (TextView) findViewById(R.id.Ad);
-//        Advantage1 = (TextView) findViewById(R.id.Advantage);
-//        String Advantage = getIntent().getStringExtra("Advantage");
-//        Ad.setText("จุดเด่น");
-//        Advantage1.setText(Advantage);
+        Rec = (TextView) findViewById(R.id.rec);
+        Recomm = (TextView) findViewById(R.id.recomm);
+        String Recc = getIntent().getStringExtra("Rec");
+        Rec.setText("ข้อแนะนำ");
+        Recomm.setText(Recc);
+
+        War = (TextView) findViewById(R.id.warn);
+        Warning = (TextView) findViewById(R.id.warning);
+        String Warr = getIntent().getStringExtra("Warn");
+        War.setText("ข้อควรระวัง");
+        Warning.setText(Warr);
     }
 }

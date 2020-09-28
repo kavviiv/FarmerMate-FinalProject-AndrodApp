@@ -30,7 +30,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
     Button createTable,clo;
     Spinner selectRice;
     private Context context;
-
+    public static String Step,Dtail,Rec,Warn;
     private ListView todoList;
     private ToDoAdapter madapter;
     private List<Todo> ToDoList;
@@ -122,16 +122,18 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                 todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String Name1 = ToDoList.get(position).getName1();
-//                        String Description = mRiceList.get(position).getDescription();
-//                        String Products = mRiceList.get(position).getProducts();
-//                        String Advantage = mRiceList.get(position).getAdvantage();
+                        String Step = ToDoList.get(position).getStep();
+                        String Dtail = ToDoList.get(position).getDtail();
+                        String Rec = ToDoList.get(position).getRec();
+                        String Warn = ToDoList.get(position).getWarn();
+
                         Intent intent = new Intent(getApplicationContext() ,TablePage.class);
                         intent.putExtra("Position", position);
-                        intent.putExtra("Name1",Name1);
-//                        intent.putExtra("Description", Description);
-//                        intent.putExtra("Products",Products);
-//                        intent.putExtra("Advantage",Advantage);
+                        intent.putExtra("Step", Step);
+                        intent.putExtra("Dtail", Dtail);
+                        intent.putExtra("Rec", Rec);
+                        intent.putExtra("Warn",Warn);
+
                         startActivity(intent);
                     }
                 });

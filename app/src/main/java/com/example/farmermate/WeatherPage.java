@@ -1,570 +1,1082 @@
 package com.example.farmermate;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.drawable.Drawable;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TableLayout;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.widget.NestedScrollView;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
+import com.example.Formatting.AmbiguousLocationDialogFragment;
+import com.example.Formatting.RecyclerViewFragment;
+import com.example.app.widgets.AbstractWidgetProvider;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputLayout;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import static com.example.farmermate.CurrentWeatherConstants.CITY_NAME;
-import static com.example.farmermate.CurrentWeatherConstants.CLOUDINESS;
-import static com.example.farmermate.CurrentWeatherConstants.CLOUDINESS_UNIT;
-import static com.example.farmermate.CurrentWeatherConstants.CLOUDS;
-import static com.example.farmermate.CurrentWeatherConstants.COORD;
-import static com.example.farmermate.CurrentWeatherConstants.COORD_LAT;
-import static com.example.farmermate.CurrentWeatherConstants.COORD_LON;
-import static com.example.farmermate.CurrentWeatherConstants.DESCRIPTION;
-import static com.example.farmermate.CurrentWeatherConstants.HUMIDITY;
-import static com.example.farmermate.CurrentWeatherConstants.HUMIDITY_UNIT;
-import static com.example.farmermate.CurrentWeatherConstants.PRESSURE;
-import static com.example.farmermate.CurrentWeatherConstants.PRESSURE_UNIT;
-import static com.example.farmermate.CurrentWeatherConstants.TEMP_MAX;
-import static com.example.farmermate.CurrentWeatherConstants.TEMP_MIN;
-import static com.example.farmermate.CurrentWeatherConstants.TEMP_UNIT;
-import static com.example.farmermate.CurrentWeatherConstants.WIND;
-import static com.example.farmermate.CurrentWeatherConstants.WIND_DEGREES;
-import static com.example.farmermate.CurrentWeatherConstants.WIND_DEGREES_UNIT;
-import static com.example.farmermate.CurrentWeatherConstants.WIND_SPEED;
-import static com.example.farmermate.CurrentWeatherConstants.WIND_SPEED_UNIT;
-import static com.example.farmermate.ForecastConstants.ICON_ID;
-import static com.example.farmermate.ForecastConstants.MAIN;
-import static com.example.farmermate.ForecastConstants.TEMP;
-import static com.example.farmermate.ForecastConstants.WEATHER;
+import static com.example.farmermate.TimeUtils.isDayTime;
 
 
-public class WeatherPage extends AppCompatActivity {
-    private final int PERMISSION_ALL = 1;
-    private final int INTERNET_PERMISSION_KEY = 5;
-    private final int WRITE_EXTERNAL_STORAGE_PERMISSION_KEY = 10;
-    private final int READ_EXTERNAL_PERMISSION_KEY = 15;
-    private final int ACCESS_FINE_LOCATION_PERMISSION_KEY = 20;
-    private final int ACCESS_COARSE_LOCATION_PERMISSION_KEY = 25;
+public class WeatherPage extends BaseActivity1 implements LocationListener {
+    protected static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
 
-    String[] PERMISSIONS = {
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.INTERNET,
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-    };
+    // Time in milliseconds; only reload weather if last update is longer ago than this value
+    private static final int NO_UPDATE_REQUIRED_THRESHOLD = 300000;
 
-    private static final String PREFS_NAME = "my_prefs";
-    private static final String LAST_JSON = "last_json";
-    private static final String LAST_CITY_ID = "last_city_id";
-    private static final String LAST_LOCATION_LON = "last_lon";
-    private static final String LAST_LOCATION_LAT = "last_lat";
+    private static Map< String, Integer > speedUnits = new HashMap<>(3);
+    private static Map< String, Integer > pressUnits = new HashMap<>(3);
+    private static boolean mappingsInitialised = false;
 
-    private RetrieveData retrieveData;
-    private DataAdapter dataAdapter;
+    private Weather todayWeather = new Weather();
 
-    private TableLayout parametersTable;
-    private TableLayout weatherTable;
-    private NestedScrollView nestView;
+    private TextView todayTemperature;
+    private TextView todayDescription;
+    private TextView todayWind;
+    private TextView todayPressure;
+    private TextView todayHumidity;
+    private TextView todaySunrise;
+    private TextView todaySunset;
+    private TextView todayUvIndex;
+    private TextView lastUpdate;
+    private TextView todayIcon;
+    private TextView tapGraph;
+    private ViewPager viewPager;
+    private TabLayout tabLayout;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
-    private Button forecastButton;
-
-    private TextView cityNameText;
-    private ImageView weatherIcon;
-    private TextView temperatureText;
-    private TextView weatherDescText;
-
-    private TextView humidityText;
-    private TextView pressureText;
-    private TextView tempMinText;
-    private TextView tempMaxText;
-    private TextView cloudinessText;
-    private TextView coordsText;
-    private TextView windSpeedText;
-    private TextView windDegreeText;
-
-    private Toolbar toolbar;
-    private ListView listView;
-
-    private SimpleCursorAdapter cursorAdapter;
+    private View appView;
 
     private LocationManager locationManager;
-    private LocationListener locationListener;
+    private ProgressDialog progressDialog;
 
-    private static final String API_KEY = "0547eb1ce9af96469e2ba1e4a3c1cd8f";
-    //private static final String API_URL_CITY_ID = "http://api.openweathermap.org/data/2.5/weather?id=";
-    private static final String API_URL = "https://api.openweathermap.org/data/2.5/weather?";
-    private static final String API_URL_CITY_ID = "id=";
-    private static final String API_URL_UNITS_METRIC = "&units=metric&APPID=";
-    //private static final String API_URL_GEO_COORDS = "api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}";
-    private static final String API_URL_GEO_COORDS_LAT = "lat=";
-    private static final String API_URL_GEO_COORDS_LON = "&lon=";
+    private int theme;
+    private boolean widgetTransparent;
+    private boolean destroyed = false;
+    private boolean firstRun;
+
+    private List<Weather> longTermWeather = new ArrayList<>();
+    private List<Weather> longTermTodayWeather = new ArrayList<>();
+    private List<Weather> longTermTomorrowWeather = new ArrayList<>();
+
+    public String recentCityId = "";
+
+    private Formatting formatting;
+    private SharedPreferences prefs;
+    private LinearLayout linearLayoutTapForGraphs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Initialize the associated SharedPreferences file with default values
+        PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        firstRun = prefs.getBoolean("firstRun", true);
+
+        widgetTransparent = prefs.getBoolean("transparentWidget", false);
+        //noinspection ConstantConditions
+
+        formatting = new Formatting(this);
+
+        // Initiate activity
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather_page);
-        dataAdapter = new DataAdapter(getApplicationContext());
-        retrieveData = new RetrieveData();
+        setContentView(R.layout.activity_scrolling);
+        appView = findViewById(R.id.viewApp);
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        AppBarLayout appBarLayout = findViewById(R.id.appBarLayout);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        progressDialog = new ProgressDialog(WeatherPage.this);
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle("Weather Checker");
+        // Load toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+        if (darkTheme) {
+            toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Dark);
+        } else if (blackTheme) {
+            toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Black);
         }
 
-        nestView = findViewById(R.id.nest_view);
-        parametersTable = findViewById(R.id.parameters_table);
-        weatherTable = findViewById(R.id.weather_table_layout);
-        /*searchText = findViewById(R.id.search_text);
-        searchButton = findViewById(R.id.searching_button);*/
-        tempMaxText = findViewById(R.id.temp_max_text_view);
-        tempMinText = findViewById(R.id.temp_min_text_view);
-        pressureText = findViewById(R.id.pressure_text_view);
-        humidityText = findViewById(R.id.humidity_text_view);
-        cloudinessText = findViewById(R.id.cloudiness_text_view);
-        windSpeedText = findViewById(R.id.wind_speed_text_view);
-        windDegreeText = findViewById(R.id.wind_degree_text_view);
-        coordsText = findViewById(R.id.geo_coords_text_view);
-        cityNameText = findViewById(R.id.city_name_text_view);
-        weatherIcon = findViewById(R.id.weather_icon_image);
-        temperatureText = findViewById(R.id.temperature_text_view);
-        weatherDescText = findViewById(R.id.weather_desc_text_view);
-        listView = findViewById(R.id.list_view);
-        //forecastButton = findViewById(R.id.forecast_button);
+        // Initialize textboxes
 
-        parametersTable.setVisibility(View.INVISIBLE);
-        weatherTable.setVisibility(View.INVISIBLE);
-       // forecastButton.setVisibility(View.INVISIBLE);
+        todayDescription = findViewById(R.id.todayDescription);
+        todayWind = findViewById(R.id.todayWind);
+        todayPressure = findViewById(R.id.todayPressure);
+        todayHumidity = findViewById(R.id.todayHumidity);
+        todaySunrise = findViewById(R.id.todaySunrise);
+        todaySunset = findViewById(R.id.todaySunset);
+        todayUvIndex = findViewById(R.id.todayUvIndex);
+        lastUpdate = findViewById(R.id.lastUpdate);
+        todayIcon = findViewById(R.id.todayIcon);
+        tapGraph = findViewById(R.id.tapGraph);
+        linearLayoutTapForGraphs = findViewById(R.id.linearLayout_tap_for_graphs);
+        Typeface weatherFont = Typeface.createFromAsset(this.getAssets(), "fonts/weather.ttf");
+        todayIcon.setTypeface(weatherFont);
 
-        dataAdapter.createDatabase();
+        // Initialize viewPager
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabs);
 
-        if(!hasPermissions(this, PERMISSIONS)){
-            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_ALL);
-        }
+        destroyed = false;
 
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        initMappings();
 
-        locationListener = new LocationListener() {
+        // Preload data from cache
+        preloadWeather();
+        preloadUVIndex();
+        updateLastUpdateTime();
+
+        // Set autoupdater
+        AlarmReceiver.setRecurringAlarm(this);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onLocationChanged(Location location) {
-                retrieveData = new RetrieveData();
-                retrieveData.execute(Double.toString(location.getLatitude()), Double.toString(location.getLongitude()));
-
-                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString(LAST_LOCATION_LAT, Double.toString(location.getLatitude()));
-                editor.putString(LAST_LOCATION_LON, Double.toString(location.getLongitude()));
-                editor.apply();
-            }
-
-            @Override
-            public void onStatusChanged(String s, int i, Bundle bundle) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String s) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String s) {
-
-            }
-        };
-
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.app_bar_search_location) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000, 10, locationListener);
-                        }
-                        else {
-                            ActivityCompat.requestPermissions(WeatherPage.this, PERMISSIONS, PERMISSION_ALL);
-                        }
-                    }
-                }
-                return false;
+            public void onRefresh() {
+                refreshWeather();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
-        int[] to = new int[] {
-                R.id.city_name_list,
-                R.id.coords_list,
-        };
-
-        cursorAdapter = new SimpleCursorAdapter(this, R.layout.city_list_item, dataAdapter.getAllCities(), dataAdapter.getColumns(), to, 0);
-        listView.setAdapter(cursorAdapter);
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Cursor cursor = (Cursor) listView.getItemAtPosition(i);
-                Map<String, String> cityCoords = dataAdapter.getCityCoords(cursor);
-                String cityID = dataAdapter.getCityId(cursor);
-                String cityLat = cityCoords.get("LAT");
-                String cityLon = cityCoords.get("LON");
-
-                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString(LAST_CITY_ID, cityID);
-                editor.putString(LAST_LOCATION_LAT, cityLat);
-                editor.putString(LAST_LOCATION_LON, cityLon);
-                editor.apply();
-
-                if(cityID == null) {
-                    Toast.makeText(getApplicationContext(), "City not found.", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    setNestViewVisible();
-                    toolbar.clearFocus();
-
-                    retrieveData = new RetrieveData();
-                    retrieveData.execute(cityID);
-                    dataAdapter.close();
-                }
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                // Only allow pull to refresh when scrolled to top
+                swipeRefreshLayout.setEnabled(verticalOffset == 0);
             }
         });
 
-//        forecastButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent myIntent = new Intent(getBaseContext(), WeatherForecastActivity.class);
-//
-//                SharedPreferences preferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-//
-//                if (!preferences.getString(LAST_LOCATION_LAT, "").isEmpty() && !preferences.getString(LAST_LOCATION_LON, "").isEmpty()) {
-//                    myIntent.putExtra("lat", preferences.getString(LAST_LOCATION_LAT, ""));
-//                    myIntent.putExtra("lon", preferences.getString(LAST_LOCATION_LON, ""));
-//                    startActivity(myIntent);
-//                }
-//                else if (!preferences.getString(LAST_CITY_ID, "").isEmpty()) {
-//                    myIntent.putExtra("city_id", preferences.getString(LAST_CITY_ID, ""));
-//                    startActivity(myIntent);
-//                }
-//
-//            }
-//        });
+        Bundle bundle = getIntent().getExtras();
 
-
-        listView.setVisibility(View.GONE);
-
-        if (!getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(LAST_JSON, "").isEmpty()) {
-            retrieveData.execute();
+        if (bundle != null && bundle.getBoolean("shouldRefresh")) {
+            refreshWeather();
         }
-
     }
 
-    public static boolean hasPermissions(Context context, String... permissions) {
-        if (context != null && permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
-                    return false;
-                }
+    public WeatherRecyclerAdapter getAdapter(int id) {
+        WeatherRecyclerAdapter weatherRecyclerAdapter;
+        if (id == 0) {
+            weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTodayWeather);
+        } else if (id == 1) {
+            weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTomorrowWeather);
+        } else {
+            weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermWeather);
+        }
+        return weatherRecyclerAdapter;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateTodayWeatherUI();
+        updateLongTermWeatherUI();
+        updateUVIndexUI();
+    }
+
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        destroyed = true;
+
+        if (locationManager != null) {
+            try {
+                locationManager.removeUpdates(WeatherPage.this);
+            } catch (SecurityException e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    private void preloadUVIndex() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(WeatherPage.this);
+
+        String lastUVIToday = sp.getString("lastToday", null);
+        if (lastUVIToday != null && !lastUVIToday.isEmpty()) {
+            double latitude = todayWeather.getLat();
+            double longitude = todayWeather.getLon();
+            if (latitude == 0 && longitude == 0) {
+                return;
+            }
+            new TodayUVITask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "coords", Double.toString(latitude), Double.toString(longitude));
+        }
+    }
+
+    private void preloadWeather() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(WeatherPage.this);
+
+        String lastToday = sp.getString("lastToday", null);
+        if (lastToday != null && !lastToday.isEmpty()) {
+            new TodayWeatherTask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastToday);
+        }
+        String lastLongterm = sp.getString("lastLongterm", null);
+        if (lastLongterm != null && !lastLongterm.isEmpty()) {
+            new LongTermWeatherTask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastLongterm);
+        }
+    }
+
+    private void getTodayUVIndex() {
+        double latitude = todayWeather.getLat();
+        double longitude = todayWeather.getLon();
+        new TodayUVITask(this, this, progressDialog).execute("coords", Double.toString(latitude), Double.toString(longitude));
+    }
+
+    private void getTodayWeather() {
+        new TodayWeatherTask(this, this, progressDialog).execute();
+    }
+
+    private void getLongTermWeather() {
+        new LongTermWeatherTask(this, this, progressDialog).execute();
+    }
+
+    private void searchCities() {
+        final EditText input = new EditText(this);
+        input.setInputType( InputType.TYPE_CLASS_TEXT);
+        input.setMaxLines(1);
+        input.setSingleLine(true);
+
+        TextInputLayout inputLayout = new TextInputLayout(this);
+        inputLayout.setPadding(32, 0, 32, 0);
+        inputLayout.addView(input);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        alert.setTitle(this.getString(R.string.search_title));
+        alert.setView(inputLayout);
+
+        alert.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                String result = input.getText().toString().trim();
+                if (!result.isEmpty()) {
+                    new FindCitiesByNameTask(getApplicationContext(),
+                            WeatherPage.this, progressDialog).execute("city", result);
+                }
+            }
+        });
+        alert.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                // Cancelled
+            }
+        });
+        alert.show();
+    }
+
+    private void saveLocation(String result) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(WeatherPage.this);
+        recentCityId = preferences.getString("cityId", Constants.DEFAULT_CITY_ID);
+
+        preferences.edit()
+                .putString("cityId", result)
+                .commit();
+
+//        if (!recentCityId.equals(result)) {
+//            // New location, update weather
+//            getTodayWeather();
+//            getLongTermWeather();
+//            getTodayUVIndex();
+//        }
+    }
+
+
+
+    public static String getRainString(JSONObject rainObj) {
+        String rain = "0";
+        if (rainObj != null) {
+            rain = rainObj.optString("3h", "fail");
+            if ("fail".equals(rain)) {
+                rain = rainObj.optString("1h", "0");
+            }
+        }
+        return rain;
+    }
+
+    private ParseResult parseTodayJson(String result) {
+        try {
+            JSONObject reader = new JSONObject(result);
+
+            final String code = reader.optString("cod");
+            if ("404".equals(code)) {
+                return ParseResult.CITY_NOT_FOUND;
+            }
+
+            String city = reader.getString("name");
+            String country = "";
+            JSONObject countryObj = reader.optJSONObject("sys");
+            if (countryObj != null) {
+                country = countryObj.getString("country");
+                todayWeather.setSunrise(countryObj.getString("sunrise"));
+                todayWeather.setSunset(countryObj.getString("sunset"));
+            }
+            todayWeather.setCity(city);
+            todayWeather.setCountry(country);
+
+            JSONObject coordinates = reader.getJSONObject("coord");
+            if (coordinates != null) {
+                todayWeather.setLat(coordinates.getDouble("lat"));
+                todayWeather.setLon(coordinates.getDouble("lon"));
+                SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+                sp.edit().putFloat("latitude", (float) todayWeather.getLat()).putFloat("longitude", (float) todayWeather.getLon()).commit();
+            }
+
+            JSONObject main = reader.getJSONObject("main");
+
+            todayWeather.setTemperature(main.getString("temp"));
+            todayWeather.setDescription(reader.getJSONArray("weather").getJSONObject(0).getString("description"));
+            JSONObject windObj = reader.getJSONObject("wind");
+            todayWeather.setWind(windObj.getString("speed"));
+            if (windObj.has("deg")) {
+                todayWeather.setWindDirectionDegree(windObj.getDouble("deg"));
+            } else {
+                Log.e("parseTodayJson", "No wind direction available");
+                todayWeather.setWindDirectionDegree(null);
+            }
+            todayWeather.setPressure(main.getString("pressure"));
+            todayWeather.setHumidity(main.getString("humidity"));
+
+            JSONObject rainObj = reader.optJSONObject("rain");
+            String rain;
+            if (rainObj != null) {
+                rain = getRainString(rainObj);
+            } else {
+                JSONObject snowObj = reader.optJSONObject("snow");
+                if (snowObj != null) {
+                    rain = getRainString(snowObj);
+                } else {
+                    rain = "0";
+                }
+            }
+            todayWeather.setRain(rain);
+
+            final String idString = reader.getJSONArray("weather").getJSONObject(0).getString("id");
+            todayWeather.setId(idString);
+            todayWeather.setIcon(formatting.setWeatherIcon( Integer.parseInt(idString), isDayTime(todayWeather, Calendar.getInstance())));
+
+            PreferenceManager.getDefaultSharedPreferences(WeatherPage.this)
+                    .edit()
+                    .putString("lastToday", result)
+                    .commit();
+
+        } catch (JSONException e) {
+            Log.e("JSONException Data", result);
+            e.printStackTrace();
+            return ParseResult.JSON_EXCEPTION;
+        }
+
+        return ParseResult.OK;
+    }
+
+    private ParseResult parseTodayUVIJson(String result) {
+        try {
+            JSONObject reader = new JSONObject(result);
+
+            final String code = reader.optString("cod");
+            if ("404".equals(code)) {
+                todayWeather.setUvIndex(-1);
+                return ParseResult.CITY_NOT_FOUND;
+            }
+
+            double value = reader.getDouble("value");
+            todayWeather.setUvIndex(value);
+            PreferenceManager.getDefaultSharedPreferences(WeatherPage.this)
+                    .edit()
+                    .putString("lastUVIToday", result)
+                    .commit();
+        } catch (JSONException e) {
+            Log.e("JSONException Data", result);
+            e.printStackTrace();
+            return ParseResult.JSON_EXCEPTION;
+        }
+
+        return ParseResult.OK;
+    }
+
+    private void updateTodayWeatherUI() {
+        try {
+            if (todayWeather.getCountry().isEmpty()) {
+                preloadWeather();
+                return;
+            }
+        } catch (Exception e) {
+            preloadWeather();
+            return;
+        }
+        String city = todayWeather.getCity();
+        String country = todayWeather.getCountry();
+        DateFormat timeFormat = android.text.format.DateFormat.getTimeFormat(getApplicationContext());
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle(city + (country.isEmpty() ? "" : ", " + country));
+        }
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(WeatherPage.this);
+
+        // Temperature
+        float temperature = UnitConvertor.convertTemperature( Float.parseFloat(todayWeather.getTemperature()), sp);
+        if (sp.getBoolean("temperatureInteger", false)) {
+            temperature = Math.round(temperature);
+        }
+
+        // Rain
+        double rain = Double.parseDouble(todayWeather.getRain());
+        String rainString = UnitConvertor.getRainString(rain, sp);
+
+        // Wind
+        double wind;
+        try {
+            wind = Double.parseDouble(todayWeather.getWind());
+        } catch (Exception e) {
+            e.printStackTrace();
+            wind = 0;
+        }
+        wind = UnitConvertor.convertWind(wind, sp);
+
+        // Pressure
+        double pressure = UnitConvertor.convertPressure((float) Double.parseDouble(todayWeather.getPressure()), sp);
+
+
+        todayDescription.setText(todayWeather.getDescription().substring(0, 1).toUpperCase() +
+                todayWeather.getDescription().substring(1) + rainString);
+        if (sp.getString("speedUnit", "m/s").equals("bft")) {
+            todayWind.setText(getString(R.string.wind) + ": " +
+                    UnitConvertor.getBeaufortName((int) wind, this) +
+                    (todayWeather.isWindDirectionAvailable() ? " " + getWindDirectionString(sp, this, todayWeather) : ""));
+        } else {
+            todayWind.setText(getString(R.string.wind) + ": " + new DecimalFormat("0.0").format(wind) + " " +
+                    localize(sp, "speedUnit", "m/s") +
+                    (todayWeather.isWindDirectionAvailable() ? " " + getWindDirectionString(sp, this, todayWeather) : ""));
+        }
+        todayPressure.setText(getString(R.string.pressure) + ": " + new DecimalFormat("0.0").format(pressure) + " " +
+                localize(sp, "pressureUnit", "hPa"));
+        todayHumidity.setText(getString(R.string.humidity) + ": " + todayWeather.getHumidity() + " %");
+        todaySunrise.setText(getString(R.string.sunrise) + ": " + timeFormat.format(todayWeather.getSunrise()));
+        todaySunset.setText(getString(R.string.sunset) + ": " + timeFormat.format(todayWeather.getSunset()));
+        todayIcon.setText(todayWeather.getIcon());
+
+        linearLayoutTapForGraphs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+    }
+
+    private void updateUVIndexUI() {
+        try {
+            if (todayWeather.getCountry().isEmpty()) {
+                return;
+            }
+        } catch (Exception e) {
+            preloadUVIndex();
+            return;
+        }
+
+        // UV Index
+        double uvIndex = todayWeather.getUvIndex();
+        todayUvIndex.setText(getString(R.string.uvindex) + ": " + UnitConvertor.convertUvIndexToRiskLevel(uvIndex, this));
+    }
+
+    public ParseResult parseLongTermJson(String result) {
+        int i;
+        try {
+            JSONObject reader = new JSONObject(result);
+
+            final String code = reader.optString("cod");
+            if ("404".equals(code)) {
+                if (longTermWeather == null) {
+                    longTermWeather = new ArrayList<>();
+                    longTermTodayWeather = new ArrayList<>();
+                    longTermTomorrowWeather = new ArrayList<>();
+                }
+                return ParseResult.CITY_NOT_FOUND;
+            }
+
+            longTermWeather = new ArrayList<>();
+            longTermTodayWeather = new ArrayList<>();
+            longTermTomorrowWeather = new ArrayList<>();
+
+            JSONArray list = reader.getJSONArray("list");
+            for (i = 0; i < list.length(); i++) {
+                Weather weather = new Weather();
+
+                JSONObject listItem = list.getJSONObject(i);
+                JSONObject main = listItem.getJSONObject("main");
+
+                weather.setDate(listItem.getString("dt"));
+                weather.setTemperature(main.getString("temp"));
+                weather.setDescription(listItem.optJSONArray("weather").getJSONObject(0).getString("description"));
+                JSONObject windObj = listItem.optJSONObject("wind");
+                if (windObj != null) {
+                    weather.setWind(windObj.getString("speed"));
+                    weather.setWindDirectionDegree(windObj.getDouble("deg"));
+                }
+                weather.setPressure(main.getString("pressure"));
+                weather.setHumidity(main.getString("humidity"));
+
+                JSONObject rainObj = listItem.optJSONObject("rain");
+                String rain = "";
+                if (rainObj != null) {
+                    rain = getRainString(rainObj);
+                } else {
+                    JSONObject snowObj = listItem.optJSONObject("snow");
+                    if (snowObj != null) {
+                        rain = getRainString(snowObj);
+                    } else {
+                        rain = "0";
+                    }
+                }
+                weather.setRain(rain);
+
+                final String idString = listItem.optJSONArray("weather").getJSONObject(0).getString("id");
+                weather.setId(idString);
+
+                final String dateMsString = listItem.getString("dt") + "000";
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis( Long.parseLong(dateMsString));
+                weather.setIcon(formatting.setWeatherIcon( Integer.parseInt(idString), isDayTime(weather, cal)));
+
+                Calendar today = Calendar.getInstance();
+                today.set( Calendar.HOUR_OF_DAY, 0);
+                today.set( Calendar.MINUTE, 0);
+                today.set( Calendar.SECOND, 0);
+                today.set( Calendar.MILLISECOND, 0);
+
+                Calendar tomorrow = (Calendar) today.clone();
+                tomorrow.add( Calendar.DAY_OF_YEAR, 1);
+
+                Calendar later = (Calendar) today.clone();
+                later.add( Calendar.DAY_OF_YEAR, 2);
+
+                if (cal.before(tomorrow)) {
+                    longTermTodayWeather.add(weather);
+                } else if (cal.before(later)) {
+                    longTermTomorrowWeather.add(weather);
+                } else {
+                    longTermWeather.add(weather);
+                }
+            }
+            PreferenceManager.getDefaultSharedPreferences(WeatherPage.this)
+                    .edit()
+                    .putString("lastLongterm", result)
+                    .commit();
+        } catch (JSONException e) {
+            Log.e("JSONException Data", result);
+            e.printStackTrace();
+            return ParseResult.JSON_EXCEPTION;
+        }
+
+        return ParseResult.OK;
+    }
+
+    private void updateLongTermWeatherUI() {
+        if (destroyed) {
+            return;
+        }
+
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
+
+        Bundle bundleToday = new Bundle();
+        bundleToday.putInt("day", 0);
+        RecyclerViewFragment recyclerViewFragmentToday = new RecyclerViewFragment();
+        recyclerViewFragmentToday.setArguments(bundleToday);
+        viewPagerAdapter.addFragment(recyclerViewFragmentToday, getString(R.string.today));
+
+        Bundle bundleTomorrow = new Bundle();
+        bundleTomorrow.putInt("day", 1);
+        RecyclerViewFragment recyclerViewFragmentTomorrow = new RecyclerViewFragment();
+        recyclerViewFragmentTomorrow.setArguments(bundleTomorrow);
+        viewPagerAdapter.addFragment(recyclerViewFragmentTomorrow, getString(R.string.tomorrow));
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("day", 2);
+        RecyclerViewFragment recyclerViewFragment = new RecyclerViewFragment();
+        recyclerViewFragment.setArguments(bundle);
+        viewPagerAdapter.addFragment(recyclerViewFragment, getString(R.string.later));
+
+        int currentPage = viewPager.getCurrentItem();
+
+        viewPagerAdapter.notifyDataSetChanged();
+        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
+
+        if (currentPage == 0 && longTermTodayWeather.isEmpty()) {
+            currentPage = 1;
+        }
+        viewPager.setCurrentItem(currentPage, false);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    private boolean shouldUpdate() {
+        long lastUpdate = PreferenceManager.getDefaultSharedPreferences(this).getLong("lastUpdate", -1);
+        boolean cityChanged = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("cityChanged", false);
+        // Update if never checked or last update is longer ago than specified threshold
+        return cityChanged || lastUpdate < 0 || (Calendar.getInstance().getTimeInMillis() - lastUpdate) > NO_UPDATE_REQUIRED_THRESHOLD;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case ACCESS_FINE_LOCATION_PERMISSION_KEY:
-                if (!(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(getApplicationContext(), "We need the permission to allow app to check your geo coordinates.", Toast.LENGTH_SHORT).show();
-                }
-                break;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-            case ACCESS_COARSE_LOCATION_PERMISSION_KEY:
-                if (!(grantResults.length > 0 && grantResults[1] == PackageManager.PERMISSION_GRANTED)) {
-                    Toast.makeText(getApplicationContext(), "We need the permission to allow app to check your geo coordinates.", Toast.LENGTH_SHORT).show();
-                }
-                break;
+        if (id == R.id.action_refresh) {
+            refreshWeather();
+            return true;
+        }
+
+
+        if (id == R.id.action_search) {
+            searchCities();
+            return true;
+        }
+        if (id == R.id.action_location) {
+            getCityByLocation();
+            return true;
+        }
+
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshWeather() {
+        if (isNetworkAvailable()) {
+            getTodayWeather();
+            getLongTermWeather();
+            getTodayUVIndex();
+        } else {
+            Snackbar.make(appView, getString(R.string.msg_connection_not_available), Snackbar.LENGTH_LONG).show();
         }
     }
 
-    /*private void setNestViewVisible() {
-        setNestViewVisible();
-    }*/
+    public static void initMappings() {
+        if (mappingsInitialised)
+            return;
+        mappingsInitialised = true;
+        speedUnits.put("m/s", R.string.speed_unit_mps);
+        speedUnits.put("kph", R.string.speed_unit_kph);
+        speedUnits.put("mph", R.string.speed_unit_mph);
+        speedUnits.put("kn", R.string.speed_unit_kn);
 
-    private void setNestViewVisible() {
-        listView.setVisibility(View.GONE);
-        nestView.setVisibility(View.VISIBLE);
-        forecastButton.setVisibility(View.GONE);
+        pressUnits.put("hPa", R.string.pressure_unit_hpa);
+        pressUnits.put("kPa", R.string.pressure_unit_kpa);
+        pressUnits.put("mm Hg", R.string.pressure_unit_mmhg);
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main_menu, menu);
-//
-////        SearchManager manager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-////
-////        MenuItem searchItem = menu.findItem(R.id.app_bar_search_city);
-////
-////        SearchView search = (SearchView) searchItem.getActionView();
-////        search.setIconified(false);
-////        search.setSearchableInfo(manager.getSearchableInfo(getComponentName()));
-//
-//        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
-//            @Override
-//            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-//                menuItem.getActionView().requestFocus();
-//                setListViewVisible();
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-//                setNestViewVisible();
-//                return true;
-//            }
-//        });
-//
-//        search.setOnSearchClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                setListViewVisible();
-//            }
-//        });
-//
-//
-//        search.setOnCloseListener(new SearchView.OnCloseListener() {
-//            @Override
-//            public boolean onClose() {
-//                setNestViewVisible();
-//                return false;
-//            }
-//        });
-//
-//
-//        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//
-//            @Override
-//            public boolean onQueryTextSubmit(String s) {
-//                setNestViewVisible();
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String s) {
-//                setListViewVisible();
-//
-//                cursorAdapter.getFilter().filter(s);
-//                return false;
-//            }
-//        });
-//
-//        cursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-//            @Override
-//            public Cursor runQuery(CharSequence charSequence) {
-//                return dataAdapter.filterByName(charSequence.toString());
-//            }
-//        });
-//
-//        return true;
-//    }
-//
-//    private void setListViewVisible() {
-//        nestView.setVisibility(View.GONE);
-//        listView.setVisibility(View.VISIBLE);
-//        forecastButton.setVisibility(View.VISIBLE);
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        switch (item.getItemId()) {
-//            case android.R.id.home:
-//                setNestViewVisible();
-//                return true;
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
+    private String localize(SharedPreferences sp, String preferenceKey, String defaultValueKey) {
+        return localize(sp, this, preferenceKey, defaultValueKey);
     }
 
-    class RetrieveData extends AsyncTask<String, Void, String> {
+    public static String localize(SharedPreferences sp, Context context, String preferenceKey, String defaultValueKey) {
+        String preferenceValue = sp.getString(preferenceKey, defaultValueKey);
+        String result = preferenceValue;
+        if ("speedUnit".equals(preferenceKey)) {
+            if (speedUnits.containsKey(preferenceValue)) {
+                //noinspection ConstantConditions
+                result = context.getString(speedUnits.get(preferenceValue));
+            }
+        } else if ("pressureUnit".equals(preferenceKey)) {
+            if (pressUnits.containsKey(preferenceValue)) {
+                //noinspection ConstantConditions
+                result = context.getString(pressUnits.get(preferenceValue));
+            }
+        }
+        return result;
+    }
 
-        private String[] mainParameters;
-        private String[] windParameters;
-        private String[] cloudsParameters;
-        private String[] geoCoords;
-        private String[] weatherParameters;
-
-        public RetrieveData() {
-            mainParameters = new String[] {TEMP, PRESSURE, HUMIDITY, TEMP_MIN, TEMP_MAX};
-            windParameters = new String[] {WIND_SPEED, WIND_DEGREES};
-            cloudsParameters = new String[] {CLOUDINESS};
-            geoCoords = new String[] {COORD_LON, COORD_LAT};
-            weatherParameters = new String[] {ICON_ID, DESCRIPTION};
+    public static String getWindDirectionString(SharedPreferences sp, Context context, Weather weather) {
+        try {
+            if (Double.parseDouble(weather.getWind()) != 0) {
+                String pref = sp.getString("windDirectionFormat", null);
+                if ("arrow".equals(pref)) {
+                    return weather.getWindDirection(8).getArrow(context);
+                } else if ("abbr".equals(pref)) {
+                    return weather.getWindDirection().getLocalizedString(context);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        private HashMap<String, String> getData(String response) {
-            HashMap<String, String> values = new HashMap<>();
+        return "";
+    }
 
-            if(response == null) {
-                response = "THERE WAS AN ERROR";
+    void getCityByLocation() {
+        locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+                showLocationSettingsDialog();
+            } else {
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_ACCESS_FINE_LOCATION);
             }
 
+        } else if (locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER) ||
+                locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER)) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(getString(R.string.getting_location));
+            progressDialog.setCancelable(false);
+            progressDialog.setButton( DialogInterface.BUTTON_NEGATIVE, getString(R.string.dialog_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    try {
+                        locationManager.removeUpdates(WeatherPage.this);
+                    } catch (SecurityException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            progressDialog.show();
+            if (locationManager.isProviderEnabled( LocationManager.NETWORK_PROVIDER)) {
+                locationManager.requestLocationUpdates( LocationManager.NETWORK_PROVIDER, 0, 0, this);
+            }
+            if (locationManager.isProviderEnabled( LocationManager.GPS_PROVIDER)) {
+                locationManager.requestLocationUpdates( LocationManager.GPS_PROVIDER, 0, 0, this);
+            }
+        } else {
+            showLocationSettingsDialog();
+        }
+    }
+
+    private void showLocationSettingsDialog() {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(R.string.location_settings);
+        alertDialog.setMessage(R.string.location_settings_message);
+        alertDialog.setPositiveButton(R.string.location_settings_button, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent( Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        });
+        alertDialog.setNegativeButton(R.string.dialog_cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alertDialog.show();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_ACCESS_FINE_LOCATION) {
+            // If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCityByLocation();
+            }
+        }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        progressDialog.hide();
+        try {
+            locationManager.removeUpdates(this);
+        } catch (SecurityException e) {
+            Log.e("LocationManager", "Error while trying to stop listening for location updates. This is probably a permissions issue", e);
+        }
+        Log.i("LOCATION (" + location.getProvider().toUpperCase() + ")", location.getLatitude() + ", " + location.getLongitude());
+        double latitude = location.getLatitude();
+        double longitude = location.getLongitude();
+        new ProvideCityNameTask(this, this, progressDialog).execute("coords", Double.toString(latitude), Double.toString(longitude));
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
+
+    class TodayWeatherTask extends GenericRequestTask {
+        public TodayWeatherTask(Context context, WeatherPage activity, ProgressDialog progressDialog) {
+            super(context, activity, progressDialog);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            loading = 0;
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(TaskOutput output) {
+            super.onPostExecute(output);
+            // Update widgets
+            AbstractWidgetProvider.updateWidgets(context);
+        }
+
+        @Override
+        protected ParseResult parseResponse(String response) {
+            return parseTodayJson(response);
+        }
+
+        @Override
+        protected String getAPIName() {
+            return "weather";
+        }
+
+        @Override
+        protected void updateMainUI() {
+            updateTodayWeatherUI();
+            updateLastUpdateTime();
+            updateUVIndexUI();
+        }
+    }
+
+    class LongTermWeatherTask extends GenericRequestTask {
+        public LongTermWeatherTask(Context context, WeatherPage activity, ProgressDialog progressDialog) {
+            super(context, activity, progressDialog);
+        }
+
+        @Override
+        protected ParseResult parseResponse(String response) {
+            return parseLongTermJson(response);
+        }
+
+        @Override
+        protected String getAPIName() {
+            return "forecast";
+        }
+
+        @Override
+        protected void updateMainUI() {
+            updateLongTermWeatherUI();
+        }
+    }
+
+    class FindCitiesByNameTask extends GenericRequestTask {
+
+        public FindCitiesByNameTask(Context context, WeatherPage activity, ProgressDialog progressDialog) {
+            super(context, activity, progressDialog);
+        }
+
+        @Override
+        protected void onPreExecute() { /*Nothing*/ }
+
+        @Override
+        protected ParseResult parseResponse(String response) {
             try {
-                JSONObject jsonObject = new JSONObject(response);
+                JSONObject reader = new JSONObject(response);
 
-                SharedPreferences.Editor editor = getSharedPreferences(PREFS_NAME, MODE_PRIVATE).edit();
-                editor.putString(LAST_JSON, jsonObject.toString());
-                editor.apply();
-
-                String value;
-
-                for (String mainParameter : mainParameters) {
-                    if(jsonObject.getJSONObject(MAIN).has(mainParameter)) {
-                        value = jsonObject.getJSONObject(MAIN).getString(mainParameter);
-                        values.put(mainParameter, value);
-                    }
+                final int count = reader.optInt("count");
+                if (count == 0) {
+                    Log.e("Geolocation", "No city found");
+                    return ParseResult.CITY_NOT_FOUND;
                 }
 
-                for (String windParameter : windParameters) {
-                    if(jsonObject.getJSONObject(WIND).has(windParameter)) {
-                        value = jsonObject.getJSONObject(WIND).getString(windParameter);
-                        values.put(windParameter, value);
-                    }
-                }
+//                saveLocation(reader.getString("id"));
+                final JSONArray cityList = reader.getJSONArray("list");
 
-                for (String cloudsParameter : cloudsParameters) {
-                    if(jsonObject.getJSONObject(CLOUDS).has(cloudsParameter)) {
-                        value = jsonObject.getJSONObject(CLOUDS).getString(cloudsParameter);
-                        values.put(cloudsParameter, value);
-                    }
-                }
-
-                for (String geoCoord : geoCoords) {
-                    if(jsonObject.getJSONObject(COORD).has(geoCoord)) {
-                        value = jsonObject.getJSONObject(COORD).getString(geoCoord);
-                        values.put(geoCoord, value);
-                    }
-                }
-
-                for (String weatherParameter : weatherParameters) {
-                    if(jsonObject.getJSONArray(WEATHER).getJSONObject(0).has(weatherParameter)) {
-                        value = jsonObject.getJSONArray(WEATHER).getJSONObject(0).getString(weatherParameter);
-                        values.put(weatherParameter, value);
-                    }
-                }
-
-                if(jsonObject.has(CITY_NAME)) {
-                    value = jsonObject.getString(CITY_NAME);
-                    values.put(CITY_NAME, value);
+                if (cityList.length() > 1) {
+                    launchLocationPickerDialog(cityList);
+                } else {
+                    saveLocation(cityList.getJSONObject(0).getString("id"));
                 }
 
             } catch (JSONException e) {
-                Log.e("ERROR", e.getMessage(), e);
+                Log.e("JSONException Data", response);
+                e.printStackTrace();
+                return ParseResult.JSON_EXCEPTION;
             }
 
-            return values;
-
+            return ParseResult.OK;
         }
 
+        @Override
+        protected String getAPIName() {
+            return "find";
+        }
 
         @Override
-        protected String doInBackground(String... strings) {
+        protected void onPostExecute(TaskOutput output) {
+            /* Handle possible errors only */
+            handleTaskOutput(output);
+            refreshWeather();
+        }
+    }
+
+    private void launchLocationPickerDialog(JSONArray cityList) {
+        AmbiguousLocationDialogFragment fragment = new AmbiguousLocationDialogFragment();
+        Bundle bundle = new Bundle();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+
+        bundle.putString("cityList", cityList.toString());
+        fragment.setArguments(bundle);
+
+        fragmentTransaction.setTransition( FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.add(android.R.id.content, fragment)
+                .addToBackStack(null).commit();
+    }
+
+    class ProvideCityNameTask extends GenericRequestTask {
+
+        public ProvideCityNameTask(Context context, WeatherPage activity, ProgressDialog progressDialog) {
+            super(context, activity, progressDialog);
+        }
+
+        @Override
+        protected void onPreExecute() { /*Nothing*/ }
+
+        @Override
+        protected String getAPIName() {
+            return "weather";
+        }
+
+        @Override
+        protected ParseResult parseResponse(String response) {
+            Log.i("RESULT", response.toString());
             try {
-                if (strings.length == 0) {
-                    return getSharedPreferences(PREFS_NAME, MODE_PRIVATE).getString(LAST_JSON, "");
+                JSONObject reader = new JSONObject(response);
+
+                final String code = reader.optString("cod");
+                if ("404".equals(code)) {
+                    Log.e("Geolocation", "No city found");
+                    return ParseResult.CITY_NOT_FOUND;
                 }
 
-                URL url = new URL(API_URL + API_URL_CITY_ID + strings[0] + API_URL_UNITS_METRIC + API_KEY);
+                saveLocation(reader.getString("id"));
 
-                if (strings.length == 2) {
-                    url = new URL(API_URL + API_URL_GEO_COORDS_LAT + strings[0] + API_URL_GEO_COORDS_LON + strings[1] + API_URL_UNITS_METRIC + API_KEY);
-                }
-
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                try {
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-                    StringBuilder stringBuilder = new StringBuilder();
-                    String line;
-                    while ((line = bufferedReader.readLine()) != null) {
-                        stringBuilder.append(line).append("\n");
-                    }
-                    bufferedReader.close();
-                    return stringBuilder.toString();
-                } finally {
-                    urlConnection.disconnect();
-                }
-            } catch (Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                System.out.println("ERROR");
-                return null;
-
+            } catch (JSONException e) {
+                Log.e("JSONException Data", response);
+                e.printStackTrace();
+                return ParseResult.JSON_EXCEPTION;
             }
+
+            return ParseResult.OK;
         }
 
         @Override
-        protected void onPostExecute(String response) {
+        protected void onPostExecute(TaskOutput output) {
+            /* Handle possible errors only */
+            handleTaskOutput(output);
 
-            if(response == null) {
-                Toast.makeText(getApplicationContext(), "There was an error.", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            refreshWeather();
+        }
+    }
 
-            HashMap<String, String> map = getData(response);
-
-            parametersTable.setVisibility(View.VISIBLE);
-            weatherTable.setVisibility(View.VISIBLE);
-//            forecastButton.setVisibility(View.VISIBLE);
-
-            humidityText.setText((map.get(HUMIDITY)) != null ? map.get(HUMIDITY) + HUMIDITY_UNIT : "no info");
-            pressureText.setText((map.get(PRESSURE)) != null ? map.get(PRESSURE) + PRESSURE_UNIT : "no info");
-            tempMaxText.setText((map.get(TEMP_MAX)) != null ? String.format("%.1f", Double.parseDouble(map.get(TEMP_MAX))) + TEMP_UNIT : "no info");
-            tempMinText.setText((map.get(TEMP_MIN)) != null ? String.format("%.1f", Double.parseDouble(map.get(TEMP_MIN))) + TEMP_UNIT : "no info");
-            cloudinessText.setText((map.get(CLOUDINESS)) != null ? map.get(CLOUDINESS) + CLOUDINESS_UNIT : "no info");
-            windSpeedText.setText((map.get(WIND_SPEED)) != null ? map.get(WIND_SPEED) + WIND_SPEED_UNIT : "no info");
-            windDegreeText.setText((map.get(WIND_DEGREES)) != null ? map.get(WIND_DEGREES) + WIND_DEGREES_UNIT : "no info");
-            coordsText.setText((map.get(COORD_LAT) != null || map.get(COORD_LON) != null) ? "[" + map.get(COORD_LAT) + ", " + map.get(COORD_LON) + "]" : "no info");
-            cityNameText.setText((map.get(CITY_NAME)) != null ? map.get(CITY_NAME) : "no info");
-            weatherIcon.setImageDrawable(getIcon(map.get(ICON_ID)));
-            temperatureText.setText((map.get(TEMP)) != null ? String.format("%.0f", Double.parseDouble(map.get(TEMP))) + TEMP_UNIT : "no info");
-            weatherDescText.setText((map.get(DESCRIPTION)) != null ? map.get(DESCRIPTION) : "no info");
+    class TodayUVITask extends GenericRequestTask {
+        public TodayUVITask(Context context, WeatherPage activity, ProgressDialog progressDialog) {
+            super(context, activity, progressDialog);
         }
 
-        private Drawable getIcon(String name) {
-            String iconName = "icon_" + name;
-            int iconId = getResources().getIdentifier(iconName, "drawable", getPackageName());
-            return getResources().getDrawable(iconId);
+        @Override
+        protected void onPreExecute() {
+            loading = 0;
+            super.onPreExecute();
         }
 
+        @Override
+        protected ParseResult parseResponse(String response) {
+            return parseTodayUVIJson(response);
+        }
+
+        @Override
+        protected String getAPIName() {
+            return "uvi";
+        }
+
+        @Override
+        protected void updateMainUI() {
+            updateUVIndexUI();
+        }
+    }
+
+    public static long saveLastUpdateTime(SharedPreferences sp) {
+        Calendar now = Calendar.getInstance();
+        sp.edit().putLong("lastUpdate", now.getTimeInMillis()).commit();
+        return now.getTimeInMillis();
+    }
+
+    private void updateLastUpdateTime() {
+        updateLastUpdateTime(
+                PreferenceManager.getDefaultSharedPreferences(this).getLong("lastUpdate", -1)
+        );
+    }
+
+    private void updateLastUpdateTime(long timeInMillis) {
+        if (timeInMillis < 0) {
+            // No time
+            lastUpdate.setText("");
+        } else {
+            lastUpdate.setText(getString(R.string.last_update, formatTimeWithDayIfNotToday(this, timeInMillis)));
+        }
+    }
+
+    public static String formatTimeWithDayIfNotToday(Context context, long timeInMillis) {
+        Calendar now = Calendar.getInstance();
+        Calendar lastCheckedCal = new GregorianCalendar();
+        lastCheckedCal.setTimeInMillis(timeInMillis);
+        Date lastCheckedDate = new Date(timeInMillis);
+        String timeFormat = android.text.format.DateFormat.getTimeFormat(context).format(lastCheckedDate);
+        if (now.get( Calendar.YEAR) == lastCheckedCal.get( Calendar.YEAR) &&
+                now.get( Calendar.DAY_OF_YEAR) == lastCheckedCal.get( Calendar.DAY_OF_YEAR)) {
+            // Same day, only show time
+            return timeFormat;
+        } else {
+            return android.text.format.DateFormat.getDateFormat(context).format(lastCheckedDate) + " " + timeFormat;
+        }
     }
 }
