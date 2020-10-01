@@ -16,7 +16,7 @@ import java.util.List;
 
 public class DBHelper2 extends SQLiteOpenHelper {
     public static final String DBNAME = "RiceInfo1.sqlite";
-    public static final String TABLE_NAME = "sow";
+    public static final String TABLE_NAME = "R1";
     public static final String DBLOCATION = "/data/data/com.example.farmermate/databases/";
     private Context mContext;
     private SQLiteDatabase mDatabase;
@@ -66,8 +66,8 @@ public class DBHelper2 extends SQLiteOpenHelper {
 
     private boolean copyDatabase() {
         try {
-            InputStream inputStream = mContext.getAssets().open(DBHelper.DBNAME);
-            String outFileName = DBHelper.DBLOCATION + DBHelper.DBNAME;
+            InputStream inputStream = mContext.getAssets().open(DBHelper2.DBNAME);
+            String outFileName = DBHelper2.DBLOCATION + DBHelper2.DBNAME;
             OutputStream outputStream = new FileOutputStream(outFileName);
             byte[] buff = new byte[1024];
             int length = 0;
@@ -106,7 +106,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
         Cursor cursor = mDatabase.rawQuery("Select * FROM R1 ", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            todo = new Todo(cursor.getString(0),cursor.getString(1),cursor.getString(2),cursor.getString(3));
+            todo = new Todo(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getString(3),cursor.getString(4));
             ToDoList.add(todo);
             cursor.moveToNext();
         }

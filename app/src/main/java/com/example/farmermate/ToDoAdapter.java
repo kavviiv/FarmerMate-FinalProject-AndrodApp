@@ -7,8 +7,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Date;
 import java.util.List;
 
+import static com.example.farmermate.CreateTable.Day;
 import static com.example.farmermate.CreateTable.Dtail;
 import static com.example.farmermate.CreateTable.Rec;
 import static com.example.farmermate.CreateTable.Step;
@@ -17,6 +19,7 @@ import static com.example.farmermate.CreateTable.Warn;
 public class ToDoAdapter extends BaseAdapter {
     private Context mContext;
     private List<Todo> ToDoList;
+    Date date;
 
 
     public ToDoAdapter(Context mContext, List<Todo> ToDoList) {
@@ -29,7 +32,9 @@ public class ToDoAdapter extends BaseAdapter {
     public static  Todo get(int position) {
         return null;
     }
-
+    public int getDay(){
+       return Day;
+    }
     public String getStep(){
         return Step;
     }
@@ -42,7 +47,6 @@ public class ToDoAdapter extends BaseAdapter {
     public String getWarn(){
         return Warn;
     }
-
 
     @Override
     public int getCount() {
@@ -59,8 +63,9 @@ public class ToDoAdapter extends BaseAdapter {
         return ToDoList.get(position).getId();
     }
 
-
-
+//    public Date getDate() {
+//        return date;
+//    }
 
 
     @Override
@@ -68,8 +73,11 @@ public class ToDoAdapter extends BaseAdapter {
 
         View v = View.inflate(mContext, R.layout.item_todo, null);
         TextView tvName = (TextView)v.findViewById(R.id.todo);
+        TextView textV = (TextView)v.findViewById(R.id.textView51);
         ImageView imgV =(ImageView)v.findViewById(R.id.imgv);
+        textV.setText(ToDoList.get(position).getDay());
         tvName.setText(ToDoList.get(position).getStep());
+
         imgV.setImageResource(R.drawable.riceim1);
         return v;
     }

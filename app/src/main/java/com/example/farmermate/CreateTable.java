@@ -30,6 +30,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
     Button createTable,clo;
     Spinner selectRice;
     private Context context;
+    public static int Day;
     public static String Step,Dtail,Rec,Warn;
     private ListView todoList;
     private ToDoAdapter madapter;
@@ -52,7 +53,9 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
 
-
+        String spinText = selectRice.getSelectedItem().toString();
+        Intent intent = new Intent(CreateTable.this, com.example.farmermate.Calendar.class);
+        intent.putExtra("Rname",spinText);
 
 
         selectRice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -78,8 +81,10 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
                 String spinText = selectRice.getSelectedItem().toString();
+                Intent i = new Intent(CreateTable.this, com.example.farmermate.Calendar.class);
                 Intent intent = new Intent(CreateTable.this, MapsActivity.class);
                 intent.putExtra("Rname",spinText);
+                i.putExtra("Rname",spinText);
                 startActivity(intent);
             }
         });
@@ -91,7 +96,8 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                 if(selectRice.getSelectedItem().equals("เลือกพันธุ์ข้าว")){
                     Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
                 }
-                else if( selectRice.getSelectedItem().equals("ข้าวดอกมะลิ 105")){
+                else if( selectRice.getSelectedItem().equals("ข้าวดอกมะลิ 105")) {
+
                     setContentView(R.layout.todo_listview);
                     todoList = (ListView) findViewById(R.id.todo_listview);
                     mDBHelper2 = new DBHelper2(CreateTable.this);
@@ -137,8 +143,11 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                         startActivity(intent);
                     }
                 });
+                }
 
-            }
+
+
+
             private boolean copyDatabase(Context context) {
                 try {
                     InputStream inputStream = context.getAssets().open(DBHelper.DBNAME);
@@ -161,11 +170,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         });
 
 
-
-
-
-
-
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,32 +181,18 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
         c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
         String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
         TextView dp = (TextView) findViewById(R.id.datepick);
         dp.setText(currentDateString);
+
+        Intent intent = new Intent(getApplicationContext() , CreateTable.class);
+        intent.putExtra("StartDate", currentDateString);
     }
-
-
-
-
 }
