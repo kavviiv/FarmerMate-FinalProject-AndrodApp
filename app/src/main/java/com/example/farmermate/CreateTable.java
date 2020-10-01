@@ -53,7 +53,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
 
-        String spinText = selectRice.getSelectedItem().toString();
+        final String spinText = selectRice.getSelectedItem().toString();
         Intent intent = new Intent(CreateTable.this, com.example.farmermate.Calendar.class);
         intent.putExtra("Rname",spinText);
 
@@ -121,6 +121,10 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                     todoList.setAdapter(madapter);
 
                 }
+                else if( selectRice.getSelectedItem().equals("กข 5")){
+
+                }
+
                 else{
 
                 }

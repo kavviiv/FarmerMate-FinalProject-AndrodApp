@@ -14,6 +14,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.database.sqlite.SQLiteDatabase.*;
+
 public class DBHelper2 extends SQLiteOpenHelper {
     public static final String DBNAME = "RiceInfo1.sqlite";
     public static final String TABLE_NAME = "R1";
@@ -87,7 +89,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
     public boolean openDatabase() {
         String mPath = DBLOCATION + DBNAME;
         //Log.v("mPath", mPath);
-        mDatabase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.CREATE_IF_NECESSARY);
+        mDatabase = SQLiteDatabase.openDatabase(mPath, null, CREATE_IF_NECESSARY);
         //mDataBase = SQLiteDatabase.openDatabase(mPath, null, SQLiteDatabase.NO_LOCALIZED_COLLATORS);
         return mDatabase != null;
     }
@@ -97,6 +99,7 @@ public class DBHelper2 extends SQLiteOpenHelper {
             mDatabase.close();
         }
     }
+    public static String RiceWork = "SELECT * FROM R1 " ;
 
 
     public List<Todo> getToDoList0() {
