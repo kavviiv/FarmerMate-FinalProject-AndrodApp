@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/app_bar_search_city"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Search city"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView" />
+    <item
+        android:id="@+id/app_bar_search_location"
+        android:title="Search by geo coordinates"
+        app:showAsAction="ifRoom"/>
+    <group
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        app:showAsAction="never">
+
+        <item
+            android:id="@+id/action_month"
+            android:orderInCategory="100"
+            android:title="Month"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_month_with_below_events"
+            android:orderInCategory="200"
+            android:title="Month With Events"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_week"
+            android:orderInCategory="300"
+            android:title="Week"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_day"
+            android:orderInCategory="400"
+            android:title="Day"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/action_agenda"
+            android:orderInCategory="500"
+            android:title="Agenda"
+            app:showAsAction="never" />
+
+
+        <item
+            android:id="@+id/action_today"
+            android:orderInCategory="600"
+            android:title="Today"
+            app:showAsAction="never" />
+
+    </group>
+</menu>
