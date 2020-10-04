@@ -32,7 +32,7 @@ public class ToDoAdapter extends BaseAdapter {
     public static  Todo get(int position) {
         return null;
     }
-    public int getDay(){
+    public static int getDay(){
        return Day;
     }
     public String getStep(){

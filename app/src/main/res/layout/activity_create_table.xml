@@ -40,7 +40,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/crice"
         android:textColor="#000000"
@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="54dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:background="#FFFFFF"
         android:entries="@array/rice_name"
@@ -70,13 +70,14 @@
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/tkodb"
         android:text="@string/tab12"
         android:textColor="#000000"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rice" />
+
 
     <TextView
         android:id="@+id/datepick"
@@ -85,7 +86,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:background="#FFF2F2"
         android:backgroundTint="#FFFFFF"
         android:fontFamily="@font/tkodb"
@@ -97,18 +98,32 @@
         app:layout_constraintTop_toBottomOf="@+id/cdate" />
 
     <TextView
-        android:id="@+id/loca"
+        android:id="@+id/size"
         android:layout_width="272dp"
         android:layout_height="36dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/tkodb"
-        android:text="@string/cloca"
+        android:text="@string/size"
         android:textColor="#000000"
         app:autoSizeTextType="uniform"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/datepick" />
+
+    <TextView
+        android:id="@+id/size1"
+        android:layout_width="29dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/size1"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toEndOf="@+id/sizze"
+        app:layout_constraintTop_toBottomOf="@+id/size" />
 
     <Button
         android:id="@+id/createTable"
@@ -122,15 +137,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+
     <Button
         android:id="@+id/CLocate"
         android:layout_width="397dp"
         android:layout_height="48dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
         android:background="#FFFFFF"
         android:text="เลือกพื้นที่ปลูก"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loca" />
 
@@ -138,12 +154,38 @@
         android:id="@+id/tv22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginLeft="188dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
-        app:layout_constraintEnd_toStartOf="@+id/CLocate"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/CLocate"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loca" />
+
+    <TextView
+        android:id="@+id/loca"
+        android:layout_width="272dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/tkodb"
+        android:text="@string/cloca"
+        android:textColor="#000000"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sizze" />
+
+    <EditText
+        android:id="@+id/sizze"
+        android:layout_width="121dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/size" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

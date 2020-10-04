@@ -161,6 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 public void onClick(View view) {
                     Map<String, Object> user = new HashMap<>();
                     user.put("RiceName", getIntent().getStringExtra("Rname"));
+                    user.put("Size", getIntent().getStringExtra("Size"));
                     user.put("Latitude", mLastLocation.getLatitude());
                     user.put("Longtitude", mLastLocation.getLongitude());
                     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -180,20 +181,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 }
                             });
 
-//                    db.collection("User Location")
-//                            .add(user)
-//                            .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                @Override
-//                                public void onSuccess(DocumentReference documentReference) {
-//                                    Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
-//                                }
-//                            })
-//                            .addOnFailureListener(new OnFailureListener() {
-//                                @Override
-//                                public void onFailure(@NonNull Exception e) {
-//                                    Log.w(TAG, "Error adding document", e);
-//                                }
-//                            });
+
                     //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
                     Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
                     MapsActivity.this.finish();

@@ -15,7 +15,9 @@
     <!-- Forecast cards -->
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
-    <string name="later">วันถัดไป</string>
+    <string name ="NextDay">วันถัดไป</string>
+    <string name="later">4 วันถัดไป</string>
+
 
     <!-- Main activity headings -->
     <string name="wind">กระแสลม</string>

@@ -4,11 +4,13 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -17,17 +19,25 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 public class CreateTable extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView dp,tv22;
     Button createTable,clo;
+    EditText size;
     Spinner selectRice;
     private Context context;
     public static int Day;
@@ -52,10 +62,9 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         selectRice = (Spinner) findViewById(R.id.rice);
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
+        size = (EditText)findViewById(R.id.sizze);
 
-        final String spinText = selectRice.getSelectedItem().toString();
-        Intent intent = new Intent(CreateTable.this, com.example.farmermate.Calendar.class);
-        intent.putExtra("Rname",spinText);
+
 
 
         selectRice.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -80,11 +89,12 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String size1 = size.getText().toString() ;
                 String spinText = selectRice.getSelectedItem().toString();
-                Intent i = new Intent(CreateTable.this, com.example.farmermate.Calendar.class);
                 Intent intent = new Intent(CreateTable.this, MapsActivity.class);
                 intent.putExtra("Rname",spinText);
-                i.putExtra("Rname",spinText);
+                intent.putExtra("Size",size1);
                 startActivity(intent);
             }
         });
@@ -122,11 +132,18 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
 
                 }
                 else if( selectRice.getSelectedItem().equals("กข 5")){
-
-                }
+        }
 
                 else{
-
+                    Intent intent = new Intent(Intent.ACTION_INSERT)
+                            .setData(CalendarContract.Events.CONTENT_URI)
+                            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, "")
+                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, "")
+                            .putExtra(CalendarContract.Events.TITLE, "")
+                            .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
+                            .putExtra(CalendarContract.Events.EVENT_LOCATION, "")
+                            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
+                    startActivity(intent);
                 }
 
                 todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -136,20 +153,16 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                         String Dtail = ToDoList.get(position).getDtail();
                         String Rec = ToDoList.get(position).getRec();
                         String Warn = ToDoList.get(position).getWarn();
-
                         Intent intent = new Intent(getApplicationContext() ,TablePage.class);
                         intent.putExtra("Position", position);
                         intent.putExtra("Step", Step);
                         intent.putExtra("Dtail", Dtail);
                         intent.putExtra("Rec", Rec);
                         intent.putExtra("Warn",Warn);
-
                         startActivity(intent);
                     }
                 });
                 }
-
-
 
 
             private boolean copyDatabase(Context context) {

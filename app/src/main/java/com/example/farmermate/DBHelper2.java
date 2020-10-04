@@ -117,4 +117,18 @@ public class DBHelper2 extends SQLiteOpenHelper {
         closeDatabase();
         return ToDoList;
     }
+
+    public ArrayList<String> getAllWork() {
+        Work work = null;
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> Work = new ArrayList<>();
+        Cursor res = db.rawQuery( "select * FROM R1", null );
+        res.moveToFirst();
+        while(res.isAfterLast() == false) {
+            work = new Work (res.getInt(0),res.getString(1),res.getString(2),res.getString(3),res.getString(4));
+            res.moveToNext();
+        }
+        return Work;
+    }
+
 }

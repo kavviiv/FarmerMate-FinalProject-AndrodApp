@@ -61,7 +61,7 @@ public class HomePage extends AppCompatActivity {
         mon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent I = new Intent(HomePage.this, Calendar.class);
+                Intent I = new Intent(HomePage.this, CalendarAc.class);
                 startActivity(I);
             }
         });

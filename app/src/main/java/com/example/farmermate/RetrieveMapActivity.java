@@ -12,6 +12,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -59,11 +61,14 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
 
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     String lat = child.child("Latitude").getValue().toString();
                     String lng = child.child("Longtitude").getValue().toString();
                     String Rname = child.child("RiceName").getValue().toString();
+                    String Size = child.child("Size").getValue().toString();
+
+
 
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lng);
@@ -74,10 +79,21 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
 //
 //                LatLng location = new LatLng(latitude,longitude);
 
-                    mMap.addMarker(new MarkerOptions().position(location).title(Rname));
+                    mMap.addMarker(new MarkerOptions().position(location).title(Rname +" "+ "จำนวน"+ " " + Size + " " +"ไร่"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+
+                    Circle circle = mMap.addCircle(
+                            new CircleOptions()
+                                    .center(location)
+                                    .radius(100)
+                                    .strokeWidth(0f)
+                                    .fillColor(0x66aaaFFF)
+                    );
+
+
                 }
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

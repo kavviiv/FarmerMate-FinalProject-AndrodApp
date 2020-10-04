@@ -101,6 +101,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
     private List<Weather> longTermWeather = new ArrayList<>();
     private List<Weather> longTermTodayWeather = new ArrayList<>();
     private List<Weather> longTermTomorrowWeather = new ArrayList<>();
+    private List<Weather> longTermAfterTomWeather = new ArrayList<>();
 
     public String recentCityId = "";
 
@@ -201,8 +202,11 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTodayWeather);
         } else if (id == 1) {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTomorrowWeather);
-        } else {
+        } else if(id == 2){
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermWeather);
+        }
+        else{
+            weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermAfterTomWeather);
         }
         return weatherRecyclerAdapter;
     }
@@ -529,6 +533,8 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
                     longTermWeather = new ArrayList<>();
                     longTermTodayWeather = new ArrayList<>();
                     longTermTomorrowWeather = new ArrayList<>();
+                    longTermAfterTomWeather = new ArrayList<>();
+
                 }
                 return ParseResult.CITY_NOT_FOUND;
             }
@@ -536,6 +542,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
             longTermWeather = new ArrayList<>();
             longTermTodayWeather = new ArrayList<>();
             longTermTomorrowWeather = new ArrayList<>();
+            longTermAfterTomWeather = new ArrayList<>();
 
             JSONArray list = reader.getJSONArray("list");
             for (i = 0; i < list.length(); i++) {
@@ -585,16 +592,19 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
                 Calendar tomorrow = (Calendar) today.clone();
                 tomorrow.add( Calendar.DAY_OF_YEAR, 1);
-
+                Calendar dayafter = (Calendar) today.clone();
+                dayafter.add(Calendar.DAY_OF_YEAR, 2);
                 Calendar later = (Calendar) today.clone();
-                later.add( Calendar.DAY_OF_YEAR, 2);
+                later.add( Calendar.DAY_OF_YEAR, 3);
 
                 if (cal.before(tomorrow)) {
                     longTermTodayWeather.add(weather);
-                } else if (cal.before(later)) {
+                } else if (cal.before(dayafter)) {
                     longTermTomorrowWeather.add(weather);
-                } else {
+                } else if(cal.before(later)){
                     longTermWeather.add(weather);
+                }else{
+                    longTermAfterTomWeather.add(weather);
                 }
             }
             PreferenceManager.getDefaultSharedPreferences(WeatherPage.this)
@@ -629,8 +639,14 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         recyclerViewFragmentTomorrow.setArguments(bundleTomorrow);
         viewPagerAdapter.addFragment(recyclerViewFragmentTomorrow, getString(R.string.tomorrow));
 
+        Bundle bundleLater = new Bundle();
+        bundleLater.putInt("day", 2);
+        RecyclerViewFragment recyclerViewFragmentLater = new RecyclerViewFragment();
+        recyclerViewFragmentLater.setArguments(bundleLater);
+        viewPagerAdapter.addFragment(recyclerViewFragmentLater, getString(R.string.NextDay));
+
         Bundle bundle = new Bundle();
-        bundle.putInt("day", 2);
+        bundle.putInt("day", 3);
         RecyclerViewFragment recyclerViewFragment = new RecyclerViewFragment();
         recyclerViewFragment.setArguments(bundle);
         viewPagerAdapter.addFragment(recyclerViewFragment, getString(R.string.later));
