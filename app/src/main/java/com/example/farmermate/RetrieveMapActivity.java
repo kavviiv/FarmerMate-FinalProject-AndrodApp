@@ -2,6 +2,7 @@ package com.example.farmermate;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -27,7 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.List;
 import java.util.Locale;
 
+import static android.location.Location.*;
+
 public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyCallback {
+    private Location mLastLocation;
 
     private GoogleMap mMap;
     Marker marker;
@@ -57,6 +61,17 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+//        LatLng latLng = new LatLng( ,
+//                mLastLocation.getLongitude());
+//        googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
+//        googleMap.addMarker(new MarkerOptions().position(latLng).title("ที่อยู่ของคุณ"));
+//        Circle circle = mMap.addCircle(
+//                new CircleOptions()
+//                        .center(latLng)
+//                        .radius(100)
+//                        .strokeWidth(0f)
+//                        .fillColor(0x66aaaFFF)
+//        );
 
 
 
@@ -84,13 +99,6 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
                     mMap.addMarker(new MarkerOptions().position(location).title(Rname +" "+ "จำนวน"+ " " + Size + " " +"ไร่"));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
 
-                    Circle circle = mMap.addCircle(
-                            new CircleOptions()
-                                    .center(location)
-                                    .radius(100)
-                                    .strokeWidth(0f)
-                                    .fillColor(0x66aaaFFF)
-                    );
 
 
                 }
