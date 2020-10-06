@@ -1,6 +1,7 @@
 package com.example.farmermate;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.CaseMap;
@@ -317,7 +318,11 @@ public class CalendarAc extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.onDestroy();
+    }
 
     public class WorkAdapter extends BaseAdapter {
         private Context aContext;

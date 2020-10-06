@@ -38,7 +38,7 @@ public class CalendarAc1 extends AppCompatActivity {
     public static String Step1,Detail,Reco,Warni;
     public String Step;
     private Toolbar toolbar;
-    MyDynamicCalendar myCalendar;
+    MyDynamicCalendar myCalendar2;
     TextView tv1;
     ArrayList<String> Work1;
     SQLiteDatabase mDB;
@@ -53,15 +53,15 @@ public class CalendarAc1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calen1);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar1);
+        myCalendar2 = (MyDynamicCalendar) findViewById(R.id.myCalendar1);
         setSupportActionBar(toolbar);
-        myCalendar.showMonthViewWithBelowEvents();
-        myCalendar.setOnDateClickListener(new OnDateClickListener() {
+        myCalendar2.showMonthViewWithBelowEvents();
+        myCalendar2.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
                 Log.e("date", String.valueOf(date));
                 long eventID = 208;
-                myCalendar.getEventList(new GetEventListListener() {
+                myCalendar2.getEventList(new GetEventListListener() {
                     @Override
                     public void eventList(ArrayList<EventModel> eventList) {
                         Log.e("tag", "eventList.size():-" + eventList.size());
@@ -76,46 +76,44 @@ public class CalendarAc1 extends AppCompatActivity {
                 Log.e("date", String.valueOf(date));
             }
         });
-        myCalendar.setCalendarBackgroundColor("#87FFE7");
-        myCalendar.setHeaderBackgroundColor("#87FFE7");
-        myCalendar.setHeaderTextColor("#ffffff");
-        myCalendar.setNextPreviousIndicatorColor("#FF03A9F4");
-        myCalendar.setWeekDayLayoutBackgroundColor("#87FFE7");
-        myCalendar.setWeekDayLayoutTextColor("#0045149E");
-        myCalendar.setExtraDatesOfMonthBackgroundColor("#87FFE7");
-        myCalendar.setExtraDatesOfMonthTextColor("#756325");
-        myCalendar.setDatesOfMonthBackgroundColor("#87FFE7");
-        myCalendar.setDatesOfMonthTextColor("#745632");
-        myCalendar.setCurrentDateTextColor("#00e600");
-        myCalendar.setEventCellBackgroundColor("#87FFE7");
-        myCalendar.setEventCellTextColor("#425684");
+        myCalendar2.setCalendarBackgroundColor("#87FFE7");
+        myCalendar2.setHeaderBackgroundColor("#87FFE7");
+        myCalendar2.setHeaderTextColor("#ffffff");
+        myCalendar2.setNextPreviousIndicatorColor("#FF03A9F4");
+        myCalendar2.setWeekDayLayoutBackgroundColor("#87FFE7");
+        myCalendar2.setWeekDayLayoutTextColor("#0045149E");
+        myCalendar2.setExtraDatesOfMonthBackgroundColor("#87FFE7");
+        myCalendar2.setExtraDatesOfMonthTextColor("#756325");
+        myCalendar2.setDatesOfMonthBackgroundColor("#87FFE7");
+        myCalendar2.setDatesOfMonthTextColor("#745632");
+        myCalendar2.setCurrentDateTextColor("#00e600");
+        myCalendar2.setEventCellBackgroundColor("#FF00BCD4");
+        myCalendar2.setEventCellTextColor("#425684");
 
         String std = getIntent().getStringExtra("Date");
         String stm = getIntent().getStringExtra("Month");
         String sty = getIntent().getStringExtra("Year");
         int i = Integer.parseInt(std);
-        myCalendar.addEvent( std+"-"+stm+"-"+sty ,"20:54","23:00", "เตรียมหน้าดินครั้งที่ 1 โดยการไถดะ");
-        myCalendar.addEvent( (i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 2 โดยการไถแปร");
-        myCalendar.addEvent((i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมเมล็ดพันธุ์โดยการนำไปแช่น้ำ เพื่อให้เกิดการงอกของราก");
-        myCalendar.addEvent((i+28)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 3 โดยการไถคราด");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
-        myCalendar.addEvent((i+31)+"-"+stm+"-"+sty,"08:00","18:00", "หว่านข้าว");
-        myCalendar.addEvent((i+51)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 1 \n ใส่ปุ๋ยสูตร 16-16-8 หรือปุ๋ยที่มีว่สนผสมของแอมโมเนียมฟอสเฟตสูตรต่างๆ");
-        myCalendar.addEvent((i+61)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2 \n ");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
-        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "เก็บเกี่ยว");
-        myCalendar.setBelowMonthEventTextColor("#425684");
+        myCalendar2.addEvent( std+"-"+stm+"-"+sty ,"20:54","23:00", "เตรียมหน้าดินครั้งที่ 1 โดยการไถดะ");
+        myCalendar2.addEvent( (i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 2 โดยการไถแปร");
+        myCalendar2.addEvent((i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมเมล็ดพันธุ์โดยการนำไปแช่น้ำ เพื่อให้เกิดการงอกของราก");
+        myCalendar2.addEvent((i+28)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 3 โดยการไถคราด");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
+        myCalendar2.addEvent((i+51)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 1 \n ใส่ปุ๋ยสูตร 16-16-8 หรือปุ๋ยที่มีว่สนผสมของแอมโมเนียมฟอสเฟตสูตรต่างๆ");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
+        myCalendar2.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "เก็บเกี่ยว");
+        myCalendar2.setBelowMonthEventTextColor("#425684");
 //        myCalendar.setBelowMonthEventTextColor(R.color.black);
-        myCalendar.setBelowMonthEventDividerColor("#0045149E");
+        myCalendar2.setBelowMonthEventDividerColor("#0045149E");
 //        myCalendar.setBelowMonthEventDividerColor(R.color.black);
-        myCalendar.setHolidayCellBackgroundColor("#0045149E");
+        myCalendar2.setHolidayCellBackgroundColor("#0045149E");
 //        myCalendar.setHolidayCellBackgroundColor(R.color.black);
-        myCalendar.setHolidayCellTextColor("#d590bb");
+        myCalendar2.setHolidayCellTextColor("#d590bb");
 //        myCalendar.setHolidayCellTextColor(R.color.black);
     }
     private boolean copyDatabase(Context context) {
@@ -139,7 +137,7 @@ public class CalendarAc1 extends AppCompatActivity {
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu1, menu);
+        getMenuInflater().inflate(R.menu.main_menu2, menu);
         return true;
     }
 
@@ -163,7 +161,7 @@ public class CalendarAc1 extends AppCompatActivity {
                 showAgendaView();
                 return true;
             case R.id.action_today:
-                myCalendar.goToCurrentDate();
+                myCalendar2.goToCurrentDate();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -173,9 +171,9 @@ public class CalendarAc1 extends AppCompatActivity {
 
     private void showMonthView() {
 
-        myCalendar.showMonthView();
+        myCalendar2.showMonthView();
 
-        myCalendar.setOnDateClickListener(new OnDateClickListener() {
+        myCalendar2.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
                 Log.e("date", String.valueOf(date));
@@ -191,9 +189,9 @@ public class CalendarAc1 extends AppCompatActivity {
 
     private void showMonthViewWithBelowEvents() {
 
-        myCalendar.showMonthViewWithBelowEvents();
+        myCalendar2.showMonthViewWithBelowEvents();
 
-        myCalendar.setOnDateClickListener(new OnDateClickListener() {
+        myCalendar2.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
                 Log.e("date", String.valueOf(date));
@@ -209,9 +207,9 @@ public class CalendarAc1 extends AppCompatActivity {
 
     private void showWeekView() {
 
-        myCalendar.showWeekView();
+        myCalendar2.showWeekView();
 
-        myCalendar.setOnEventClickListener(new OnEventClickListener() {
+        myCalendar2.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onClick() {
                 Log.e("showWeekView","from setOnEventClickListener onClick");
@@ -224,7 +222,7 @@ public class CalendarAc1 extends AppCompatActivity {
             }
         });
 
-        myCalendar.setOnWeekDayViewClickListener(new OnWeekDayViewClickListener() {
+        myCalendar2.setOnWeekDayViewClickListener(new OnWeekDayViewClickListener() {
             @Override
             public void onClick(String date, String time) {
                 Log.e("showWeekView", "from setOnWeekDayViewClickListener onClick");
@@ -245,9 +243,9 @@ public class CalendarAc1 extends AppCompatActivity {
 
     private void showDayView() {
 
-        myCalendar.showDayView();
+        myCalendar2.showDayView();
 
-        myCalendar.setOnEventClickListener(new OnEventClickListener() {
+        myCalendar2.setOnEventClickListener(new OnEventClickListener() {
             @Override
             public void onClick() {
                 Log.e("showDayView", "from setOnEventClickListener onClick");
@@ -261,7 +259,7 @@ public class CalendarAc1 extends AppCompatActivity {
             }
         });
 
-        myCalendar.setOnWeekDayViewClickListener(new OnWeekDayViewClickListener() {
+        myCalendar2.setOnWeekDayViewClickListener(new OnWeekDayViewClickListener() {
             @Override
             public void onClick(String date, String time) {
                 Log.e("showDayView", "from setOnWeekDayViewClickListener onClick");
@@ -279,9 +277,9 @@ public class CalendarAc1 extends AppCompatActivity {
 
     private void showAgendaView() {
 
-        myCalendar.showAgendaView();
+        myCalendar2.showAgendaView();
 
-        myCalendar.setOnDateClickListener(new OnDateClickListener() {
+        myCalendar2.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
                 Log.e("date", String.valueOf(date));
@@ -294,7 +292,11 @@ public class CalendarAc1 extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.onDestroy();
+    }
 
 
     public class WorkAdapter extends BaseAdapter {

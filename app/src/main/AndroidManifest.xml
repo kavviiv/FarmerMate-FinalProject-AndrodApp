@@ -42,6 +42,7 @@
             android:value="AIzaSyB9b0KPnn6793XEV_wcm0yORapUnCkMEFQ" />
 
         <activity android:name=".CalendarAc" />
+        <activity android:name=".CalendarAc1" />
         <activity android:name=".RetrieveMapActivity" />
         <activity
             android:name=".MapsActivity"

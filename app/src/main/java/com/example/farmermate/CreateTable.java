@@ -22,6 +22,7 @@ import androidx.fragment.app.DialogFragment;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -37,7 +38,7 @@ import java.util.StringTokenizer;
 import static java.util.Calendar.MONTH;
 
 public class CreateTable extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
-    TextView dp,tv22;
+    TextView dp,tv22,looc;
     Button createTable,clo;
     EditText size;
     Spinner selectRice;
@@ -65,6 +66,11 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo = (Button) findViewById(R.id.CLocate);
         tv22 = (TextView) findViewById(R.id.tv22);
         size = (EditText)findViewById(R.id.sizze);
+        looc = (TextView)findViewById(R.id.looc);
+
+
+
+        looc.setText("ละติจูด: " + getIntent().getStringExtra("la")  + " ลองจิจูด: " + getIntent().getStringExtra("lo"));
 
 
 
@@ -105,26 +111,22 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         createTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(selectRice.getSelectedItem().equals("เลือกพันธุ์ข้าว")){
                     Toast.makeText(getApplicationContext(), "เลือกพันธุ์ข้าวที่ท่านต้องการจะปลูก", Toast.LENGTH_LONG).show();
                 }
-                else if(dp.isCursorVisible()){
-                    Toast.makeText(getApplicationContext(), "เลือกวันที่ท่านต้องการจะปลูก", Toast.LENGTH_LONG).show();
-                }
                 else if( selectRice.getSelectedItem().equals("ข้าวดอกมะลิ 105")) {
-
-                    CreateTable.this.isFinishing();
-                    String dat = dp.getText().toString();
-                    String [] dateParts = dat.split("-");
-                    String day = dateParts[0];
-                    String month = dateParts[1];
-                    String year = dateParts[2];
-                    Intent intent = new Intent(CreateTable.this, CalendarAc.class);
-                    intent.putExtra("Date",day);
-                    intent.putExtra("Month",month);
-                    intent.putExtra("Year",year);
-                    startActivity(intent);
-
+                        String dat = dp.getText().toString();
+                        String[] dateParts = dat.split("-");
+                        String day = dateParts[0];
+                        String month = dateParts[1];
+                        String year = dateParts[2];
+                        Intent intent = new Intent(CreateTable.this, CalendarAc.class);
+                        intent.putExtra("Date", day);
+                        intent.putExtra("Month", month);
+                        intent.putExtra("Year", year);
+                        startActivity(intent);
+                    }
 //                    setContentView(R.layout.todo_listview);
 //                    todoList = (ListView) findViewById(R.id.todo_listview);
 //                    mDBHelper2 = new DBHelper2(CreateTable.this);
@@ -147,7 +149,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
 //                    //Set adapter for listview
 //                    todoList.setAdapter(madapter);
 
-                }
                 else if( selectRice.getSelectedItem().equals("สันป่าตอง")){
                     String dat = dp.getText().toString();
                     String [] dateParts = dat.split("-");
@@ -159,19 +160,10 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                     intent.putExtra("Month",month);
                     intent.putExtra("Year",year);
                     startActivity(intent);
-
                 }
 
                 else{
-                    Intent intent = new Intent(Intent.ACTION_INSERT)
-                            .setData(CalendarContract.Events.CONTENT_URI)
-                            .putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, "")
-                            .putExtra(CalendarContract.EXTRA_EVENT_END_TIME, "")
-                            .putExtra(CalendarContract.Events.TITLE, "")
-                            .putExtra(CalendarContract.Events.DESCRIPTION, "Group class")
-                            .putExtra(CalendarContract.Events.EVENT_LOCATION, "")
-                            .putExtra(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
-                    startActivity(intent);
+                    Toast.makeText(CreateTable.this, "กรุณากรอกข้อมูลให้ครบ", Toast.LENGTH_SHORT).show();
                 }
 
 //                todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -190,6 +182,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
 //                        startActivity(intent);
 //                    }
 //                });
+
                 }
 
 

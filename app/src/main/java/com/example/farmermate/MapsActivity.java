@@ -1,6 +1,7 @@
 package com.example.farmermate;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -149,6 +150,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             value_lng =String.valueOf(mLastLocation.getLongitude());
             mLatitudeText.setText(value_lat);
             mLongitudeText.setText(value_lng);
+
             SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
@@ -159,6 +161,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 @Override
                 public void onClick(View view) {
+                    String la = String.valueOf(mLastLocation.getLatitude());
+                    String lo = String.valueOf(mLastLocation.getLongitude()) ;
+                    Intent intent = new Intent(MapsActivity.this, CreateTable.class);
+                    intent.putExtra("la",la);
+                    intent.putExtra("lo",lo);
                     Map<String, Object> user = new HashMap<>();
                     user.put("RiceName", getIntent().getStringExtra("Rname"));
                     user.put("Size", getIntent().getStringExtra("Size"));
@@ -188,6 +195,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 }
             });}
+
+
         }
 
     @Override
