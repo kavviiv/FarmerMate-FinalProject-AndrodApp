@@ -50,9 +50,9 @@
                             android:id="@+id/todayTemperature"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="0 °C"
                             android:textColor="@color/text_light"
-                            android:textSize="36sp"/>
+                            android:textSize="36sp"
+                            tools:text="0 °C" />
 
                         <TextView
                             android:id="@+id/todayDescription"

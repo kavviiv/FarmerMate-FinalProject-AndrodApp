@@ -36,6 +36,16 @@
     <string name="tab12">เลือกวันที่ท่านต้องการปลูก</string>
     <string name="weath">สภาพอากาศ</string>
     <string name="submit">submit</string>
+
+
+    <string name="Amount">จำนวนเงิน</string>
+    <string name="Category">ประเภท</string>
+    <string name="Notes">โน๊ต</string>
+    <string name="Delete">ลบ</string>
+    <string name="Edit">แก้ไข</string>
+    <string name="Spenton">ตั้งค่า</string>
+
+
     <string-array name="province_array">
         <item>ภาคเหนือ</item>
         <item>เชียงราย</item>
@@ -133,37 +143,8 @@
     <string-array name="rice_name">
         <item>เลือกพันธุ์ข้าว</item>
         <item>ข้าวดอกมะลิ 105</item>
-        <item>ข้าวตาแห้ง 17</item>
-        <item>กข. 5</item>
-        <item>กข. 13</item>
-        <item>เหลืองประทิว 123</item>
-        <item>นางมล เอส-4</item>
-        <item>ข้าวเจ้าหอมพิษณุโลก 1</item>
-        <item>กข. 3</item>
-        <item>กข. 7</item>
-        <item>กข. 29</item>
-        <item>กข. 33</item>
-        <item>กข. 43</item>
-        <item>กข. 47</item>
-        <item>กข. 55</item>
-        <item>กข. 29</item>
-        <item>กข. 3</item>
-        <item>กข. 7</item>
-        <item>กข. 6</item>
-        <item>เหนียวดำหมอ 37</item>
-        <item>เขี้ยวงู</item>
-        <item>เหนียวอุบล 1</item>
-        <item>เหนียวอุบล 2</item>
-        <item>หนียวดำช่อไม้ไผ่</item>
-        <item>กำผาย 15</item>
-        <item>กข. 18</item>
-        <item>กข. 12</item>
-        <item>กข. 8</item>
-        <item>กข. 2</item>
-        <item>กข. 4</item>
-        <item>กข. 10</item>
-        <item>กข. 22</item>
-        <item>กข. 14</item>
+        <item>สันป่าตอง</item>
+
     </string-array>
     <string-array name="rice_descrip">
         <item>เป็นข้าวเจ้า มีช่วงเก็บเกี่ยวในเดือนพฤศจิกายน \n ผลผลิตเฉลี่ย 363 กิโลกรัมต่อไร่ อมิโลสต่ำ ข้าวสุกนุ่มหอม \n เมล็ดมีระยะพักตัว 8 สัปดาห์ ทนแล้งได้ดีพอสมควร \n ทนดินเปรี้ยวและดินเค็ม

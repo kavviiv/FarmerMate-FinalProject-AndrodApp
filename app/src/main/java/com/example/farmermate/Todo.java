@@ -24,7 +24,11 @@ public Todo(int Day,String Step, String Dtail,String Rec, String Warn)
         this.Warn = Warn;
         }
 
-        public int getDay(){
+    public static Todo get(int i) {
+    return null;
+    }
+
+    public int getDay(){
             return Day;
         }
         public void setDay(int Day){

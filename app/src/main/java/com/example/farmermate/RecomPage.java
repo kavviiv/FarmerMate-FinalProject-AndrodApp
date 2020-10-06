@@ -1108,6 +1108,7 @@ public class RecomPage extends Activity {
                                 lvProduct.setAdapter(adapter);
 
 
+
                             }
                             //-----------------------------------------------------------------
                             else {
@@ -1135,6 +1136,8 @@ public class RecomPage extends Activity {
                         }
                     });
                 }
+                RecomPage.this.onPostResume();
+
             }
 
             private boolean copyDatabase(Context context) {

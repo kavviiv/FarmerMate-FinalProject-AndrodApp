@@ -1,16 +1,11 @@
 package com.example.farmermate;
 
+import android.app.PendingIntent;
 import android.content.Context;
-import android.database.Cursor;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.icu.text.CaseMap;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import com.desai.vatsal.mydynamiccalendar.EventModel;
 import com.desai.vatsal.mydynamiccalendar.GetEventListListener;
@@ -27,23 +26,14 @@ import com.desai.vatsal.mydynamiccalendar.OnDateClickListener;
 import com.desai.vatsal.mydynamiccalendar.OnEventClickListener;
 import com.desai.vatsal.mydynamiccalendar.OnWeekDayViewClickListener;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Scanner;
 
-import static com.example.farmermate.ToDoAdapter.getStep;
-import static com.example.farmermate.Todo.*;
-
-public class CalendarAc extends AppCompatActivity {
+public class CalendarAc1 extends AppCompatActivity {
     public static int Day1;
     public static String Step1,Detail,Reco,Warni;
     public String Step;
@@ -61,9 +51,9 @@ public class CalendarAc extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_calen);
+        setContentView(R.layout.activity_calen1);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar);
+        myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar1);
         setSupportActionBar(toolbar);
         myCalendar.showMonthViewWithBelowEvents();
         myCalendar.setOnDateClickListener(new OnDateClickListener() {
@@ -98,7 +88,7 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.setDatesOfMonthTextColor("#745632");
         myCalendar.setCurrentDateTextColor("#00e600");
         myCalendar.setEventCellBackgroundColor("#87FFE7");
-        myCalendar.setEventCellTextColor("#FFF44336");
+        myCalendar.setEventCellTextColor("#425684");
 
         String std = getIntent().getStringExtra("Date");
         String stm = getIntent().getStringExtra("Month");
@@ -110,36 +100,24 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.addEvent((i+28)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 3 โดยการไถคราด");
         myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
         myCalendar.addEvent((i+31)+"-"+stm+"-"+sty,"08:00","18:00", "หว่านข้าว");
-        myCalendar.addEvent((i+51)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 1 \nใส่ปุ๋ยสูตร 16-16-8 หรือปุ๋ยที่มีส่วนนผสมของแอมโมเนียมฟอสเฟตสูตรต่างๆ ");
-        myCalendar.addEvent((i+61)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \nถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ" +
-                "\nโรคที่มักจะพบในช่วงนี้:โรคใบสีส้ม โรคขอบใบแห้ง \nศัตรูพืช:แมลง เพลี้ยกระโดดสีน้ำตาล เพลี้ยจักจั่นสีเขียว และหนอนกอ"
-        );
-        myCalendar.addEvent((i+71)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2 \nใส่ปุ๋ยยูเรีย 46-0-0 หรือปุ๋ยแอมโมเนียมซัลเฟต 21-0-0");
-        myCalendar.addEvent((i+86)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
-        myCalendar.addEvent((i+91)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 3 \nใส่ปุ๋ยยูเรีย 46-0-0 หรือปุ๋ยแอมโมเนียมซัลเฟต 21-0-0");
-        myCalendar.addEvent((i+91)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \nถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ" +
-                "\nโรคที่มักจะพบในช่วงนี้:โรคไหม้ และโรคใบหงิก \nศัตรูพืช:เพลี้ยกระโดดสีน้ำตาล  และหนอนกอ");
-        myCalendar.addEvent((i+101)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
-        myCalendar.addEvent((i+121)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \nถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
-        myCalendar.addEvent((i+141)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
-        myCalendar.addEvent((i+146)+"-"+stm+"-"+sty,"08:00","18:00", "เก็บเกี่ยว");
-
-
-
-
+        myCalendar.addEvent((i+51)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 1 \n ใส่ปุ๋ยสูตร 16-16-8 หรือปุ๋ยที่มีว่สนผสมของแอมโมเนียมฟอสเฟตสูตรต่างๆ");
+        myCalendar.addEvent((i+61)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2 \n ");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้ำเข้านา");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ใสปุ่๋ยครั้งที่ 2");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "ตรวจสอบโรคข้าวและศัตรูพืช \n ถ้าพบให้เลือกใช้ยาที่เหมากับโรคและศัตรูพืชที่เจอ");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
+        myCalendar.addEvent((i+30)+"-"+stm+"-"+sty,"08:00","18:00", "เก็บเกี่ยว");
         myCalendar.setBelowMonthEventTextColor("#425684");
 //        myCalendar.setBelowMonthEventTextColor(R.color.black);
-
         myCalendar.setBelowMonthEventDividerColor("#0045149E");
 //        myCalendar.setBelowMonthEventDividerColor(R.color.black);
-
         myCalendar.setHolidayCellBackgroundColor("#0045149E");
 //        myCalendar.setHolidayCellBackgroundColor(R.color.black);
-
         myCalendar.setHolidayCellTextColor("#d590bb");
 //        myCalendar.setHolidayCellTextColor(R.color.black);
     }
-
     private boolean copyDatabase(Context context) {
         try {
             InputStream inputStream = context.getAssets().open(DBHelper.DBNAME);

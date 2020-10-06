@@ -39,11 +39,6 @@ public class user extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
-
-
-
-
         name1 = (TextView) findViewById(R.id.name);
         mail1 = (TextView) findViewById(R.id.mail);
         ur = (ImageView) findViewById(R.id.ur);

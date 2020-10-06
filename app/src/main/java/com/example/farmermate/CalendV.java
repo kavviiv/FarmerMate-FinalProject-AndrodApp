@@ -16,10 +16,7 @@ public class CalendV extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calend_v);
-        Intent intent = new Intent(Intent.ACTION_INSERT);
-        intent.setType("vnd.android.cursor.item/event");
         ca = (CalendarView)findViewById(R.id.calendarView2);
-
 
 
     }

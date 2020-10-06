@@ -22,7 +22,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
-        <activity android:name=".CalendV"></activity>
+        <activity android:name=".TableP"></activity>
+        <activity android:name=".CalendV" />
         <activity android:name=".MainActivity2" />
         <activity android:name=".ExpenseMoney" />
         <!--
@@ -69,6 +70,9 @@
         <activity android:name=".user" />
         <activity android:name=".login" />
         <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity4" />
+        <activity android:name=".ViewActivity_ex" />
+        <activity android:name=".AddActivity_ex" />
     </application>
 
 </manifest>

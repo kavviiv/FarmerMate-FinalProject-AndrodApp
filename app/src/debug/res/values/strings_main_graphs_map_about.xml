@@ -16,7 +16,7 @@
     <string name="today">วันนี้</string>
     <string name="tomorrow">พรุ่งนี้</string>
     <string name ="NextDay">วันถัดไป</string>
-    <string name="later">4 วันถัดไป</string>
+    <string name="later">วันอื่นๆ</string>
 
 
     <!-- Main activity headings -->

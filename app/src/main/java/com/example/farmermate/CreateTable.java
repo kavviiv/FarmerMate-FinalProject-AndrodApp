@@ -34,6 +34,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.StringTokenizer;
 
+import static java.util.Calendar.MONTH;
+
 public class CreateTable extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     TextView dp,tv22;
     Button createTable,clo;
@@ -104,35 +106,61 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             @Override
             public void onClick(View v) {
                 if(selectRice.getSelectedItem().equals("เลือกพันธุ์ข้าว")){
-                    Toast.makeText(getApplicationContext(), "", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "เลือกพันธุ์ข้าวที่ท่านต้องการจะปลูก", Toast.LENGTH_LONG).show();
+                }
+                else if(dp.isCursorVisible()){
+                    Toast.makeText(getApplicationContext(), "เลือกวันที่ท่านต้องการจะปลูก", Toast.LENGTH_LONG).show();
                 }
                 else if( selectRice.getSelectedItem().equals("ข้าวดอกมะลิ 105")) {
 
-                    setContentView(R.layout.todo_listview);
-                    todoList = (ListView) findViewById(R.id.todo_listview);
-                    mDBHelper2 = new DBHelper2(CreateTable.this);
-                    //return productList;
-                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
-                    if (false == database.exists()) {
-                        mDBHelper2.getReadableDatabase();
-                        //Copy db
-                        if (copyDatabase(CreateTable.this)) {
-                            Toast.makeText(CreateTable.this, "Copy database succes", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(CreateTable.this, "Copy data error", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                    //Get product list in db when db exists
-                   ToDoList = mDBHelper2.getToDoList0();
-                    //Init adapter
-                    madapter = new ToDoAdapter(CreateTable.this, ToDoList);
-                    //Set adapter for listview
-                    todoList.setAdapter(madapter);
+                    CreateTable.this.isFinishing();
+                    String dat = dp.getText().toString();
+                    String [] dateParts = dat.split("-");
+                    String day = dateParts[0];
+                    String month = dateParts[1];
+                    String year = dateParts[2];
+                    Intent intent = new Intent(CreateTable.this, CalendarAc.class);
+                    intent.putExtra("Date",day);
+                    intent.putExtra("Month",month);
+                    intent.putExtra("Year",year);
+                    startActivity(intent);
+
+//                    setContentView(R.layout.todo_listview);
+//                    todoList = (ListView) findViewById(R.id.todo_listview);
+//                    mDBHelper2 = new DBHelper2(CreateTable.this);
+//                    //return productList;
+//                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+//                    if (false == database.exists()) {
+//                        mDBHelper2.getReadableDatabase();
+//                        //Copy db
+//                        if (copyDatabase(CreateTable.this)) {
+//                            Toast.makeText(CreateTable.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+//                        } else {
+//                            Toast.makeText(CreateTable.this, "Copy data error", Toast.LENGTH_SHORT).show();
+//                            return;
+//                        }
+//                    }
+//                    //Get product list in db when db exists
+//                   ToDoList = mDBHelper2.getToDoList0();
+//                    //Init adapter
+//                    madapter = new ToDoAdapter(CreateTable.this, ToDoList);
+//                    //Set adapter for listview
+//                    todoList.setAdapter(madapter);
 
                 }
-                else if( selectRice.getSelectedItem().equals("กข 5")){
-        }
+                else if( selectRice.getSelectedItem().equals("สันป่าตอง")){
+                    String dat = dp.getText().toString();
+                    String [] dateParts = dat.split("-");
+                    String day = dateParts[0];
+                    String month = dateParts[1];
+                    String year = dateParts[2];
+                    Intent intent = new Intent(CreateTable.this, CalendarAc1.class);
+                    intent.putExtra("Date",day);
+                    intent.putExtra("Month",month);
+                    intent.putExtra("Year",year);
+                    startActivity(intent);
+
+                }
 
                 else{
                     Intent intent = new Intent(Intent.ACTION_INSERT)
@@ -146,22 +174,22 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
                     startActivity(intent);
                 }
 
-                todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String Step = ToDoList.get(position).getStep();
-                        String Dtail = ToDoList.get(position).getDtail();
-                        String Rec = ToDoList.get(position).getRec();
-                        String Warn = ToDoList.get(position).getWarn();
-                        Intent intent = new Intent(getApplicationContext() ,TablePage.class);
-                        intent.putExtra("Position", position);
-                        intent.putExtra("Step", Step);
-                        intent.putExtra("Dtail", Dtail);
-                        intent.putExtra("Rec", Rec);
-                        intent.putExtra("Warn",Warn);
-                        startActivity(intent);
-                    }
-                });
+//                todoList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        String Step = ToDoList.get(position).getStep();
+//                        String Dtail = ToDoList.get(position).getDtail();
+//                        String Rec = ToDoList.get(position).getRec();
+//                        String Warn = ToDoList.get(position).getWarn();
+//                        Intent intent = new Intent(getApplicationContext() ,TablePage.class);
+//                        intent.putExtra("Position", position);
+//                        intent.putExtra("Step", Step);
+//                        intent.putExtra("Dtail", Dtail);
+//                        intent.putExtra("Rec", Rec);
+//                        intent.putExtra("Warn",Warn);
+//                        startActivity(intent);
+//                    }
+//                });
                 }
 
 
@@ -186,7 +214,6 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             }
         });
 
-
         dp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,21 +222,25 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             }
         });
     }
-
-
-
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+    public void onDateSet(DatePicker view, int year, int month, int date) {
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+        int a = month + 1 ;
+        c.set(MONTH, a);
+        int b;
+        c.set(Calendar.DATE, date);
+        int aa = date;
 
-        String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
+        String currentDateString = DateFormat.getDateInstance(DateFormat.DATE_FIELD).format(c.getTime());
         TextView dp = (TextView) findViewById(R.id.datepick);
-        dp.setText(currentDateString);
+        //dp.setText(currentDateString);
+        dp.setText(date + "-" + a  +"-" + year);
+        String crd = dp.getText().toString();
 
-        Intent intent = new Intent(getApplicationContext() , CreateTable.class);
-        intent.putExtra("StartDate", currentDateString);
+        Intent intent = new Intent(getApplicationContext() , CalendarAc.class);
+        intent.putExtra("StartDate", crd);
+        intent.putExtra("aaa", aa);
     }
+
 }

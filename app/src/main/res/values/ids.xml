@@ -5,4 +5,5 @@
     <item name="frcst_time_text_view" type="id" />
     <item name="frcst_icon_image_view" type="id" />
     <item name="frcst_temp_text_view" type="id" />
+    <item name="deleteall" type="id" />
 </resources>

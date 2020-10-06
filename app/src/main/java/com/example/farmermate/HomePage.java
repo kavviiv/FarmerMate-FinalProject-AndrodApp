@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -61,7 +62,7 @@ public class HomePage extends AppCompatActivity {
         mon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent I = new Intent(HomePage.this, CalendarAc.class);
+                Intent I = new Intent(HomePage.this, ExpenseMoney.class);
                 startActivity(I);
             }
         });
@@ -83,6 +84,11 @@ public class HomePage extends AppCompatActivity {
     public void openRecomPage(){
         Intent intent = new Intent (this, RecomPage.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
     }
 
 }

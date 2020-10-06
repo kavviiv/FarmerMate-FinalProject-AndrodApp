@@ -140,8 +140,6 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
             toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Black);
         }
 
-        // Initialize textboxes
-
         todayDescription = findViewById(R.id.todayDescription);
         todayWind = findViewById(R.id.todayWind);
         todayPressure = findViewById(R.id.todayPressure);

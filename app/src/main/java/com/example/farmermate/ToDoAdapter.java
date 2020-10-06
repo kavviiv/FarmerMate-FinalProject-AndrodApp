@@ -35,7 +35,7 @@ public class ToDoAdapter extends BaseAdapter {
     public static int getDay(){
        return Day;
     }
-    public String getStep(){
+    public static String getStep(){
         return Step;
     }
     public String getDtail(){
@@ -47,7 +47,6 @@ public class ToDoAdapter extends BaseAdapter {
     public String getWarn(){
         return Warn;
     }
-
     @Override
     public int getCount() {
         return ToDoList.size();
@@ -75,7 +74,7 @@ public class ToDoAdapter extends BaseAdapter {
         TextView tvName = (TextView)v.findViewById(R.id.todo);
         TextView textV = (TextView)v.findViewById(R.id.textView51);
         ImageView imgV =(ImageView)v.findViewById(R.id.imgv);
-        textV.setText(ToDoList.get(position).getDay());
+       // textV.setText(ToDoList.get(position).getDay());
         tvName.setText(ToDoList.get(position).getStep());
 
         imgV.setImageResource(R.drawable.riceim1);

@@ -57,8 +57,10 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
 
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
