@@ -78,24 +78,13 @@
 
     <Button
         android:id="@+id/button_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Delete"
-        android:layout_alignParentBottom="true"
-        android:layout_alignLeft="@+id/textView_notes"
+        android:layout_width="229dp"
+        android:layout_height="37dp"
         android:layout_alignStart="@+id/textView_notes"
-        android:layout_marginBottom="70sp" />
-
-    <Button
-        android:id="@+id/button_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/button_delete"
-        android:layout_marginLeft="51sp"
-        android:layout_marginStart="51sp"
-        android:layout_toEndOf="@+id/button_delete"
-        android:layout_toRightOf="@+id/button_delete"
-        android:text="@string/Edit" />
+        android:layout_alignLeft="@+id/textView_notes"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="83dp"
+        android:text="@string/Delete" />
 
     <TextView
         android:id="@+id/textView_date"

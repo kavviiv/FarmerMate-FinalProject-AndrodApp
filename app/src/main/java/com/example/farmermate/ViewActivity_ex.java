@@ -30,7 +30,6 @@ public class ViewActivity_ex extends AppCompatActivity {
         date=(TextView)findViewById(R.id.textView_date);
 
         delete=(Button)findViewById(R.id.button_delete);
-        edit=(Button)findViewById(R.id.button_edit);
 
         Intent intent=getIntent();
         position= intent.getIntExtra("ตำแหน่ง",0);
@@ -57,15 +56,6 @@ public class ViewActivity_ex extends AppCompatActivity {
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i=new Intent( ViewActivity_ex.this, AddActivity_ex.class);
-                i.putExtra("แกเ้ไข",1);
-                i.putExtra("ตำแหน่ง",position);
-                startActivity(i);
-            }
-        });
 
 
     }
