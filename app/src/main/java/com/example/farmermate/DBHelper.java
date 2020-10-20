@@ -464,7 +464,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE N = 1 AND Solid_Sandy = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -482,7 +482,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Reservoir = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -498,7 +498,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Irrigation = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -514,7 +514,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Cray = 1 AND Nope = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -531,7 +531,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Reservoir = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -547,7 +547,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Irrigation = 1  ORDER BY ID ASC" , null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -563,7 +563,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Mold = 1 AND Nope = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -580,7 +580,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Reservoir = 1  ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -595,7 +595,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Irrigation = 1 ORDER BY ID ASC " , null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -610,7 +610,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE C = 1 AND Solid_Sandy = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -628,7 +628,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -644,7 +644,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -660,7 +660,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Cray = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -677,7 +677,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -693,7 +693,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -709,7 +709,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Mold = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -726,7 +726,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -742,7 +742,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -758,7 +758,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE NE = 1 AND Solid_Sandy = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -775,7 +775,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -791,7 +791,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -807,7 +807,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Cray = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -824,7 +824,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -840,7 +840,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -856,7 +856,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Mold = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -873,7 +873,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Reservoir = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -889,7 +889,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Irrigation = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -905,7 +905,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Rice rice = null;
         List<Rice> RiceList = new ArrayList<>();
         openDatabase();
-        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Nope = 1", null);
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE S = 1 AND Solid_Sandy = 1 AND Nope = 1 ORDER BY ID ASC", null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
@@ -916,6 +916,153 @@ public class DBHelper extends SQLiteOpenHelper {
         closeDatabase();
         return RiceList;
     }
+
+    public List<Rice> getListRice36() {
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Cray = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice37() {
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Cray = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice38(){
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Cray = 1 AND Nope = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+//ดินร่วน
+    public List<Rice> getListRice39() {
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Mold = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice40(){
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Mold = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice41() {
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Mold = 1 AND Nope = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+    //------------------------------------------------------------------------------------------------------------------------------------
+    //ดินทราย
+    public List<Rice> getListRice42(){
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Sandy = 1 AND Reservoir = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice43(){
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Sandy = 1 AND Irrigation = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
+    public List<Rice> getListRice44(){
+        Rice rice = null;
+        List<Rice> RiceList = new ArrayList<>();
+        openDatabase();
+        Cursor cursor = mDatabase.rawQuery("Select * FROM RiceRec WHERE E = 1 AND Solid_Sandy = 1 AND Nope = 1 ORDER BY ID ASC", null);
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            rice = new Rice(cursor.getInt(0), cursor.getString(1), cursor.getString(9), cursor.getString(16), cursor.getString(17));
+            RiceList.add(rice);
+            cursor.moveToNext();
+        }
+        cursor.close();
+        closeDatabase();
+        return RiceList;
+    }
+
 
 
 

@@ -763,12 +763,1010 @@ public class RecPage extends AppCompatActivity {
 
                 }}
 
+                //---------------------------------
 
 
+                else if ( sp1.getSelectedItem().equals("ภาคเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice6();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice7();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice8();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินเหนียว") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice9();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินเหนียว") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice10();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินเหนียว") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice11();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินร่วน") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice12();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินร่วน") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice13();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินร่วน") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice14();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                //---------------------------------
 
 
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินทราย") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice15();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินทราย") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice16();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคกลาง") && sp2.getSelectedItem().equals("ดินทราย") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice17();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//-------------------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------------------
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินเหนียว") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice18();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินเหนียว") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice19();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินเหนียว") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice20();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินร่วน") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice21();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินร่วน") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice22();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินร่วน") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice23();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                //---------------------------------
 
 
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice24();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice25();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออกเฉียงเหนือ") && sp2.getSelectedItem().equals("ดินทราย") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice26();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+//-----------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินเหนียว") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice27();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินเหนียว") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice28();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินเหนียว") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice29();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินร่วน") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice30();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินร่วน") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice31();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินร่วน") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice32();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                //---------------------------------
+
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินทราย") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice33();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินทราย") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice34();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคใต้") && sp2.getSelectedItem().equals("ดินทราย") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice35();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+ //--------------------------------------------------------------------------------------------
+ //--------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินเหนียว") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice36();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินเหนียว") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice37();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินเหนียว") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice38();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+//-----------------------------------------------------------------------------------------------------------------------------
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินร่วน") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice39();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินร่วน") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice40();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินร่วน") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice41();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                //---------------------------------
+
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินทราย") && res.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice42();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินทราย") && irr.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice43();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+
+                else if ( sp1.getSelectedItem().equals("ภาคตะวันออก") && sp2.getSelectedItem().equals("ดินทราย") && no.isChecked()){{
+                    setContentView(R.layout.listview_product);
+                    lvProduct = (ListView) findViewById(R.id.listview_product);
+                    mDBHelper = new DBHelper(RecPage.this);
+                    //return productList;
+                    File database = getApplicationContext().getDatabasePath(DBHelper.DBNAME);
+                    if (false == database.exists()) {
+                        mDBHelper.getReadableDatabase();
+                        //Copy db
+                        if (copyDatabase(RecPage.this)) {
+                            Toast.makeText(RecPage.this, "Copy database succes", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(RecPage.this, "Copy data error", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
+                    //Get product list in db when db exists
+                    mRiceList = mDBHelper.getListRice44();
+                    //Init adapter
+                    adapter = new RiceAdapter(RecPage.this, mRiceList);
+                    //Set adapter for listview
+                    lvProduct.setAdapter(adapter);
+
+                }}
+                //-----------------------
+                else{
+                    Toast.makeText(RecPage.this,"กรุณาเลือกข้อมูลให้ครบถ้วน",Toast.LENGTH_LONG);
+                }
 
 
 

@@ -9,4 +9,25 @@
     <color name="login_form_details">#ccffffff</color>
     <color name="login_form_details_light">#1affffff</color>
     <color name="login_form_details_medium">#66ffffff</color>
+
+
+
+    <!-- cs colours -->
+    <color name="colorBackPanel">#f4f5f9</color>
+    <color name="colorFontPanel">#ffff</color>
+    <color name="colorBackground">#2C3E50</color>
+
+    <!-- alpha colors -->
+    <color name="colorFontPanelAlpha">#d9ffffff</color>
+
+    <!-- banner colors -->
+    <color name="colorGeneralBanner">#003366</color>
+    <!-- side menu -->
+    <color name="colorSideMenu">#2574c2</color>
+
+    <!-- Button Colors -->
+    <color name="colorBtnPrimary">#003366</color>
+    <color name="colorFacebookBtn">#495fb1</color>
+    <color name="colorYellowBtn">#fcb012</color>
+    <color name="colorLightBlueBtn">#2574c2</color>
 </resources>

@@ -23,7 +23,7 @@
     <string name="wind">กระแสลม</string>
     <string name="wind_speed">ความเร็วลม</string>
     <string name="pressure">ความกดอากาศ</string>
-    <string name="humidity">ความชื้นสัมพัทธ์</string>
+    <string name="humidity">โอกาสเกิดฝน</string>
     <string name="sunrise">ดวงอาทิตย์ขึ้น</string>
     <string name="sunset">ดวงอาทิตย์ตก</string>
     <string name="uvindex">UV Index</string>

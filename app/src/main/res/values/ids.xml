@@ -6,4 +6,7 @@
     <item name="frcst_icon_image_view" type="id" />
     <item name="frcst_temp_text_view" type="id" />
     <item name="deleteall" type="id" />
+    <item name="income_icon" type="id"></item>
+    <item name="expenses_icon" type="id"></item>
+    <item name="profits_icon" type="id"></item>
 </resources>

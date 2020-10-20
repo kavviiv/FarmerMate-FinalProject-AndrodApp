@@ -143,7 +143,7 @@ public class CalendarAc extends AppCompatActivity {
         });
         myCalendar.setCalendarBackgroundColor("#87FFE7");
         myCalendar.setHeaderBackgroundColor("#87FFE7");
-        myCalendar.setHeaderTextColor("#ffffff");
+        myCalendar.setHeaderTextColor("#FFF44336");
         myCalendar.setNextPreviousIndicatorColor("#FF03A9F4");
         myCalendar.setWeekDayLayoutBackgroundColor("#87FFE7");
         myCalendar.setWeekDayLayoutTextColor("#0045149E");
