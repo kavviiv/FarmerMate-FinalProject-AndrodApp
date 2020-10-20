@@ -12,6 +12,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.client.Firebase;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -19,11 +24,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class user extends AppCompatActivity {
     Button btnLogOut;
     FirebaseAuth firebaseAuth;
+    String fauhh;
     FirebaseUser firebase;
     View HomePage;
     String name, email;
@@ -32,8 +43,6 @@ public class user extends AppCompatActivity {
     ImageView ur;
     private FirebaseAuth.AuthStateListener authStateListener;
     private static final String TAG = "user";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,34 +68,40 @@ public class user extends AppCompatActivity {
                 startActivity(new Intent(user.this, HomePage.class));
             }
         });
-       /* FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.edit);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                updateProfile();
-            }
-        });*/
+
 
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             for (UserInfo profile : user.getProviderData()) {
-                // Id of the provider (ex: google.com)
                 String providerId = profile.getProviderId();
-
-                // UID specific to the provider
                 String uid = profile.getUid();
                 Uri photoUrl = profile.getPhotoUrl();
-                ur.setImageURI(photoUrl);//55/**/
-
-                // Name, email address, and profile photo Url
-                String name = profile.getDisplayName();
-                mail1.setText(name);
-
+                ur.setImageURI(photoUrl);
                 String email = profile.getEmail();
-                name1.setText(email);
+                mail1.setText(email);
             }
         }
+
+       fauhh = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Data");
+        ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+                    String Uname = child.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserName").getValue().toString();
+                    name1.setText(Uname);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 

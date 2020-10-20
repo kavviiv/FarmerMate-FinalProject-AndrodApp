@@ -82,7 +82,7 @@ public class HomePage extends AppCompatActivity {
         startActivity(intent);
     }
     public void openRecomPage(){
-        Intent intent = new Intent (this, RecomPage.class);
+        Intent intent = new Intent (this, RecPage.class);
         startActivity(intent);
     }
 

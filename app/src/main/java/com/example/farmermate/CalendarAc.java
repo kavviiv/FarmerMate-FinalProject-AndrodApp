@@ -1,50 +1,64 @@
 package com.example.farmermate;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.CaseMap;
+import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.desai.vatsal.mydynamiccalendar.EventListAdapter;
 import com.desai.vatsal.mydynamiccalendar.EventModel;
 import com.desai.vatsal.mydynamiccalendar.GetEventListListener;
 import com.desai.vatsal.mydynamiccalendar.MyDynamicCalendar;
 import com.desai.vatsal.mydynamiccalendar.OnDateClickListener;
 import com.desai.vatsal.mydynamiccalendar.OnEventClickListener;
 import com.desai.vatsal.mydynamiccalendar.OnWeekDayViewClickListener;
+import com.google.type.DateTime;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.threeten.bp.LocalDate;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
 import static com.example.farmermate.ToDoAdapter.getStep;
 import static com.example.farmermate.Todo.*;
+import static java.util.Calendar.*;
 
 public class CalendarAc extends AppCompatActivity {
+
     public static int Day1;
     public static String Step1,Detail,Reco,Warni;
     public String Step;
@@ -65,11 +79,29 @@ public class CalendarAc extends AppCompatActivity {
         setContentView(R.layout.activity_calen);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar);
+        Button wl = (Button) findViewById(R.id.wl);
+        wl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarAc.this, WorkList.class);
+                startActivity(intent);
+            }
+        });
         setSupportActionBar(toolbar);
         myCalendar.showMonthViewWithBelowEvents();
         myCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
+                Notification notification =
+                        new NotificationCompat.Builder(CalendarAc.this) // this is context
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("DevAhoy News")
+                                .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+                                .setAutoCancel(true)
+                                .build();
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(1000, notification);
                 Log.e("date", String.valueOf(date));
                 long eventID = 208;
                 myCalendar.getEventList(new GetEventListListener() {
@@ -82,8 +114,30 @@ public class CalendarAc extends AppCompatActivity {
                     }
                 });
             }
+
+            private void showNotification() {
+                Notification notification =
+                        new NotificationCompat.Builder(CalendarAc.this) // this is context
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("DevAhoy News")
+                                .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+                                .setAutoCancel(true)
+                                .build();
+            }
+
             @Override
             public void onLongClick(Date date) {
+                Notification notification =
+                        new NotificationCompat.Builder(CalendarAc.this) // this is context
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("DevAhoy News")
+                                .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+                                .setAutoCancel(true)
+                                .build();
+
+                NotificationManager notificationManager =
+                        (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                notificationManager.notify(1000, notification);
                 Log.e("date", String.valueOf(date));
             }
         });
@@ -101,11 +155,30 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.setEventCellBackgroundColor("#87FFE7");
         myCalendar.setEventCellTextColor("#FFF44336");
 
+
         String std = getIntent().getStringExtra("Date");
         String stm = getIntent().getStringExtra("Month");
         String sty = getIntent().getStringExtra("Year");
+
+
+
+
+        TextView start = (TextView)findViewById(R.id.std);
+        start.setText(sty + "-" + stm + "-" + std);
+
+//        long yourNumber = Integer.parseInt(std)+Integer.parseInt(stm)+Integer.parseInt(sty);
+//        DateTime dt = new DateTime(yourNumber);
+        LocalDate EndDate = LocalDate.of(Integer.parseInt(sty), Integer.parseInt(stm), Integer.parseInt(std)).plusDays(146);
+
+
         int i = Integer.parseInt(std);
-        myCalendar.addEvent( std+"-"+stm+"-"+sty ,"20:54","23:00", "เตรียมหน้าดินครั้งที่ 1 โดยการไถดะ");
+
+        TextView end = (TextView)findViewById(R.id.end);
+        end.setText(EndDate.toString());
+
+        //TextView end = (TextView)findViewById(R.id.end);
+        //end.setText();
+        myCalendar.addEvent( std+"-"+stm+"-"+sty ,"04:52","04:53", "เตรียมหน้าดินครั้งที่ 1 โดยการไถดะ");
         myCalendar.addEvent( (i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 2 โดยการไถแปร");
         myCalendar.addEvent((i+14)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมเมล็ดพันธุ์โดยการนำไปแช่น้ำ เพื่อให้เกิดการงอกของราก");
         myCalendar.addEvent((i+28)+"-"+stm+"-"+sty,"08:00","18:00", "เตรียมหน้าดินครั้งที่ 3 โดยการไถคราด");
@@ -125,7 +198,17 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.addEvent((i+141)+"-"+stm+"-"+sty,"08:00","18:00", "นำน้าออกจากนา");
         myCalendar.addEvent((i+146)+"-"+stm+"-"+sty,"08:00","18:00", "เก็บเกี่ยว");
 
-
+//        Notification notification =
+//                new NotificationCompat.Builder(this) // this is context
+//                        .setSmallIcon(R.mipmap.ic_launcher)
+//                        .setContentTitle("DevAhoy News")
+//                        .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+//                        .setAutoCancel(true)
+//                        .build();
+//
+//        NotificationManager notificationManager =
+//                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.notify(1000, notification);
 
 
         myCalendar.setBelowMonthEventTextColor("#425684");
@@ -139,6 +222,10 @@ public class CalendarAc extends AppCompatActivity {
 
         myCalendar.setHolidayCellTextColor("#d590bb");
 //        myCalendar.setHolidayCellTextColor(R.color.black);
+
+
+
+
     }
 
     private boolean copyDatabase(Context context) {
@@ -201,6 +288,7 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
+
                 Log.e("date", String.valueOf(date));
             }
 
@@ -219,6 +307,17 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
+                                Notification notification =
+                        new NotificationCompat.Builder(CalendarAc.this) // this is context
+                                .setSmallIcon(R.mipmap.ic_launcher)
+                                .setContentTitle("DevAhoy News")
+                                .setContentText("สวัสดีครับ ยินดีต้อนรับเข้าสู่บทความ Android Notification :)")
+                                .setAutoCancel(true)
+                                .build();
+
+                NotificationManager notificationManager =
+                        (NotificationManager) CalendarAc.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                notificationManager.notify(1000, notification);
                 Log.e("date", String.valueOf(date));
             }
 

@@ -13,6 +13,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -24,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +39,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     private GoogleMap mMap;
     Marker marker;
     FirebaseAuth fauth;
+    String futh;
     //private Firebase firebase;
 
     @Override
@@ -51,7 +55,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
         db.push().setValue(marker);
 
         //firebase = new Firebase(FIREBASE_URL).child("users");
-
+        futh = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
     }
 
@@ -61,43 +65,56 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-//        LatLng latLng = new LatLng( ,
-//                mLastLocation.getLongitude());
-//        googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-//        googleMap.addMarker(new MarkerOptions().position(latLng).title("ที่อยู่ของคุณ"));
-//        Circle circle = mMap.addCircle(
-//                new CircleOptions()
-//                        .center(latLng)
-//                        .radius(100)
-//                        .strokeWidth(0f)
-//                        .fillColor(0x66aaaFFF)
-//        );
-
-
+//        DatabaseReference db = FirebaseDatabase.getInstance().getReference(futh).child("User Location");
+//        ValueEventListener ls = db.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+//                for (DataSnapshot child : dataSnapshot.getChildren()) {
+//                    String lat = child.child("Latitude").getValue().toString();
+//                    String lng = child.child("Longtitude").getValue().toString();
+//                  ;
+//                    double latitude = Double.parseDouble(lat);
+//                    double longitude = Double.parseDouble(lng);
+//                    LatLng location = new LatLng(latitude, longitude);
+//
+//
+//                    mMap.addMarker(new MarkerOptions().position(location).title("ที่นาของคุณ"));
+//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+//
+//
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+
+
+
                     String lat = child.child("Latitude").getValue().toString();
                     String lng = child.child("Longtitude").getValue().toString();
                     String Rname = child.child("RiceName").getValue().toString();
                     String Size = child.child("Size").getValue().toString();
-
-
 
                     double latitude = Double.parseDouble(lat);
                     double longitude = Double.parseDouble(lng);
                     LatLng location = new LatLng(latitude, longitude);
 
 //                Double latitude = dataSnapshot.child("Latitude").getValue(Double.class);
-//                Double longitude = dataSnapshot.child("Longtitude").getValue(Double.class);
-//
-//                LatLng location = new LatLng(latitude,longitude);
 
-                    mMap.addMarker(new MarkerOptions().position(location).title(Rname +" "+ "จำนวน"+ " " + Size + " " +"ไร่"));
+
+                    mMap.addMarker(new MarkerOptions().position(location).title(Rname +" "+ "จำนวน"+ " " + Size + " " +"ไร่").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+
 
 
 
