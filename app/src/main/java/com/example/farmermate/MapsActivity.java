@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -25,6 +26,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -62,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private FirebaseAuth.AuthStateListener authStateListener;
     String firebaseAuth;
     String Uname;
-
+    Double la,lo;
 
 
     @Override
@@ -155,46 +157,47 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     .findFragmentById(R.id.map);
             mapFragment.getMapAsync(this);
 
-            saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
-
-
-
-                @Override
-                public void onClick(View view) {
-                    String la = String.valueOf(mLastLocation.getLatitude());
-                    String lo = String.valueOf(mLastLocation.getLongitude()) ;
-                    Intent intent = new Intent(MapsActivity.this, CreateTable.class);
-                    intent.putExtra("la",la);
-                    intent.putExtra("lo",lo);
-                    Map<String, Object> user = new HashMap<>();
-                    user.put("RiceName", getIntent().getStringExtra("Rname"));
-                    user.put("Size", getIntent().getStringExtra("Size"));
-                    user.put("Latitude", mLastLocation.getLatitude());
-                    user.put("Longtitude", mLastLocation.getLongitude());
-                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-                    mDatabase.child("User Location").child(firebaseAuth).setValue(user)
-                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    // Write was successful!
-                                    // ...
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // Write failed
-                                    // ...
-                                }
-                            });
-
-
-                    //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
-                    Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
-                    MapsActivity.this.finish();
-
-                }
-            });}
+//            saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
+//
+//
+//
+//                @Override
+//                public void onClick(View view) {
+//                    String la = String.valueOf(mLastLocation.getLatitude());
+//                    String lo = String.valueOf(mLastLocation.getLongitude()) ;
+//                    Intent intent = new Intent(MapsActivity.this, CreateTable.class);
+//                    intent.putExtra("la",la);
+//                    intent.putExtra("lo",lo);
+//                    Map<String, Object> user = new HashMap<>();
+//                    user.put("RiceName", getIntent().getStringExtra("Rname"));
+//                    user.put("Size", getIntent().getStringExtra("Size"));
+//                    user.put("Latitude", );
+//                    user.put("Longtitude", mLastLocation.getLongitude());
+//                    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+//                    mDatabase.child("User Location").child(firebaseAuth).setValue(user)
+//                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                @Override
+//                                public void onSuccess(Void aVoid) {
+//                                    // Write was successful!
+//                                    // ...
+//                                }
+//                            })
+//                            .addOnFailureListener(new OnFailureListener() {
+//                                @Override
+//                                public void onFailure(@NonNull Exception e) {
+//                                    // Write failed
+//                                    // ...
+//                                }
+//                            });
+//
+//
+//                    //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
+//                    Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
+//                    MapsActivity.this.finish();
+//
+//                }
+//            });
+            }
 
 
         }
@@ -239,14 +242,118 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
     @Override
     public void onMapReady(final GoogleMap googleMap) {
+
+
+
+
         if (mLastLocation != null)
         {
                 LatLng latLng = new LatLng(mLastLocation.getLatitude()
                         , mLastLocation.getLongitude());
                 MarkerOptions options = new MarkerOptions().position(latLng)
                         .title(getIntent().getStringExtra("Rname"));
-                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,10 ));
-                googleMap.addMarker(options);
+                googleMap.animateCamera(  CameraUpdateFactory.newLatLngZoom( latLng,14 ));
+                googleMap.addMarker(options).setDraggable(true);
+
+                googleMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
+                    @Override
+                    public void onMarkerDragStart(Marker marker) {
+
+                    }
+
+                    @Override
+                    public void onMarkerDrag(Marker marker) {
+                        Double La = marker.getPosition().latitude ;
+                        Double Lo = marker.getPosition().latitude ;
+                       mLatitudeText.setText(String.valueOf(La));
+                       mLongitudeText.setText(String.valueOf(Lo));
+//                        saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//                                String la = String.valueOf(mLastLocation.getLatitude());
+//                                String lo = String.valueOf(mLastLocation.getLongitude()) ;
+//                                Intent intent = new Intent(MapsActivity.this, CreateTable.class);
+//                                intent.putExtra("la",la);
+//                                intent.putExtra("lo",lo);
+//                                Map<String, Object> user = new HashMap<>();
+//                                user.put("RiceName", getIntent().getStringExtra("Rname"));
+//                                user.put("Size", getIntent().getStringExtra("Size"));
+//                                user.put("Latitude",String.valueOf(La));
+//                                user.put("Longtitude",String.valueOf(Lo));
+//                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+//                                mDatabase.child("User Location").child(firebaseAuth).setValue(user)
+//                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                            @Override
+//                                            public void onSuccess(Void aVoid) {
+//                                                // Write was successful!
+//                                                // ...
+//                                            }
+//                                        })
+//                                        .addOnFailureListener(new OnFailureListener() {
+//                                            @Override
+//                                            public void onFailure(@NonNull Exception e) {
+//                                                // Write failed
+//                                                // ...
+//                                            }
+//                                        });
+//
+//
+//                                //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
+//                                Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
+//                                MapsActivity.this.finish();
+//
+//                            }
+//                        });
+
+
+                    }
+
+                    @Override
+                    public void onMarkerDragEnd(final Marker marker) {
+                         Double La = marker.getPosition().latitude ;
+                         Double Lo = marker.getPosition().latitude ;
+                        mLatitudeText.setText(String.valueOf(La));
+                        mLongitudeText.setText(String.valueOf(Lo));
+                        saveLocationToFirebase.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                String la = String.valueOf(mLastLocation.getLatitude());
+                                String lo = String.valueOf(mLastLocation.getLongitude()) ;
+                                Intent intent = new Intent(MapsActivity.this, CreateTable.class);
+                                intent.putExtra("la",marker.getPosition().latitude);
+                                intent.putExtra("lo",marker.getPosition().longitude);
+                                Map<String, Object> user = new HashMap<>();
+                                user.put("RiceName", getIntent().getStringExtra("Rname"));
+                                user.put("Size", getIntent().getStringExtra("Size"));
+                                user.put("Latitude", marker.getPosition().latitude);
+                                user.put("Longtitude", marker.getPosition().longitude);
+                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                                mDatabase.child("UserL").child(firebaseAuth).setValue(user)
+                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                // Write was successful!
+                                                // ...
+                                            }
+                                        })
+                                        .addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+                                                // Write failed
+                                                // ...
+                                            }
+                                        });
+
+
+                                //mLocationDatabaseReference.push().setValue("Latitude : "+value_lat +"  &amp; Longitude : "+value_lng);
+                                Toast.makeText(MapsActivity.this, "Location saved to the Firebasedatabase", Toast.LENGTH_LONG).show();
+                                MapsActivity.this.finish();
+
+                            }
+                        });
+
+                    }
+                });
         }
 //
 //        mMap = googleMap;

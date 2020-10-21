@@ -1,5 +1,8 @@
 package com.example.farmermate;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -7,8 +10,11 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -40,6 +46,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     Marker marker;
     FirebaseAuth fauth;
     String futh;
+    private  GoogleApiClient gg;
     //private Firebase firebase;
 
     @Override
@@ -60,39 +67,54 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     }
 
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        FirebaseDatabase db =FirebaseDatabase.getInstance();
+        DatabaseReference df = db.getReference("UserL");
+        df.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String laat = snapshot.child(futh).child("Latitude").getValue().toString();
+                String lang = snapshot.child(futh).child("Longtitude").getValue().toString();
+                double latitude = Double.parseDouble(laat);
+                double longitude = Double.parseDouble(lang);
+                LatLng location1 = new LatLng(latitude, longitude);
 
-//        DatabaseReference db = FirebaseDatabase.getInstance().getReference(futh).child("User Location");
-//        ValueEventListener ls = db.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-//                for (DataSnapshot child : dataSnapshot.getChildren()) {
-//                    String lat = child.child("Latitude").getValue().toString();
-//                    String lng = child.child("Longtitude").getValue().toString();
-//                  ;
-//                    double latitude = Double.parseDouble(lat);
-//                    double longitude = Double.parseDouble(lng);
-//                    LatLng location = new LatLng(latitude, longitude);
-//
-//
-//                    mMap.addMarker(new MarkerOptions().position(location).title("ที่นาของคุณ"));
-//                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
-//
-//
-//                }
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+//                Double latitude = dataSnapshot.child("Latitude").getValue(Double.class);
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Location");
+                mMap.addMarker(new MarkerOptions().position(location1).title("ที่นาของคุณ").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location1, 14F));
+                Circle circle = mMap.addCircle(new CircleOptions()
+                        .center(location1)
+                        .radius(1000)
+                        .strokeColor(Color.RED)
+                        .fillColor(0xCAFFE4));
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("UserL");
         ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
@@ -111,9 +133,8 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
 
 //                Double latitude = dataSnapshot.child("Latitude").getValue(Double.class);
 
-
                     mMap.addMarker(new MarkerOptions().position(location).title(Rname +" "+ "จำนวน"+ " " + Size + " " +"ไร่").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+                 //   mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
 
 
 

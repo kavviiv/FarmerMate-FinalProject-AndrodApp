@@ -26,7 +26,7 @@
     <string name="humidity">โอกาสเกิดฝน</string>
     <string name="sunrise">ดวงอาทิตย์ขึ้น</string>
     <string name="sunset">ดวงอาทิตย์ตก</string>
-    <string name="uvindex">UV Index</string>
+    <string name="uvindex">ความร้อนจากแสงอาทิตย์</string>
     <string name="tap_for_graphs">Tap for Graphs</string>
 
     <!-- Graphs -->

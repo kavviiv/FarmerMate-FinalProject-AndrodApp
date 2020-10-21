@@ -50,7 +50,7 @@ public class user extends AppCompatActivity {
         setContentView(R.layout.activity_user);
         name1 = (TextView) findViewById(R.id.name);
         mail1 = (TextView) findViewById(R.id.mail);
-        ur = (ImageView) findViewById(R.id.ur);
+
         btnLogOut = (Button) findViewById(R.id.btnLogOut);
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,32 +76,47 @@ public class user extends AppCompatActivity {
             for (UserInfo profile : user.getProviderData()) {
                 String providerId = profile.getProviderId();
                 String uid = profile.getUid();
-                Uri photoUrl = profile.getPhotoUrl();
-                ur.setImageURI(photoUrl);
+
                 String email = profile.getEmail();
                 mail1.setText(email);
             }
         }
 
        fauhh = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Data");
-        ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase db =FirebaseDatabase.getInstance();
+        DatabaseReference df = db.getReference("User Data");
+        df.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
-                for (final DataSnapshot child : dataSnapshot.getChildren()) {
-                    String Uname = child.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("UserName").getValue().toString();
-                    name1.setText(Uname);
-                }
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String name = snapshot.child(fauhh).child("UserName").getValue().toString();
+                name1.setText(name);
+
+
             }
 
-
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+
+//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User Data");
+//        ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull final DataSnapshot dataSnapshot) {
+//                for (final DataSnapshot child : dataSnapshot.getChildren()) {
+//                    String Uname = child.child(fauhh).child("UserName").getValue().toString();
+//                    name1.setText(Uname);
+//                }
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
 
 

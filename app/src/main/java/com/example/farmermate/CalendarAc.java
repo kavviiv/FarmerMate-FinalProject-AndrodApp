@@ -1,7 +1,9 @@
 package com.example.farmermate;
 
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -77,12 +79,14 @@ public class CalendarAc extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calen);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         myCalendar = (MyDynamicCalendar) findViewById(R.id.myCalendar);
         Button wl = (Button) findViewById(R.id.wl);
         wl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(CalendarAc.this, WorkList.class);
                 startActivity(intent);
             }
@@ -92,6 +96,7 @@ public class CalendarAc extends AppCompatActivity {
         myCalendar.setOnDateClickListener(new OnDateClickListener() {
             @Override
             public void onClick(Date date) {
+
                 Notification notification =
                         new NotificationCompat.Builder(CalendarAc.this) // this is context
                                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -127,6 +132,7 @@ public class CalendarAc extends AppCompatActivity {
 
             @Override
             public void onLongClick(Date date) {
+
                 Notification notification =
                         new NotificationCompat.Builder(CalendarAc.this) // this is context
                                 .setSmallIcon(R.mipmap.ic_launcher)
@@ -222,9 +228,6 @@ public class CalendarAc extends AppCompatActivity {
 
         myCalendar.setHolidayCellTextColor("#d590bb");
 //        myCalendar.setHolidayCellTextColor(R.color.black);
-
-
-
 
     }
 
@@ -468,7 +471,6 @@ public class CalendarAc extends AppCompatActivity {
             return null;
         }
     }
-
 
 
 }
