@@ -23,6 +23,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:label">
+        <activity android:name=".WorkList2"></activity>
         <activity android:name=".UpRAc" />
         <activity android:name=".RecPage" />
         <activity android:name=".WorkList" />

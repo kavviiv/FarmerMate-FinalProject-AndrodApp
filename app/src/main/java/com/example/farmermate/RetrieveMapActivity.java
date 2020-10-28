@@ -99,7 +99,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
                         .center(location1)
                         .radius(1000)
                         .strokeColor(Color.RED)
-                        .fillColor(0xCAFFE4));
+                        .fillColor(0x33000000));
 
 
             }

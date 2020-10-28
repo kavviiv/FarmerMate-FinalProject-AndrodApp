@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -53,8 +54,18 @@ public class CalendarAc1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calen1);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        myCalendar2 = (MyDynamicCalendar) findViewById(R.id.myCalendar1);
+        myCalendar2 = (MyDynamicCalendar) findViewById(R.id.myCalendar);
         setSupportActionBar(toolbar);
+
+        Button wl = (Button) findViewById(R.id.wl);
+        wl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(CalendarAc1.this, WorkList2.class);
+                startActivity(intent);
+            }
+        });
         myCalendar2.showMonthViewWithBelowEvents();
         myCalendar2.setOnDateClickListener(new OnDateClickListener() {
             @Override
