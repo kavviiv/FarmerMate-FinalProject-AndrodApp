@@ -1,7 +1,13 @@
 package com.example.farmermate;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,15 +17,20 @@ import android.graphics.Typeface;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -27,10 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -39,36 +52,50 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.Formatting.AmbiguousLocationDialogFragment;
 import com.example.Formatting.RecyclerViewFragment;
 import com.example.app.widgets.AbstractWidgetProvider;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.protobuf.StringValue;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.RoundingMode;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import static com.example.farmermate.TimeUtils.isDayTime;
-
+import com.example.farmermate.NetworkUtilities;
 
 public class WeatherPage extends BaseActivity1 implements LocationListener {
+    private static final String CHANNEL_ID = "rain_notif_channel";
+    private static String PREF_KEY_TIME = "pref_key_time";
     protected static final int MY_PERMISSIONS_ACCESS_FINE_LOCATION = 1;
+    private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1;
 
     // Time in milliseconds; only reload weather if last update is longer ago than this value
     private static final int NO_UPDATE_REQUIRED_THRESHOLD = 300000;
+    Double[] currentCoordinates = new Double[2]; // 0 is lat, 1 is lon
 
-    private static Map< String, Integer > speedUnits = new HashMap<>(3);
-    private static Map< String, Integer > pressUnits = new HashMap<>(3);
+    private static Map<String, Integer> speedUnits = new HashMap<>(3);
+    private static Map<String, Integer> pressUnits = new HashMap<>(3);
     private static boolean mappingsInitialised = false;
 
     private Weather todayWeather = new Weather();
@@ -108,9 +135,37 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
     private Formatting formatting;
     private SharedPreferences prefs;
     private LinearLayout linearLayoutTapForGraphs;
+    private static DecimalFormat df = new DecimalFormat("0.00");
+    Task<Location> task;
+    Location currentLocation;
+    FusedLocationProviderClient mFusedLocationClient;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+//                .setSmallIcon(R.drawable.ic_weather_windy_white_18dp)
+//                .setContentTitle("55555")
+//                .setContentText("textContent")
+//                .setPriority(NotificationCompat.PRIORITY_HIGH);
+//
+//        Intent resultIntent = new Intent(this, WeatherPage.class);
+//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//        stackBuilder.addParentStack(WeatherPage.class);
+//        stackBuilder.addNextIntent(resultIntent);
+//        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
+//        builder.setContentIntent(resultPendingIntent);
+//
+//        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//        mNotificationManager.notify(0, builder.build());
+
+        myCheckPermissions();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        getWeatherData();
+        //getPreferences(R.xml.preferences);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        long notifTime = sharedPref.getLong(PREF_KEY_TIME, 0);
         // Initialize the associated SharedPreferences file with default values
         PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 
@@ -139,7 +194,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         } else if (blackTheme) {
             toolbar.setPopupTheme(R.style.AppTheme_PopupOverlay_Black);
         }
-
+        todayTemperature = findViewById(R.id.todayTemperature);
         todayDescription = findViewById(R.id.todayDescription);
         todayWind = findViewById(R.id.todayWind);
         todayPressure = findViewById(R.id.todayPressure);
@@ -194,16 +249,16 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         }
     }
 
+
     public WeatherRecyclerAdapter getAdapter(int id) {
         WeatherRecyclerAdapter weatherRecyclerAdapter;
         if (id == 0) {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTodayWeather);
         } else if (id == 1) {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermTomorrowWeather);
-        } else if(id == 2){
+        } else if (id == 2) {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermWeather);
-        }
-        else{
+        } else {
             weatherRecyclerAdapter = new WeatherRecyclerAdapter(longTermAfterTomWeather);
         }
         return weatherRecyclerAdapter;
@@ -216,7 +271,6 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         updateLongTermWeatherUI();
         updateUVIndexUI();
     }
-
 
 
     @Override
@@ -243,7 +297,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
             if (latitude == 0 && longitude == 0) {
                 return;
             }
-            new TodayUVITask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "coords", Double.toString(latitude), Double.toString(longitude));
+            new TodayUVITask(this, this, progressDialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "coords", Double.toString(latitude), Double.toString(longitude));
         }
     }
 
@@ -252,11 +306,11 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
         String lastToday = sp.getString("lastToday", null);
         if (lastToday != null && !lastToday.isEmpty()) {
-            new TodayWeatherTask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastToday);
+            new TodayWeatherTask(this, this, progressDialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastToday);
         }
         String lastLongterm = sp.getString("lastLongterm", null);
         if (lastLongterm != null && !lastLongterm.isEmpty()) {
-            new LongTermWeatherTask(this, this, progressDialog).executeOnExecutor( AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastLongterm);
+            new LongTermWeatherTask(this, this, progressDialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastLongterm);
         }
     }
 
@@ -276,7 +330,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
     private void searchCities() {
         final EditText input = new EditText(this);
-        input.setInputType( InputType.TYPE_CLASS_TEXT);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         input.setMaxLines(1);
         input.setSingleLine(true);
 
@@ -320,7 +374,6 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 //            getTodayUVIndex();
 //        }
     }
-
 
 
     public static String getRainString(JSONObject rainObj) {
@@ -393,7 +446,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
             final String idString = reader.getJSONArray("weather").getJSONObject(0).getString("id");
             todayWeather.setId(idString);
-            todayWeather.setIcon(formatting.setWeatherIcon( Integer.parseInt(idString), isDayTime(todayWeather, Calendar.getInstance())));
+            todayWeather.setIcon(formatting.setWeatherIcon(Integer.parseInt(idString), isDayTime(todayWeather, Calendar.getInstance())));
 
             PreferenceManager.getDefaultSharedPreferences(WeatherPage.this)
                     .edit()
@@ -455,11 +508,15 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(WeatherPage.this);
 
         // Temperature
-        float temperature = UnitConvertor.convertTemperature( Float.parseFloat(todayWeather.getTemperature()), sp);
+        float temperature = UnitConvertor.convertTemperature(Float.parseFloat(todayWeather.getTemperature()), sp);
         if (sp.getBoolean("temperatureInteger", false)) {
             temperature = Math.round(temperature);
-        }
 
+        }
+        df.setRoundingMode(RoundingMode.DOWN);
+        String gg = df.format(temperature);
+        String tt = String.valueOf(gg);
+        todayTemperature.setText(gg + " °C");
         // Rain
         double rain = Double.parseDouble(todayWeather.getRain());
         String rainString = UnitConvertor.getRainString(rain, sp);
@@ -476,6 +533,9 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
         // Pressure
         double pressure = UnitConvertor.convertPressure((float) Double.parseDouble(todayWeather.getPressure()), sp);
+        float tp = UnitConvertor.convertTemperature(Float.parseFloat(todayWeather.getTemperature()), sp);
+
+        //todayTemperature.setText( tp + " องศาเซลเซียส");
 
 
         todayDescription.setText(todayWeather.getDescription().substring(0, 1).toUpperCase() +
@@ -492,6 +552,10 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         todayPressure.setText(getString(R.string.pressure) + ": " + new DecimalFormat("0.0").format(pressure) + " " +
                 localize(sp, "pressureUnit", "hPa"));
         todayHumidity.setText(getString(R.string.humidity) + ": " + todayWeather.getHumidity() + " %");
+        String humint = todayWeather.getHumidity();
+        Intent intent = new Intent(WeatherPage.this, MapsActivity.class);
+        intent.putExtra("Rname", humint);
+
         todaySunrise.setText(getString(R.string.sunrise) + ": " + timeFormat.format(todayWeather.getSunrise()));
         todaySunset.setText(getString(R.string.sunset) + ": " + timeFormat.format(todayWeather.getSunset()));
         todayIcon.setText(todayWeather.getIcon());
@@ -560,6 +624,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
                 weather.setPressure(main.getString("pressure"));
                 weather.setHumidity(main.getString("humidity"));
 
+
                 JSONObject rainObj = listItem.optJSONObject("rain");
                 String rain = "";
                 if (rainObj != null) {
@@ -579,29 +644,29 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
 
                 final String dateMsString = listItem.getString("dt") + "000";
                 Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis( Long.parseLong(dateMsString));
-                weather.setIcon(formatting.setWeatherIcon( Integer.parseInt(idString), isDayTime(weather, cal)));
+                cal.setTimeInMillis(Long.parseLong(dateMsString));
+                weather.setIcon(formatting.setWeatherIcon(Integer.parseInt(idString), isDayTime(weather, cal)));
 
                 Calendar today = Calendar.getInstance();
-                today.set( Calendar.HOUR_OF_DAY, 0);
-                today.set( Calendar.MINUTE, 0);
-                today.set( Calendar.SECOND, 0);
-                today.set( Calendar.MILLISECOND, 0);
+                today.set(Calendar.HOUR_OF_DAY, 0);
+                today.set(Calendar.MINUTE, 0);
+                today.set(Calendar.SECOND, 0);
+                today.set(Calendar.MILLISECOND, 0);
 
                 Calendar tomorrow = (Calendar) today.clone();
-                tomorrow.add( Calendar.DAY_OF_YEAR, 1);
+                tomorrow.add(Calendar.DAY_OF_YEAR, 1);
                 Calendar dayafter = (Calendar) today.clone();
                 dayafter.add(Calendar.DAY_OF_YEAR, 2);
                 Calendar later = (Calendar) today.clone();
-                later.add( Calendar.DAY_OF_YEAR, 3);
+                later.add(Calendar.DAY_OF_YEAR, 3);
 
                 if (cal.before(tomorrow)) {
                     longTermTodayWeather.add(weather);
                 } else if (cal.before(dayafter)) {
                     longTermTomorrowWeather.add(weather);
-                } else if(cal.before(later)){
+                } else if (cal.before(later)) {
                     longTermWeather.add(weather);
-                }else{
+                } else {
                     longTermAfterTomWeather.add(weather);
                 }
             }
@@ -662,7 +727,7 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
     }
 
     private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService( Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
@@ -674,35 +739,95 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
         return cityChanged || lastUpdate < 0 || (Calendar.getInstance().getTimeInMillis() - lastUpdate) > NO_UPDATE_REQUIRED_THRESHOLD;
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        switch (item.getItemId()) {
+            case R.id.action_location:
+                getCityByLocation();
+                return true;
 
-        if (id == R.id.action_refresh) {
-            refreshWeather();
-            return true;
+            case R.id.settings_action:
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
+                intent.putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName());
+                intent.putExtra(Settings.EXTRA_CHANNEL_ID, CHANNEL_ID);
+                double[] unboxCoordinates = {currentCoordinates[0], currentCoordinates[1]};
+                intent.putExtra(AlarmReceiver1.RECEIVER_COORDINATES, unboxCoordinates);
+                intent.setClass(this, SettingActivity1.class);
+                startActivity(intent);
+                return true;
+
         }
-
-
-        if (id == R.id.action_search) {
-            searchCities();
-            return true;
-        }
-        if (id == R.id.action_location) {
-            getCityByLocation();
-            return true;
-        }
-
-
-
         return super.onOptionsItemSelected(item);
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void myCheckPermissions() {
+        //check permissions
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                    MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION);
+
+        }
+    }
+
+    public void getWeatherData() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        task = mFusedLocationClient.getLastLocation().addOnSuccessListener(this,
+                new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        currentLocation = task.getResult();
+                        currentCoordinates[0] = currentLocation.getLatitude();
+                        currentCoordinates[1] = currentLocation.getLongitude();
+
+                    }
+                });
+    }
+
+
+    protected JSONObject doInBackground(Double[]... params) {
+        URL requestUrl = NetworkUtilities.buildUrl(NetworkUtilities.CURRENT_WEATHER_URL,
+                params[0]);
+
+        try{
+            String jsonStringResponse = NetworkUtilities.getResponseFromHttpUrl(requestUrl);
+            JSONObject jsonResponseObject =  new JSONObject(jsonStringResponse);
+            if (jsonResponseObject.getInt("cod") != 200) {
+                return null;
+            }
+            return jsonResponseObject;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+
+
+
+
+
 
     public void refreshWeather() {
         if (isNetworkAvailable()) {
@@ -862,6 +987,8 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
     public void onProviderDisabled(String provider) {
 
     }
+
+
 
 
     class TodayWeatherTask extends GenericRequestTask {
@@ -1093,4 +1220,5 @@ public class WeatherPage extends BaseActivity1 implements LocationListener {
             return android.text.format.DateFormat.getDateFormat(context).format(lastCheckedDate) + " " + timeFormat;
         }
     }
+
 }

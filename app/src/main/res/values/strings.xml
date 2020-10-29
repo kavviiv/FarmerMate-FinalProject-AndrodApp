@@ -331,10 +331,37 @@
     <string name="iFinance">iFinance</string>
     <string name="AddIncomeorExpense">เพิ่มรายได้หรือค่าใช้จ่าย</string>
     <string name="date">วันที่</string>
-    <string name="ChangeDate">เเปลี่ยนวันที่</string>
-    <string name="Income">เรายรับ</string>
-    <string name="Expense">เรายจ่าย</string>
+    <string name="ChangeDate">เปลี่ยนวันที่</string>
+    <string name="Income">รายรับ</string>
+    <string name="Expense">รายจ่าย</string>
     <string name="Description">โน๊ต</string>
     <string name="Add">เพิ่ม</string>
+
+
+    <string name="title_activity_settings1">Settings</string>
+
+    <string name="channel_name">Rain Notification Channel</string>
+    <string name="channel_description">Sends rain weather alert</string>
+
+    <string name="pref_notif_title">Notifications</string>
+    <string name="pref_notif_toggle">Enable notifications</string>
+
+    <string name="app_info">
+        This is a simple weather app that displays current weather.
+        \n\n However, the primary purpose of this app is that it also
+        obtains forecast data for the following day and will send a
+        notification at a user-defined time if tomorrow has a forecast
+        of rain.
+    </string>
+    <string name="app_info_title">App Info</string>
+    <string name="close_button">Close</string>
+    <string name="set_button">Set</string>
+    <string name="cancel_button">Cancel</string>
+
+    <string name="time_picker">Schedule Notification Time</string>
+
+    <string name="refresh">Refresh</string>
+    <string name="settings">Settings</string>
+
 
 </resources>

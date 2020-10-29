@@ -1,6 +1,9 @@
 package com.example.farmermate;
 
 import android.app.DatePickerDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
 
 import org.json.JSONArray;
@@ -97,7 +101,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         clo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                addNotification();
                 String size1 = size.getText().toString() ;
                 String spinText = selectRice.getSelectedItem().toString();
                 Intent intent = new Intent(CreateTable.this, MapsActivity.class);
@@ -111,6 +115,7 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
         createTable.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                addNotification();
 
                 if(selectRice.getSelectedItem().equals("เลือกพันธุ์ข้าว")){
                     Toast.makeText(getApplicationContext(), "เลือกพันธุ์ข้าวที่ท่านต้องการจะปลูก", Toast.LENGTH_LONG).show();
@@ -215,6 +220,24 @@ public class CreateTable extends AppCompatActivity implements DatePickerDialog.O
             }
         });
     }
+
+    private void addNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
+                .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentTitle("John's Android Studio Tutorials")
+                .setContentText("A video has just arrived!");
+
+        // Creates the intent needed to show the notification
+        Intent notificationIntent = new Intent(this, CreateTable.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
+
+    }
+
     @Override
     public void onDateSet(DatePicker view, int year, int month, int date) {
         Calendar c = Calendar.getInstance();

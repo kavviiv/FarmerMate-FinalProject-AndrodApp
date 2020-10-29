@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/pref_notif_title"
+        android:key="pref_key_notif_settings">
+        <com.example.farmermate.TimePreference
+            android:key="pref_key_time"
+            android:title="@string/time_picker"
+            android:positiveButtonText="@string/set_button"
+            android:negativeButtonText="@string/cancel_button"
+            android:defaultValue="0"
+            android:persistent="true"/>
+    </PreferenceCategory>
+</PreferenceScreen>

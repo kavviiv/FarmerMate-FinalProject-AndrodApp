@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="CustomTheme" parent="Theme.AppCompat.Light">
         <item name="colorPrimary">#122259</item>
         <item name="colorPrimaryDark">#122259</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -18,4 +18,6 @@
         <item name="colorTintedBackground">@color/colorTintedBackground</item>
         <item name="colorControlActivated">@color/fresh_theme_colorControlActivated</item>
     </style>
+
+
 </resources>

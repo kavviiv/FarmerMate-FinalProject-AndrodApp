@@ -83,10 +83,10 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
 
 
         final IncomeExpense incomeExpense = mIncomeExpense.get(position);
-        holder.amountTxtV.setText("Amount: " + incomeExpense.getAmount());
+        holder.amountTxtV.setText("จำนวนเงิน: " + incomeExpense.getAmount());
         holder.descriptionTxtV.setText(incomeExpense.getDescription());
         holder.dateTxtV.setText(incomeExpense.getDate());
-        if (incomeExpense.getDescription().startsWith("INCOME")) {
+        if (incomeExpense.getDescription().startsWith("รายรับ")) {
             holder.imageView.setImageResource(R.drawable.increased_revenue);
         } else {
             holder.imageView.setImageResource(R.drawable.decresed_revenue);
@@ -98,9 +98,9 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle("Choose option");
-                builder.setMessage("Update or delete?");
-                builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+                builder.setTitle("เลือกตัวเลือก");
+                builder.setMessage("อัปเดตหรือลบ?");
+                builder.setPositiveButton("อัปเดต", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
@@ -109,7 +109,7 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
 
                     }
                 });
-                builder.setNeutralButton("Delete", new DialogInterface.OnClickListener() {
+                builder.setNeutralButton("ลบ", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         IEDBHelper dbHelper = new IEDBHelper(mContext);
@@ -122,7 +122,7 @@ public class IEAdapter extends RecyclerView.Adapter<IEAdapter.ViewHolder> {
                         notifyDataSetChanged();
                     }
                 });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton("ยกเลิก", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();

@@ -49,7 +49,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
         mDateEditText = (TextView) findViewById(R.id.dateadd);
         mAddBtn = (Button) findViewById(R.id.addNewUserButton);
 
-        mDateEditText.setText("Today");
+        mDateEditText.setText("วันนี้");
 
         //listen to add button click
         mAddBtn.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +66,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
             @Override
             public void onClick(View v) {
                 DatePickerFragment datePicker = new DatePickerFragment();
-                datePicker.show(getSupportFragmentManager(), "date picker");
+                datePicker.show(getSupportFragmentManager(), "เลือกวัน");
             }
         });
 
@@ -75,7 +75,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
     public void loadTagsToDropDown(){
         spinner = (Spinner) findViewById(R.id.spinner);
 
-        if(ie_type.equals("income")){
+        if(ie_type.equals("รายรับ")){
             tagsArray = getResources().getStringArray(R.array.incomeTagOptions);
         }
         else{
@@ -104,7 +104,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
         String date = mDateEditText.getText().toString().trim();
 
         //checking if its "Today"
-        if(date.equals("Today")){
+        if(date.equals("วันนี้น")){
             Calendar c = Calendar.getInstance();
             String currentDateString = DateFormat.getDateInstance(DateFormat.FULL).format(c.getTime());
             date = currentDateString;
@@ -114,17 +114,17 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 
         if (amount.isEmpty()) {
 
-            Toast.makeText(this, "You must enter a amount", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "คุณต้องป้อนจำนวนเงิน", Toast.LENGTH_SHORT).show();
         }
 
         else if (desp.isEmpty()) {
 
-            Toast.makeText(this, "You must enter a description", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "คุณต้องใส่คำอธิบาย", Toast.LENGTH_SHORT).show();
         }
 
         else if (ie_type.equals("")) {
 
-            Toast.makeText(this, "You must enter a type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "คุณต้องป้อนประเภท", Toast.LENGTH_SHORT).show();
         }
 
         else{
@@ -150,13 +150,13 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
         switch (view.getId()) {
             case R.id.incomeRadioBtn:
                 if (checked)
-                    ie_type = "income";
+                    ie_type = "รายรับ";
                 mDespEditText.setText(ie_type.toUpperCase() + " : ");
                 loadTagsToDropDown();
                 break;
             case R.id.expenseRadioBtn:
                 if (checked)
-                    ie_type = "expenses";
+                    ie_type = "รายจ่าย";
                 mDespEditText.setText(ie_type.toUpperCase() + " : ");
                 loadTagsToDropDown();
                 break;
@@ -183,7 +183,7 @@ public class AddRecordActivity extends AppCompatActivity implements DatePickerDi
 //            selectedTagList.remove(0);
 //        }
         String selectedItem = (String) parent.getSelectedItem();
-        if(selectedItem.equals("No Tags")){}
+        if(selectedItem.equals("ไม่มี")){}
         else{
             selectedTagList.add(selectedItem);
             loadTagToWindow();

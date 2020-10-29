@@ -146,30 +146,19 @@
     </string-array>
 
     <string-array name="incomeTagOptions">
-        <item>No Tags</item>
-        <item>Salary</item>
-        <item>Bank</item>
-        <item>Money</item>
-        <item>Daily</item>
-        <item>Monthly</item>
-        <item>Annually</item>
-        <item>Daily</item>
-        <item>Rents</item>
+        <item>ขายข้าว</item>
+        <item>ขายเมล็ดพันธ์ุข้าว</item>
+        <item>อื่นๆ</item>
     </string-array>
 
     <string-array name="expenseTagOptions">
-        <item>No Tags</item>
-        <item>Electronics</item>
-        <item>Fancy</item>
-        <item>Food</item>
-        <item>Furniture</item>
-        <item>Friends</item>
-        <item>Bank</item>
-        <item>Money</item>
-        <item>Daily</item>
-        <item>Monthly</item>
-        <item>Annually</item>
-        <item>Household</item>
-        <item>Vehicle</item>
+
+        <item>ค่าแรงงาน</item>
+        <item>ค่าปุ๋ย</item>
+        <item>ค่าเมล็ดพันธุ์ข้าว</item>
+        <item>ค่าสารกำจัดแมลง</item>
+        <item>ค่าสารกำจัดศัตรูพืช</item>
+        <item>ค่าเครื่องมือ/อุปกรณ์</item>
+        <item>อื่นๆ</item>
     </string-array>
 </resources>

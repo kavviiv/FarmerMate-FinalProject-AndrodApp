@@ -83,17 +83,17 @@ public  class UpdateRecordActivity_ex extends AppCompatActivity implements DateP
 
         if(amount.isEmpty()){
             //error name is empty
-            Toast.makeText(this, "You must enter a name", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "กรุณากรอกจำนวนเงิน", Toast.LENGTH_SHORT).show();
         }
 
         if(date.isEmpty()){
             //error name is empty
-            Toast.makeText(this, "You must enter an age", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "กรุณาเลือกวันที่ต้องการบันทึก", Toast.LENGTH_SHORT).show();
         }
 
         if(description.isEmpty()){
             //error name is empty
-            Toast.makeText(this, "You must enter an occupation", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "กรุณากรอกโน๊ต", Toast.LENGTH_SHORT).show();
         }
         //create updated person
         IncomeExpense updatedIncomeExpense = new IncomeExpense(description, date, Double.parseDouble(amount));

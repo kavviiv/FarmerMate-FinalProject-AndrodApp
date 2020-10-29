@@ -16,13 +16,14 @@
         android:padding="5dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabMove"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/home"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:src="@drawable/plus" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
